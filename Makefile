@@ -1,7 +1,7 @@
 NAME = minishell
 LIBFT = libft/libft.a
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror
 # SRCS =  samples/pipe.c
 SRCS =  main.c ft_split_triple.c
 OBJS = $(SRCS:%.c=%.o)
@@ -10,16 +10,15 @@ INCLUDE = -I include/
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(INCLUDE) -o $(NAME) $(OBJS) $(LIBFT) -L/usr/include -lreadline
-	# $(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) $(LIBFT) -L/usr/include -lreadline
+	$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) $(LIBFT) -L/usr/include -lreadline
 
 $(LIBFT): empty
 	make -C libft
 empty:
 
 %.o:%.c
-	# $(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
-	$(CC) $(INCLUDE) -o $@ -c $<
+	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
+
 clean:
 	$(RM) $(OBJS)
 	make clean -C libft
