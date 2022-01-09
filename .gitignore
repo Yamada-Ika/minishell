@@ -3,3 +3,4 @@
 *.py
 a.out
 minishell
+.vscode
