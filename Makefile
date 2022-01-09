@@ -1,9 +1,10 @@
 NAME = minishell
 LIBFT = libft/libft.a
 CC = gcc
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = -g -fsanitize=address #-Wall -Wextra -Werror
 # SRCS =  samples/pipe.c
-SRCS =  main.c ft_split_triple.c
+# SRCS =  main.c ft_split_triple.c
+SRCS =  tokenize.c
 OBJS = $(SRCS:%.c=%.o)
 INCLUDE = -I include/
 
