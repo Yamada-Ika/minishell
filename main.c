@@ -86,17 +86,16 @@ void recursive(int i, char ***cmds, char *envp[]) {
 	pid = fork();
 	
 	if (pid == 0) {
-		close(fd[0]);
-		dup2(fd[1], 1);
-		recursive(i - 1, cmds, envp);
-		close(fd[1]);
-	} 
-	else {
 		close(fd[1]);
 		dup2(fd[0], 0);
 		exec(envp, cmds[i]);
 		close(fd[0]);
-		// execvp(cmds[i][0], cmds[i]);
+	} 
+	else {
+		close(fd[0]);
+		dup2(fd[1], 1);
+		recursive(i - 1, cmds, envp);
+		close(fd[1]);
 	}
 }
 
@@ -140,7 +139,7 @@ static void	ft_get_signal(int	signal)
 	{
 		ft_putchar_fd('\n', 1);
 		rl_on_new_line();
-		rl_replace_line("", 1);
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }
