@@ -77,14 +77,27 @@ void recursive(int i, char ***cmds, char *envp[]) {
 	int fd[2];
 
 	if (i == 0) {
-		// execvp(cmds[i][0], cmds[i]);
-		exec(envp, cmds[i]);
+		pipe(fd);
+		pid = fork();
+		if (pid == 0)
+		{
+			close(fd[0]);
+			dup2(fd[1], 1);
+			close(fd[1]);
+			write(1, "aa\n", 3);
+		}
+		else {
+			close(fd[1]);
+			dup2(fd[0], 0);
+			close(fd[0]);
+			exec(envp, cmds[i]);
+		}
 		return;
 	}
 
 	pipe(fd);
 	pid = fork();
-	
+
 	if (pid == 0) {
 		close(fd[1]);
 		dup2(fd[0], 0);
