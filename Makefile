@@ -1,24 +1,24 @@
 NAME = minishell
 LIBFT = libft/libft.a
 CC = gcc
-# CFLAGS = -g -fsanitize=address
 CFLAGS = #-Wall -Wextra -Werror
+LDFLAGS = -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+INCLUDE = -Iinclude/ -I$(shell brew --prefix readline)/include -Iinclude
 # SRCS =  samples/pipe.c
 SRCS =  main.c ft_split_triple.c
 # SRCS =  tokenize.c
 OBJS = $(SRCS:%.c=%.o)
-INCLUDE = -Iinclude/
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) $(LIBFT) -L/usr/include -lreadline -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include -Iinclude
+	$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) $(LIBFT) $(LDFLAGS)
 $(LIBFT): empty
 	make -C libft
 empty:
 
 %.o:%.c
-	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $< -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include -Iinclude
+	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
 
 clean:
 	$(RM) $(OBJS)
