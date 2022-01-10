@@ -12,14 +12,13 @@ INCLUDE = -Iinclude/
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) $(LIBFT) -L/usr/include -lreadline
-
+	$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) $(LIBFT) -L/usr/include -lreadline -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include -Iinclude
 $(LIBFT): empty
 	make -C libft
 empty:
 
 %.o:%.c
-	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
+	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $< -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include -Iinclude
 
 clean:
 	$(RM) $(OBJS)
