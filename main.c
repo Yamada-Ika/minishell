@@ -132,17 +132,32 @@ void    handle_command(char *envp[], char *command)
 	waitpid(pid, &sts, 0);
 }
 
+volatile sig_atomic_t	g_signal;
+
+static void	ft_get_signal(int	signal)
+{
+	if (signal == SIGINT)
+	{
+		rl_on_new_line();
+		rl_replace_line("minishell> ", 1);
+		rl_redisplay();
+	}
+}
 
 int main(int argc, char **argv, char *envp[]) {
 	char *prompt = "minishell> ";
 	int i = 0;
-	
+
+	signal(SIGINT, ft_get_signal);
 	using_history();
 	read_history(".my_history"); // [ToDo]historyファイルが無いときの動作の検証
 	while (1) {
 		char *str = readline(prompt);
 		add_history(str);
-		handle_command(envp, str);
+		if (ft_strncmp(str, "exit", 4) == 0)
+			exit(0);
+		if (*str != '\0') // 改行が入力されたか
+			handle_command(envp, str);
 		free(str);
 	}
 	// system("leaks minishell");
