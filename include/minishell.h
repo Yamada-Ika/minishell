@@ -15,21 +15,24 @@
 
 char	***ft_split_triple(char const **strs, char *sets);
 
-typedef enum e_token_kind
-{
-	TK_RESERVED, // 予約語
-	// TK_META,     // メタ文字 (\, ...)
-	TK_PIPE,     // パイプ
-	// TK_COMMAND,  // コマンドトークン
-	TK_STRING,   // 文字列(コマンド、コマンドの引数、etc)
-	TK_EOF,      // 入力の終わりを表すトークン
-}	t_token_kind;
+typedef enum e_token_kind{
+	TK_OP = 0,
+	TK_WORD,
+	TK_EOF,
+} t_token_kind;
 
-typedef struct s_token
-{
+typedef struct s_token t_token;
+struct s_token {
 	t_token_kind	kind;
-	struct s_token	*next;
+	t_token			*next;
 	char			*str;
-}	t_token;
+	size_t			len;
+};
+
+t_token *tokenize(char *p);
+void debug_tokenize(t_token *token);
+
+// utils.c
+void error(char *str);
 
 # endif
