@@ -64,7 +64,9 @@ void exec(char *envp[], char **commands) {
 		i++;
 	}
 	if (paths[i] == NULL) {
-		printf("minishell: command not found: %s\n", command + 1);
+		// printf("minishell: command not found: %s\n", command + 1);
+		ft_putstr_fd("minishell: command not found: ", 2);
+		ft_putendl_fd(command + 1, 2);
 	}
 	free(command);
 	free_double(paths);
@@ -86,15 +88,15 @@ void recursive(int i, char ***cmds, char *envp[]) {
 	if (pid == 0) {
 		close(fd[0]);
 		dup2(fd[1], 1);
-		close(fd[1]);
 		recursive(i - 1, cmds, envp);
+		close(fd[1]);
 	} 
 	else {
 		close(fd[1]);
 		dup2(fd[0], 0);
+		exec(envp, cmds[i]);
 		close(fd[0]);
 		// execvp(cmds[i][0], cmds[i]);
-		exec(envp, cmds[i]);
 	}
 }
 
