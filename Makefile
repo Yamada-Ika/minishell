@@ -7,7 +7,7 @@ CFLAGS = #-Wall -Wextra -Werror
 SRCS =  main.c ft_split_triple.c
 # SRCS =  tokenize.c
 OBJS = $(SRCS:%.c=%.o)
-INCLUDE = -I include/
+INCLUDE = -Iinclude/
 
 all: $(NAME)
 
