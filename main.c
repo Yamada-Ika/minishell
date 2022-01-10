@@ -138,8 +138,9 @@ static void	ft_get_signal(int	signal)
 {
 	if (signal == SIGINT)
 	{
+		ft_putchar_fd('\n', 1);
 		rl_on_new_line();
-		rl_replace_line("minishell> ", 1);
+		rl_replace_line("", 1);
 		rl_redisplay();
 	}
 }
