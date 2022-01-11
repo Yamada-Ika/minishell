@@ -72,6 +72,36 @@ void exec(char *envp[], char **commands) {
 	free_double(paths);
 }
 
+void	pwd_()
+{
+	char	pathname[512];
+
+	getcwd(pathname, 512); // getcwdはカレントディレクトリ
+    printf("%s\n",pathname);
+}
+
+void	cd_(int i, char **cmds)
+{
+	char	pathname[512];
+	DIR		*dp;
+	struct dirent *dirp;
+
+    memset(pathname, '\0', 512); // memsetはバイトメモリブロックのセット
+ 
+    // char path[64] = "./libft";
+    chdir(cmds[i]);
+    printf("\n%s\n",cmds[i]);
+    getcwd(pathname, 512); // getcwdはカレントディレクトリ
+    printf("\n%s\n",pathname);
+
+	// dp = opendir(pathname);
+	
+	// while ((dirp = readdir(dp)) != NULL)
+    //     printf("%s\n", dirp->d_name);
+
+	// closedir(dp);
+}
+
 char buf[256];
 char *here;
 void recursive(int i, char ***cmds, char *envp[]) {
@@ -103,7 +133,10 @@ void recursive(int i, char ***cmds, char *envp[]) {
 	// }
 	if (i == 0)
 	{
-		exec(envp, cmds[i]);
+		if (ft_strncmp(cmds[i][0], "pwd", 3) == 0 && cmds[i][1] == NULL)
+			pwd_();
+		else
+			exec(envp, cmds[i]);
 		return;
 	}
 	
@@ -114,7 +147,10 @@ void recursive(int i, char ***cmds, char *envp[]) {
 	if (pid == 0) {
 		close(fd[1]);
 		dup2(fd[0], 0);
-		exec(envp, cmds[i]);
+		if (ft_strncmp(cmds[i][0], "pwd", 3) == 0 && cmds[i][1] == NULL)
+			pwd_();
+		else
+			exec(envp, cmds[i]);
 		close(fd[0]);
 	} 
 	else {
@@ -138,6 +174,11 @@ void    handle_command(char *envp[], char *command)
 	char **commands = ft_split(command, ' ');
 	size_t  i = 0;
 	char ***cmds = ft_split_triple((const char**)commands, "|");
+	if (ft_strncmp(commands[0], "cd", 2) == 0)
+	{
+		cd_(1, commands);
+		return;
+	}
 	while (cmds[i])
 	{
 		i++;
@@ -167,6 +208,8 @@ static void	ft_get_signal(int	signal)
 		rl_redisplay();
 	}
 }
+
+
 
 int main(int argc, char **argv, char *envp[]) {
 	char *prompt = "minishell> ";

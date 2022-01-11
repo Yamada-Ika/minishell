@@ -12,6 +12,7 @@
 
 #include "../libft/libft.h"
 #include <stdbool.h>
+#include <dirent.h>
 
 char	***ft_split_triple(char const **strs, char *sets);
 
