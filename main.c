@@ -187,13 +187,16 @@ void    handle_command(char *envp[], char *command)
 	if (pid == 0)
 	{
 		// here =  here_doc("EOS");
+		signal(SIGQUIT, SIG_DFL);
 		recursive(i - 1, cmds, envp);
 		// free_double(commands);
 		free_triple(cmds);
+		return;
 	}
 	free_double(commands);
 	free_triple(cmds);
 	waitpid(pid, &sts, 0);
+	write(1, "\n", 1);
 }
 
 volatile sig_atomic_t	g_signal;
@@ -202,7 +205,7 @@ static void	ft_get_signal(int	signal)
 {
 	if (signal == SIGINT)
 	{
-		ft_putchar_fd('\n', 1);
+		// ft_putchar_fd('\n', 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -216,11 +219,14 @@ int main(int argc, char **argv, char *envp[]) {
 	int i = 0;
 
 	signal(SIGINT, ft_get_signal);
+	signal(SIGQUIT	, SIG_IGN);
 	using_history();
 	read_history(".my_history"); // [ToDo]historyファイルが無いときの動作の検証
 	while (1) {
 		char *str = readline(prompt);
 		add_history(str);
+		if (str == NULL)
+			exit(0);
 		if (ft_strncmp(str, "exit", 4) == 0)
 			exit(0);
 		if (*str != '\0') // 改行が入力されたか
