@@ -73,7 +73,7 @@ void exec(char *envp[], char **commands) {
 }
 
 char buf[256];
-
+char *here;
 void recursive(int i, char ***cmds, char *envp[]) {
 	pid_t pid;
 	int fd[2];
@@ -90,9 +90,10 @@ void recursive(int i, char ***cmds, char *envp[]) {
 			// if (open_file == -1 || read(open_file, buf, 256) == -1)
 			// 	error("error");
 			// write(1, buf, ft_strlen(buf));
-			ft_printf("%s", here_doc("EOS"));
+			ft_printf("%s",here);
 		}
 		else {
+			waitpid(pid, &sts, 0);
 			close(fd[1]);
 			dup2(fd[0], 0);
 			close(fd[0]);
@@ -138,10 +139,8 @@ void    handle_command(char *envp[], char *command)
 	pid_t pid = fork();
 	if (pid == 0)
 	{
-		if (i == 1)
-			exec(envp, commands);
-		else
-			recursive(i - 1, cmds, envp);
+		here =  here_doc("aaa");
+		recursive(i - 1, cmds, envp);
 		// free_double(commands);
 		free_triple(cmds);
 	}
