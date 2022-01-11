@@ -6,7 +6,7 @@
 /*   By: tshigena <tshigena@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 18:13:47 by tshigena          #+#    #+#             */
-/*   Updated: 2021/12/01 14:30:51 by tshigena         ###   ########.fr       */
+/*   Updated: 2022/01/11 16:55:14 by tshigena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 char	*get_next_line(int fd);
 int		ft_atoi_simple(const char *str);
 char	*ft_itoa_dx(unsigned long long n, int base);
+char	*ft_strjoin_with_free(char **s1, char **s2);
 
 #endif

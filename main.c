@@ -72,6 +72,8 @@ void exec(char *envp[], char **commands) {
 	free_double(paths);
 }
 
+char buf[256];
+
 void recursive(int i, char ***cmds, char *envp[]) {
 	pid_t pid;
 	int fd[2];
@@ -84,7 +86,11 @@ void recursive(int i, char ***cmds, char *envp[]) {
 			close(fd[0]);
 			dup2(fd[1], 1);
 			close(fd[1]);
-			write(1, "aa\n", 3);
+			// int open_file = open("aa", O_RDWR);
+			// if (open_file == -1 || read(open_file, buf, 256) == -1)
+			// 	error("error");
+			// write(1, buf, ft_strlen(buf));
+			ft_printf("%s", here_doc("EOS"));
 		}
 		else {
 			close(fd[1]);

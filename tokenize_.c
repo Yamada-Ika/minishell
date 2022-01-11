@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenize.c                                         :+:      :+:    :+:   */
+/*   tokenize_.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: tshigena <tshigena@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 18:10:14 by iyamada           #+#    #+#             */
-/*   Updated: 2022/01/09 19:22:59 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/01/11 04:47:23 by tshigena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ bool	ft_tokenize(char **strs, t_token **token)
 		}
 		else
 		{
-			cur->next = ft_new_token(strs[i], TK_STRING);
+				cur->next = ft_new_token(strs[i], TK_STRING);
 		}
 		if (cur->next == NULL)
 			return (false);

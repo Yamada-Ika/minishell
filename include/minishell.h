@@ -34,5 +34,6 @@ void debug_tokenize(t_token *token);
 
 // utils.c
 void error(char *str);
+char	*here_doc(char *eos);
 
 # endif
