@@ -78,29 +78,35 @@ void recursive(int i, char ***cmds, char *envp[]) {
 	pid_t pid;
 	int fd[2];
 
-	if (i == 0) {
-		pipe(fd);
-		pid = fork();
-		if (pid == 0)
-		{
-			close(fd[0]);
-			dup2(fd[1], 1);
-			close(fd[1]);
-			// int open_file = open("aa", O_RDWR);
-			// if (open_file == -1 || read(open_file, buf, 256) == -1)
-			// 	error("error");
-			// write(1, buf, ft_strlen(buf));
-			ft_printf("%s",here);
-		}
-		else {
-			waitpid(pid, &sts, 0);
-			close(fd[1]);
-			dup2(fd[0], 0);
-			close(fd[0]);
-			exec(envp, cmds[i]);
-		}
+	// if (i == 0) {
+	// 	pipe(fd);
+	// 	pid = fork();
+	// 	if (pid == 0)
+	// 	{
+	// 		close(fd[0]);
+	// 		dup2(fd[1], 1);
+	// 		close(fd[1]);
+	// 		// int open_file = open("aa", O_RDWR);
+	// 		// if (open_file == -1 || read(open_file, buf, 256) == -1)
+	// 		// 	error("error");
+	// 		// write(1, buf, ft_strlen(buf));
+	// 		// ft_printf("%s",here);
+	// 	}
+	// 	else {
+	// 		waitpid(pid, &sts, 0);
+	// 		close(fd[1]);
+	// 		dup2(fd[0], 0);
+	// 		close(fd[0]);
+	// 		exec(envp, cmds[i]);
+	// 	}
+	// 	return;
+	// }
+	if (i == 0)
+	{
+		exec(envp, cmds[i]);
 		return;
 	}
+	
 
 	pipe(fd);
 	pid = fork();
@@ -139,7 +145,7 @@ void    handle_command(char *envp[], char *command)
 	pid_t pid = fork();
 	if (pid == 0)
 	{
-		here =  here_doc("aaa");
+		// here =  here_doc("EOS");
 		recursive(i - 1, cmds, envp);
 		// free_double(commands);
 		free_triple(cmds);
