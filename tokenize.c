@@ -69,39 +69,50 @@ t_token *tokenize(char *p)
 	}
 	cur->next = new_token(TK_EOF, p, 0);
 	cur->next->prev = cur;
-	head.next->prev = NULL;
+	head.next->prev = cur->next;
 	return (head.next);
 }
 
 void debug_tokenize(t_token *token)
 {
 	const char *kind[] = {"TK_OP", "TK_WORD", "TK_EOF"};
-	while (token)
+	while (token->kind != TK_EOF)
 	{
-		if (token->prev != NULL)
-		{
-			printf("{kind:%s, str:%.*s, prev->str:%.*s}\n", 
-				kind[token->kind], 
-				token->len,
-				token->str,
-				token->prev->len,
-				token->prev->str
-				);
-		}
-		else
-		{
-			printf("{kind:%s, str:%.*s}\n", 
-				kind[token->kind], 
-				token->len,
-				token->str
-				);
-		}
+		printf("{kind:%s, str:%.*s, prev->kind:%s, prev->str:%.*s}\n", 
+			kind[token->kind],
+			token->len,
+			token->str,
+			kind[token->prev->kind],
+			token->prev->len,
+			token->prev->str
+			);
 		token = token->next;
+	}
+}
+
+void	debug_node(t_node *node)
+{
+	while (node != NULL)
+	{
+		printf("command_size %zu command->str %.*s\n", 
+			node->command_size,
+			node->command->len,
+			node->command->str
+		);
+		node = node->left;
 	}
 }
 
 int	main(int argc, char **argv)
 {
 	t_token	*token = tokenize(argv[1]);
+
+	// tokenize
+	printf("%s\n", token->prev->prev);
 	debug_tokenize(token);
+	// printf("%.*s\n", token->len, token->str);
+
+	// parse
+	t_node	*node = command_line(&token);
+	debug_node(node);
 }
