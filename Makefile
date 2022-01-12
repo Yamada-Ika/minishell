@@ -1,12 +1,12 @@
 NAME = minishell
 LIBFT = libft/libft.a
 CC = gcc
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = -g -fsanitize=address #-Wall -Wextra -Werror
 LDFLAGS = -lreadline -lhistory -L$(shell brew --prefix readline)/lib
 INCLUDE = -Iinclude/ -I$(shell brew --prefix readline)/include -Iinclude
 # SRCS =  samples/pipe.c
-SRCS =  main.c ft_split_triple.c utils.c here_doc.c
-# SRCS =  tokenize.c
+# SRCS =  main.c ft_split_triple.c utils.c here_doc.c
+SRCS =  tokenize.c parse.c utils.c
 OBJS = $(SRCS:%.c=%.o)
 
 all: $(NAME)
