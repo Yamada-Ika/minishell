@@ -1,13 +1,8 @@
+# EBNF
+
 ```
-minishell >> cmd1 arg1 | cmd2 arg2
-
-- トークン化
-
-連結リスト -> cmd1 -> arg1 -> | -> cmd2 -> arg2
+command-line = command ( "|" command )*
+command = redirection? word_list redirection?
+redirection = ( "<" | "<<" | ">" | ">>" )? word
+word_list = word word*
 ```
-
-- 予約語はあらかじめ持っておく
-  - forとか
-- コマンドは決め打ち
-  - そのあとは引数が来ると決め打ち
-- 関数定義はやらなくて良さそう
