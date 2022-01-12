@@ -51,19 +51,25 @@ t_token *tokenize(char *p)
 			p++;
 		if (get_operator_len(p))
 		{
-			cur = cur->next = new_token(TK_OP, p, get_operator_len(p));
+			cur->next = new_token(TK_OP, p, get_operator_len(p));
+			cur->next->prev = cur;
+			cur = cur->next;
 			p += cur->len;
 			continue;
 		}
 		if (get_word_len(p))
 		{
-			cur = cur->next = new_token(TK_WORD, p, get_word_len(p));
+			cur->next = new_token(TK_WORD, p, get_word_len(p));
+			cur->next->prev = cur;
+			cur = cur->next;
 			p += cur->len;
 			continue;
 		}
 		error("invalid character\n");
 	}
 	cur->next = new_token(TK_EOF, p, 0);
+	cur->next->prev = cur;
+	head.next->prev = NULL;
 	return (head.next);
 }
 
@@ -72,10 +78,30 @@ void debug_tokenize(t_token *token)
 	const char *kind[] = {"TK_OP", "TK_WORD", "TK_EOF"};
 	while (token)
 	{
-		printf("{kind:%s, str:%.*s}\n", 
-			kind[token->kind], 
-			token->len,
-			token->str);
+		if (token->prev != NULL)
+		{
+			printf("{kind:%s, str:%.*s, prev->str:%.*s}\n", 
+				kind[token->kind], 
+				token->len,
+				token->str,
+				token->prev->len,
+				token->prev->str
+				);
+		}
+		else
+		{
+			printf("{kind:%s, str:%.*s}\n", 
+				kind[token->kind], 
+				token->len,
+				token->str
+				);
+		}
 		token = token->next;
 	}
+}
+
+int	main(int argc, char **argv)
+{
+	t_token	*token = tokenize(argv[1]);
+	debug_tokenize(token);
 }
