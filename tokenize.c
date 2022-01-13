@@ -65,7 +65,7 @@ t_token *tokenize(char *p)
 			p += cur->len;
 			continue;
 		}
-		error("invalid character\n");
+		// error("invalid character\n");
 	}
 	cur->next = new_token(TK_EOF, p, 0);
 	cur->next->prev = cur;
@@ -108,6 +108,11 @@ int	main(int argc, char **argv)
 	t_token	*token = tokenize(argv[1]);
 
 	// tokenize
+	if (token->kind == TK_EOF)
+	{
+		free(token);
+		return (0);
+	}
 	printf("%s\n", token->prev->prev);
 	debug_tokenize(token);
 	// printf("%.*s\n", token->len, token->str);

@@ -2,6 +2,34 @@
 
 int sts;
 
+volatile sig_atomic_t	g_signal;
+
+static void	ft_get_signal(int	signal)
+{
+	if (signal == SIGINT)
+	{
+		write(2, "foo\n", 5);
+		ft_putchar_fd('\n', 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		// write(1, "hoge", 6);
+	}
+}
+
+static void	ft_set_signal(int	signal)
+{
+	if (signal == SIGINT)
+	{
+		write(2, "hoge\n", 5);
+		ft_putchar_fd('\n', 1);
+		rl_on_new_line();
+		// rl_replace_line("", 0);
+		// rl_redisplay();
+		// write(1, "hoge", 6);
+	}
+}
+
 void free_double(char **p)
 {
 	size_t i;
@@ -136,7 +164,12 @@ void recursive(int i, char ***cmds, char *envp[]) {
 		if (ft_strncmp(cmds[i][0], "pwd", 3) == 0 && cmds[i][1] == NULL)
 			pwd_();
 		else
+		{
+			// if (signal(SIGINT, ft_set_signal) == SIG_ERR)
+			// 	printf("signal error\n");
+			// signal(SIGINT, ft_set_signal);
 			exec(envp, cmds[i]);
+		}
 		return;
 	}
 	
@@ -152,7 +185,7 @@ void recursive(int i, char ***cmds, char *envp[]) {
 		else
 			exec(envp, cmds[i]);
 		close(fd[0]);
-	} 
+	}
 	else {
 		close(fd[0]);
 		dup2(fd[1], 1);
@@ -188,6 +221,8 @@ void    handle_command(char *envp[], char *command)
 	{
 		// here =  here_doc("EOS");
 		signal(SIGQUIT, SIG_DFL);
+		if (signal(SIGINT, ft_set_signal) == SIG_ERR)
+			printf("signal error\n");
 		recursive(i - 1, cmds, envp);
 		// free_double(commands);
 		free_triple(cmds);
@@ -196,29 +231,14 @@ void    handle_command(char *envp[], char *command)
 	free_double(commands);
 	free_triple(cmds);
 	waitpid(pid, &sts, 0);
-	write(1, "\n", 1);
+	// write(1, "\n", 1);
 }
-
-volatile sig_atomic_t	g_signal;
-
-static void	ft_get_signal(int	signal)
-{
-	if (signal == SIGINT)
-	{
-		// ft_putchar_fd('\n', 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
-
-
 
 int main(int argc, char **argv, char *envp[]) {
 	char *prompt = "minishell> ";
 	int i = 0;
 
-	signal(SIGINT, ft_get_signal);
+	// signal(SIGINT, ft_get_signal);
 	signal(SIGQUIT	, SIG_IGN);
 	using_history();
 	read_history(".my_history"); // [ToDo]historyファイルが無いときの動作の検証

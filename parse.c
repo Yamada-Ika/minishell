@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:52:59 by iyamada           #+#    #+#             */
-/*   Updated: 2022/01/13 03:35:18 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/01/13 13:12:37 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_node	*new_node_command(t_token **tok)
 	node = (t_node *)ft_calloc(1, sizeof(t_node));
 	if (node == NULL)
 		error("parse.c 22 : malloc error");
+	if ((*tok)->kind == TK_EOF || check_op(*tok) == OP_PIPE)
+		error("minishell: syntax error near unexpected token `|'\n");
 	node->command = *tok;
 	node->command_size = count_command_size(tok);
 	node->kind = ND_CMD;
