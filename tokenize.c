@@ -19,6 +19,8 @@ size_t get_operator_len(char *p)
 	size_t  i;
 
 	i = 0;
+	if (*p == '$' && *(p + 1) != ' ')
+		return (1);
 	while (kw[i] != NULL)
 	{
 		if (!ft_strncmp(kw[i], p, ft_strlen(kw[i])))
@@ -33,7 +35,7 @@ size_t  get_word_len(char *p)
 	size_t  len;
 
 	len = 0;
-	while (!ft_strchr(" ><|'\"", p[len]))
+	while (!ft_strchr(" ><|'\"", p[len]) || (p[len] == '$' && p[len + 1] != ' '))
 		len++;
 	return (len);
 }
@@ -94,10 +96,10 @@ void	debug_node(t_node *node)
 {
 	while (node != NULL)
 	{
-		printf("command_size %zu command->str %.*s\n", 
-			node->command_size,
-			node->command->len,
-			node->command->str
+		printf("word_list_size %zu word_list->str %.*s\n", 
+			node->word_list_size,
+			node->word_list->len,
+			node->word_list->str
 		);
 		node = node->left;
 	}
@@ -119,5 +121,8 @@ int	main(int argc, char **argv)
 
 	// parse
 	t_node	*node = command_line(&token);
+	debug_node(node);
+	expansion(node);
+	printf("=========================================\n");
 	debug_node(node);
 }
