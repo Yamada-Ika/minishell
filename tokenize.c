@@ -101,6 +101,23 @@ void	debug_node(t_node *node)
 			node->word_list->len,
 			node->word_list->str
 		);
+		if (node->right != NULL)
+		{
+			t_token	*head;
+			size_t i = 0;
+			head = node->right->word_list;
+			while (i < node->right->word_list_size)
+			{
+				printf("right:::::: word_list_size %zu word_list->str %.*s\n", 
+					node->right->word_list_size,
+					node->right->word_list->len,
+					node->right->word_list->str
+				);
+				i++;
+				node->right->word_list = node->right->word_list->next;
+			}
+			node->right->word_list = head;
+		}
 		node = node->left;
 	}
 }
@@ -121,8 +138,9 @@ int	main(int argc, char **argv)
 
 	// parse
 	t_node	*node = command_line(&token);
+	printf("parse: =========================================\n");
 	debug_node(node);
 	expansion(node);
-	printf("=========================================\n");
+	printf("expansion: =========================================\n");
 	debug_node(node);
 }
