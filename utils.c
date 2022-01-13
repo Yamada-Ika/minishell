@@ -8,7 +8,7 @@ void error(char *str)
 
 int	check_op(t_token *tok)
 {
-	const char *kw[] = {"<<", ">>", "<", ">", "|", "'", "\"", NULL};
+	const char *kw[] = {"<<", ">>", "<", ">", "|", "'", "\"", "$", NULL};
 	size_t  i;
 
 	i = 0;
