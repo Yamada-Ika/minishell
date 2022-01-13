@@ -4,30 +4,28 @@ int sts;
 
 volatile sig_atomic_t	g_signal;
 
-static void	ft_get_signal(int	signal)
+static int	ft_get_signal(int	signal)
 {
 	if (signal == SIGINT)
 	{
-		write(2, "foo\n", 5);
 		ft_putchar_fd('\n', 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		// write(1, "hoge", 6);
 	}
+	return (0);
 }
 
-static void	ft_set_signal(int	signal)
+static int	ft_set_signal(int	signal)
 {
 	if (signal == SIGINT)
 	{
-		write(2, "hoge\n", 5);
-		ft_putchar_fd('\n', 1);
+		// ft_putchar_fd('\n', 1);
 		rl_on_new_line();
 		// rl_replace_line("", 0);
 		// rl_redisplay();
-		// write(1, "hoge", 6);
 	}
+	return (0);
 }
 
 void free_double(char **p)
@@ -202,11 +200,24 @@ void call(char *pathname, char **argv) {
 	waitpid(pid, &sts, 0);
 }
 
+// static void	ft_set_signal(int	signal)
+// {
+// 	if (signal == SIGQUIT)
+// 	{
+// 		SIG_DELL(SIG_QUIT);
+// 		ft_putchar_fd('\n', 1);
+// 		// rl_on_new_line();
+// 	}
+// }
+
 void    handle_command(char *envp[], char *command)
 {
 	char **commands = ft_split(command, ' ');
 	size_t  i = 0;
 	char ***cmds = ft_split_triple((const char**)commands, "|");
+	int ret;
+	int int_ret;
+
 	if (ft_strncmp(commands[0], "cd", 2) == 0)
 	{
 		cd_(1, commands);
@@ -216,21 +227,33 @@ void    handle_command(char *envp[], char *command)
 	{
 		i++;
 	}
+	int_ret = signal(SIGINT, ft_set_signal);
 	pid_t pid = fork();
 	if (pid == 0)
 	{
 		// here =  here_doc("EOS");
-		signal(SIGQUIT, SIG_DFL);
-		if (signal(SIGINT, ft_set_signal) == SIG_ERR)
-			printf("signal error\n");
+		ret = signal(SIGQUIT, SIG_DFL);
 		recursive(i - 1, cmds, envp);
 		// free_double(commands);
 		free_triple(cmds);
 		return;
 	}
+	// if (signal(SIGINT, ft_set_signal) == SIG_ERR)
+	// 	printf("signal error\n");
+	// else
+	// 	return ;
+	// fprintf(stderr, "int_ret : %d\n", int_ret);
+	// if (int_ret == 0)
+	// {
+	// 	ft_putstr_fd("-----", STDERR_FILENO);
+	// 	return ;
+	// }
 	free_double(commands);
 	free_triple(cmds);
 	waitpid(pid, &sts, 0);
+	// fprintf(stderr, "hoge\n");
+	if (ret != SIG_ERR)
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	// write(1, "\n", 1);
 }
 
@@ -238,7 +261,7 @@ int main(int argc, char **argv, char *envp[]) {
 	char *prompt = "minishell> ";
 	int i = 0;
 
-	// signal(SIGINT, ft_get_signal);
+	signal(SIGINT, ft_get_signal);
 	signal(SIGQUIT	, SIG_IGN);
 	using_history();
 	read_history(".my_history"); // [ToDo]historyファイルが無いときの動作の検証
