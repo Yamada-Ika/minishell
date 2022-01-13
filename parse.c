@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: tshigena <tshigena@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:52:59 by iyamada           #+#    #+#             */
-/*   Updated: 2022/01/13 13:12:37 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/01/13 15:35:05 by tshigena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ t_node	*new_node_command(t_token **tok)
 		error("parse.c 22 : malloc error");
 	if ((*tok)->kind == TK_EOF || check_op(*tok) == OP_PIPE)
 		error("minishell: syntax error near unexpected token `|'\n");
-	node->command = *tok;
-	node->command_size = count_command_size(tok);
+	node->word_list = *tok;
+	node->word_list_size = count_command_size(tok);
 	node->kind = ND_CMD;
 	return (node);
 }
@@ -50,7 +50,7 @@ t_node	*new_node_pipe(t_token *token, t_node *left, t_node *right)
 	node->left = left;
 	node->right = right;
 	node->kind = ND_PIPE;
-	node->command = token;
+	node->word_list = token;
 	return (node);
 }
 

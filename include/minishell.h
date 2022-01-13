@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <errno.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <readline/readline.h>
@@ -22,9 +23,10 @@ typedef enum e_operation_kind
 	OP_SINGLE_LS,	// "<<"
 	OP_LS,			// "<"
 	OP_GR,			// ">"
-	OP_PIPE,		// "|"
+ 	OP_PIPE,		// "|"
 	OP_SINGLE_Q,	// "'"
 	OP_DOUBLE_Q,	// """
+	OP_Dollar,		// "$"
 } t_operation_kind;
 
 typedef enum e_token_kind
@@ -73,8 +75,9 @@ typedef struct s_node t_node;
 struct s_node
 {
 	t_node_kind	kind;
-	t_token		*command;
-	size_t		command_size;
+	t_command	*command;
+	t_token		*word_list;
+	size_t		word_list_size;
 	t_node		*left;
 	t_node		*right;
 };
@@ -86,5 +89,8 @@ int	check_op(t_token *tok);
 
 // parse.c
 t_node	*command_line(t_token **tok);
+
+// expansion.c
+void	expansion(t_node *node);
 
 # endif
