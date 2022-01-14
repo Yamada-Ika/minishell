@@ -6,7 +6,7 @@ LDFLAGS = -lreadline -lhistory -L$(shell brew --prefix readline)/lib
 INCLUDE = -Iinclude/ -I$(shell brew --prefix readline)/include -Iinclude
 # SRCS =  samples/pipe.c
 # SRCS =  main.c ft_split_triple.c utils.c here_doc.c
-SRCS =  tokenize.c utils.c parse.c  expansion.c
+SRCS =  tokenize.c utils.c parse.c  expansion.c sum_up_token_in_quote.c
 OBJS = $(SRCS:%.c=%.o)
 
 all: $(NAME)

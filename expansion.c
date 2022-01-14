@@ -141,6 +141,8 @@ void	expand_node(t_node *node)
 		op_kind = node->word_list->kind;
 		if (op_kind != TK_OP_SINGLE_Q && op_kind != TK_OP_DOUBLE_Q && op_kind != TK_OP_DOLLAR)
 			i++;
+		else if (op_kind == TK_OP_SINGLE_Q || op_kind == TK_OP_DOUBLE_Q)
+			i++;
 		else
 		{
 			fprintf(stderr, "$$$$\n");
@@ -163,6 +165,7 @@ void	expand_node(t_node *node)
 		node->word_list = node->word_list->next;
 	}
 	node->word_list = head;
+	sum_up_token_in_quote(node);
 }
 
 void	expansion(t_node *node)

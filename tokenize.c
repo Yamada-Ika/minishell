@@ -135,7 +135,7 @@ void	debug_node(t_node *node)
 			head_right = node->right->word_list;
 			while (i_right < node->right->word_list_size)
 			{
-				printf("right:::::: word_list_size %zu word_list->str %.*s word_list->kind %s\n", 
+				printf("right:::::: word_list_size %zu word_list->str %.*s word_list->kind %s\n",
 					node->right->word_list_size,
 					node->right->word_list->len,
 					node->right->word_list->str,
