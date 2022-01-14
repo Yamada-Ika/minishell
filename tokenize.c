@@ -30,15 +30,15 @@ size_t get_operator_len(char *p)
 	return (0);
 }
 
-size_t  get_word_len(char *p)
-{
-	size_t  len;
+// size_t  get_word_len(char *p)
+// {
+// 	size_t  len;
 
-	len = 0;
-	while (!ft_strchr(" ><|'\"", p[len]) || (p[len] == '$' && p[len + 1] != ' '))
-		len++;
-	return (len);
-}
+// 	len = 0;
+// 	while (!ft_strchr(" ><|'\"", p[len]) || (p[len] == '$' && p[len + 1] != ' '))
+// 		len++;
+// 	return (len);
+// }
 
 t_token *tokenize(char *p)
 {
@@ -59,9 +59,9 @@ t_token *tokenize(char *p)
 			p += cur->len;
 			continue;
 		}
-		if (get_word_len(p))
+		if (get_word_len(p, " ><|'\"" ))
 		{
-			cur->next = new_token(TK_WORD, p, get_word_len(p));
+			cur->next = new_token(TK_WORD, p, get_word_len(p, " ><|'\"" ));
 			cur->next->prev = cur;
 			cur = cur->next;
 			p += cur->len;
@@ -96,27 +96,41 @@ void	debug_node(t_node *node)
 {
 	while (node != NULL)
 	{
-		printf("word_list_size %zu word_list->str %.*s\n", 
-			node->word_list_size,
-			node->word_list->len,
-			node->word_list->str
-		);
+		// printf("word_list_size %zu word_list->str %.*s\n", 
+		// 	node->word_list_size,
+		// 	node->word_list->len,
+		// 	node->word_list->str
+		// );
+		t_token	*head_left;
+		size_t i_left = 0;
+		head_left = node->word_list;
+		while (i_left < node->word_list_size)
+		{
+			printf("left:::::: word_list_size %zu word_list->str %.*s\n", 
+				node->word_list_size,
+				node->word_list->len,
+				node->word_list->str
+			);
+			i_left++;
+			node->word_list = node->word_list->next;
+		}
+		node->word_list = head_left;
 		if (node->right != NULL)
 		{
-			t_token	*head;
-			size_t i = 0;
-			head = node->right->word_list;
-			while (i < node->right->word_list_size)
+			t_token	*head_right;
+			size_t i_right = 0;
+			head_right = node->right->word_list;
+			while (i_right < node->right->word_list_size)
 			{
 				printf("right:::::: word_list_size %zu word_list->str %.*s\n", 
 					node->right->word_list_size,
 					node->right->word_list->len,
 					node->right->word_list->str
 				);
-				i++;
+				i_right++;
 				node->right->word_list = node->right->word_list->next;
 			}
-			node->right->word_list = head;
+			node->right->word_list = head_right;
 		}
 		node = node->left;
 	}
