@@ -46,36 +46,63 @@ static size_t	join_valiable(char *p, t_token **tok)
 	return (count);
 }
 
-size_t	replace_token(t_token **token, char *str)
+void debug_token(t_token *token, size_t loop_cnt)
 {
-	t_token **head;
+	const char *kind[] = {
+		"TK_OP_DOUBLE_GR",
+		"TK_OP_SINGLE_LS",
+		"TK_OP_LS",
+		"TK_OP_GR",
+		"TK_OP_PIPE",
+		"TK_OP_SINGLE_Q",
+		"TK_OP_DOUBLE_Q",
+		"TK_OP_DOLLAR",
+		"TK_WORD",
+		"TK_EOF",
+	};
+	size_t	i;
 
-	// fprintf(stderr,"token->str:  %.*s\n", token->len,token->str);
-	head = token;
-	if (str == NULL)
+	i = 0;
+	while (i < loop_cnt)
 	{
-		(*token)->prev->next = (*token)->next->next;
-		(*token)->next->next->prev = (*head)->prev;
-		// fprintf(stderr,"token->prev->next->str:  %.*s\n", token->prev->next->len,token->prev->next->str);
-		// token->prev->next->prev = token->next->next->prev;
-		// token->prev->next->prev = head->prev;
-		*token = (*head)->next->next;
-		// fprintf(stderr,"token->prev->next->next->str:  %.*s\n", token->prev->next->next->len,token->prev->next->next->str);
-		// fprintf(stderr,"token->prev->next->prev->str:  %.*s\n", token->prev->next->prev->len,token->prev->next->prev->str);
-		return (0);
+		if (token == NULL)
+		{
+			i++;
+			continue ;
+		}
+		printf("{kind:%s, str:%.*s, prev->kind:%s, prev->str:%.*s}\n", 
+			kind[token->kind],
+			token->len,
+			token->str,
+			kind[token->prev->kind],
+			token->prev->len,
+			token->prev->str
+			);
+		token = token->next;
+		i++;
 	}
-	return (join_valiable(str, token));
 }
 
-// void	print_str(char **str)
-// {
-// 	size_t	i = 0;
-// 	while (str[i])
-// 	{
-// 		fprintf(stderr, "%s\n", str[i]);
-// 		i++;
-// 	}
-// }
+size_t	replace_token(t_token **token, char *str)
+{
+	t_token *head;
+	size_t	increase_tok_num;
+
+	head = *token;
+	if (str == NULL || *str == '\0')
+	{
+		(*token)->prev->next = (*token)->next->next;
+		(*token)->next->next->prev = head->prev;
+		*token = head->next->next;
+		free(str);
+		return (0);
+	}
+	increase_tok_num = join_valiable(str, token);
+	debug_token(head, 2);
+	free(head->next);
+	free(head);
+	return (increase_tok_num);
+}
 
 size_t	expand_token(t_token **token, int op_kind)
 {

@@ -1,7 +1,7 @@
 NAME = minishell
 LIBFT = libft/libft.a
 CC = gcc
-CFLAGS = -g -fsanitize=address #-Wall -Wextra -Werror
+CFLAGS = -g -fsanitize=leak #-Wall -Wextra -Werror
 LDFLAGS = -lreadline -lhistory -L$(shell brew --prefix readline)/lib
 INCLUDE = -Iinclude/ -I$(shell brew --prefix readline)/include -Iinclude
 # SRCS =  samples/pipe.c

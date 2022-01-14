@@ -96,6 +96,19 @@ void debug_tokenize(t_token *token)
 
 void	debug_node(t_node *node)
 {
+	const char *kind[] = {
+		"TK_OP_DOUBLE_GR",
+		"TK_OP_SINGLE_LS",
+		"TK_OP_LS",
+		"TK_OP_GR",
+		"TK_OP_PIPE",
+		"TK_OP_SINGLE_Q",
+		"TK_OP_DOUBLE_Q",
+		"TK_OP_DOLLAR",
+		"TK_WORD",
+		"TK_EOF",
+	};
+
 	while (node != NULL)
 	{
 		t_token	*head_left;
@@ -103,10 +116,11 @@ void	debug_node(t_node *node)
 		head_left = node->word_list;
 		while (i_left < node->word_list_size)
 		{
-			printf("left:::::: word_list_size %zu word_list->str %.*s\n", 
+			printf("left:::::: word_list_size %zu word_list->str %.*s word_list->kind %s\n",
 				node->word_list_size,
 				node->word_list->len,
-				node->word_list->str
+				node->word_list->str,
+				kind[node->word_list->kind]
 			);
 			i_left++;
 			node->word_list = node->word_list->next;
@@ -119,10 +133,11 @@ void	debug_node(t_node *node)
 			head_right = node->right->word_list;
 			while (i_right < node->right->word_list_size)
 			{
-				printf("right:::::: word_list_size %zu word_list->str %.*s\n", 
+				printf("right:::::: word_list_size %zu word_list->str %.*s word_list->kind %s\n", 
 					node->right->word_list_size,
 					node->right->word_list->len,
-					node->right->word_list->str
+					node->right->word_list->str,
+					kind[node->word_list->kind]
 				);
 				i_right++;
 				node->right->word_list = node->right->word_list->next;
@@ -135,6 +150,8 @@ void	debug_node(t_node *node)
 
 int	main(int argc, char **argv)
 {
+	if (argc == 1)
+		error("Invalid argument!\n");
 	t_token	*token = tokenize(argv[1]);
 
 	// tokenize
