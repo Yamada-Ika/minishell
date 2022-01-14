@@ -8,7 +8,7 @@ void error(char *str)
 
 int	check_op(char *s)
 {
-	const char *kw[] = {"<<", ">>", "<", ">", "|", "'", "\"", "$", NULL};
+	const char *kw[] = {">>", "<<", "<", ">", "|", "'", "\"", "$", NULL};
 	int		i;
 
 	i = 0;

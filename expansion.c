@@ -30,7 +30,7 @@ static size_t	join_valiable(char *p, t_token **tok)
 		if (get_word_len(p," "))
 		{
 			count++;
-			cur->next = new_token(TK_WORD, p, get_word_len(p," "));
+			cur->next = new_token(TK_EXP_WORD, p, get_word_len(p," "));
 			cur->next->prev = cur;
 			cur = cur->next;
 			p += cur->len;
@@ -46,7 +46,7 @@ static size_t	join_valiable(char *p, t_token **tok)
 	return (count);
 }
 
-void debug_token(t_token *token, size_t loop_cnt)
+static void debug_token(t_token *token, size_t loop_cnt)
 {
 	const char *kind[] = {
 		"TK_OP_DOUBLE_GR",
@@ -58,6 +58,7 @@ void debug_token(t_token *token, size_t loop_cnt)
 		"TK_OP_DOUBLE_Q",
 		"TK_OP_DOLLAR",
 		"TK_WORD",
+		"TK_EXP_WORD",
 		"TK_EOF",
 	};
 	size_t	i;

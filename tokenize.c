@@ -76,6 +76,7 @@ void debug_tokenize(t_token *token)
 		"TK_OP_DOUBLE_Q",
 		"TK_OP_DOLLAR",
 		"TK_WORD",
+		"TK_EXP_WORD",
 		"TK_EOF",
 	};
 	while (token->kind != TK_EOF)
@@ -106,6 +107,7 @@ void	debug_node(t_node *node)
 		"TK_OP_DOUBLE_Q",
 		"TK_OP_DOLLAR",
 		"TK_WORD",
+		"TK_EXP_WORD",
 		"TK_EOF",
 	};
 
@@ -137,7 +139,7 @@ void	debug_node(t_node *node)
 					node->right->word_list_size,
 					node->right->word_list->len,
 					node->right->word_list->str,
-					kind[node->word_list->kind]
+					kind[node->right->word_list->kind]
 				);
 				i_right++;
 				node->right->word_list = node->right->word_list->next;

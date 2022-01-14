@@ -28,6 +28,7 @@ typedef enum e_token_kind
 	TK_OP_DOUBLE_Q,		// """
 	TK_OP_DOLLAR,		// "$"
 	TK_WORD,
+	TK_EXP_WORD,
 	TK_EOF,
 } t_token_kind;
 
