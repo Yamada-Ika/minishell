@@ -20,3 +20,13 @@ int	check_op(t_token *tok)
 	}
 	return (-1);
 }
+
+size_t  get_word_len(char *p, char *str)
+{
+	size_t  len;
+
+	len = 0;
+	while (!ft_strchr(str, p[len]) || (p[len] == '$' && p[len + 1] != ' '))
+		len++;
+	return (len);
+}
