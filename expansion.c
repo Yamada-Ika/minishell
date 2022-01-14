@@ -1,6 +1,52 @@
 #include "minishell.h"
 
-size_t	replace_token(t_token **token, char **str)
+static t_token	*new_token(t_token_kind kind, char *p, size_t len)
+{
+	t_token	*token;
+
+	token = (t_token *)ft_calloc(1, sizeof(t_token));
+	if (token == NULL)
+		error("malloc error\n");
+	token->kind = kind;
+	token->str = p;
+	token->len = len;
+	return (token);
+}
+
+// skip : ' '
+static long long	join_valiable(char *p, t_token **tok)
+{
+	t_token	*cur;
+	t_token	head;
+	long long	count;
+
+	count = 0;
+	head.next = NULL;
+	cur = &head;
+	while (*p)
+	{
+		while (*p == ' ')
+			p++;
+		if (get_word_len(p," "))
+		{
+			count++;
+			cur->next = new_token(TK_WORD, p, get_word_len(p," "));
+			cur->next->prev = cur;
+			cur = cur->next;
+			p += cur->len;
+			continue;
+		}
+	}
+	cur->next = (*tok)->next->next;
+	cur->next->prev = cur->next;
+	(*tok)->prev->next = head.next;
+	head.next->prev = (*tok)->prev->next;
+	*tok = (*tok)->next->next;
+	fprintf(stderr, "count : %lld\n", count);
+	return (2 - count);
+}
+
+size_t	replace_token(t_token **token, char *str)
 {
 	t_token **head;
 
@@ -18,24 +64,35 @@ size_t	replace_token(t_token **token, char **str)
 		// fprintf(stderr,"token->prev->next->prev->str:  %.*s\n", token->prev->next->prev->len,token->prev->next->prev->str);
 		return (2);
 	}
-	return (0);
+	return (join_valiable(str, token));
 }
+
+// void	print_str(char **str)
+// {
+// 	size_t	i = 0;
+// 	while (str[i])
+// 	{
+// 		fprintf(stderr, "%s\n", str[i]);
+// 		i++;
+// 	}
+// }
 
 size_t	expand_token(t_token **token, int op_kind)
 {
-	char	**str;
+	char	*str;
 	char	*variable_name;
 
-	fprintf(stderr,"expand_token called\n");
+	// fprintf(stderr,"expand_token called\n");
 	if (op_kind == OP_Dollar)
 	{
 		variable_name = ft_substr((*token)->next->str, 0, (*token)->next->len);
-		fprintf(stderr, "variable_name: %s\n", variable_name);
-		str = ft_split(getenv(variable_name), ' ');
+		// fprintf(stderr, "variable_name: %s\n", variable_name);
+		// str = ft_split(getenv(variable_name), ' ');
+		str = ft_strdup(getenv(variable_name));
 		if (errno)
 			error(strerror(errno));
 		if (str != NULL)
-			fprintf(stderr, "str: %s\n", *str);
+			fprintf(stderr, "%s\n", str);
 		return (replace_token(token, str));
 	}
 	return (0);
@@ -45,6 +102,7 @@ void	expand_node(t_node *node)
 {
 	int	op_kind;
 	size_t	i;
+	long long ret;
 	t_token	*head;
 
 	head = node->word_list;
@@ -58,15 +116,19 @@ void	expand_node(t_node *node)
 		{
 			if (i == 0)
 			{
-				i += expand_token(&(node->word_list), op_kind);
-				node->word_list_size -= i;
+				ret = expand_token(&(node->word_list), op_kind);
+				i += ret;
+				// i += expand_token(&(node->word_list), op_kind);
+				node->word_list_size -= ret;
 				fprintf(stderr, "word_list-str:  %.*s\n", node->word_list->len, node->word_list->str);
 				head = node->word_list;
 			}
 			else
 			{
-				i += expand_token(&(node->word_list), op_kind);
-				node->word_list_size -= i;
+				ret = expand_token(&(node->word_list), op_kind);
+				i += ret;
+				// i += expand_token(&(node->word_list), op_kind);
+				node->word_list_size -= ret;
 			}
 		}
 		node->word_list = node->word_list->next;
