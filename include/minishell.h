@@ -86,6 +86,7 @@ struct s_node
 void error(char *str);
 char	*here_doc(char *eos);
 int	check_op(t_token *tok);
+size_t  get_word_len(char *p, char *str);
 
 // parse.c
 t_node	*command_line(t_token **tok);
