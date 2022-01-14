@@ -38,10 +38,10 @@ static size_t	join_valiable(char *p, t_token **tok)
 		}
 	}
 	cur->next = (*tok)->next->next;
-	cur->next->prev = cur->next;
+	cur->next->prev = cur;
 	(*tok)->prev->next = head.next;
-	head.next->prev = (*tok)->prev->next;
-	*tok = (*tok)->next->next;
+	head.next->prev = (*tok)->prev;
+	*tok = head.next;
 	fprintf(stderr, "count : %lld\n", count);
 	return (count);
 }
