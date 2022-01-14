@@ -14,11 +14,11 @@ static t_token	*new_token(t_token_kind kind, char *p, size_t len)
 }
 
 // skip : ' '
-static long long	join_valiable(char *p, t_token **tok)
+static size_t	join_valiable(char *p, t_token **tok)
 {
 	t_token	*cur;
 	t_token	head;
-	long long	count;
+	size_t	count;
 
 	count = 0;
 	head.next = NULL;
@@ -43,7 +43,7 @@ static long long	join_valiable(char *p, t_token **tok)
 	head.next->prev = (*tok)->prev->next;
 	*tok = (*tok)->next->next;
 	fprintf(stderr, "count : %lld\n", count);
-	return (2 - count);
+	return (count);
 }
 
 size_t	replace_token(t_token **token, char *str)
@@ -62,7 +62,7 @@ size_t	replace_token(t_token **token, char *str)
 		*token = (*head)->next->next;
 		// fprintf(stderr,"token->prev->next->next->str:  %.*s\n", token->prev->next->next->len,token->prev->next->next->str);
 		// fprintf(stderr,"token->prev->next->prev->str:  %.*s\n", token->prev->next->prev->len,token->prev->next->prev->str);
-		return (2);
+		return (0);
 	}
 	return (join_valiable(str, token));
 }
@@ -83,7 +83,7 @@ size_t	expand_token(t_token **token, int op_kind)
 	char	*variable_name;
 
 	// fprintf(stderr,"expand_token called\n");
-	if (op_kind == OP_Dollar)
+	if (op_kind == TK_OP_DOLLAR)
 	{
 		variable_name = ft_substr((*token)->next->str, 0, (*token)->next->len);
 		// fprintf(stderr, "variable_name: %s\n", variable_name);
@@ -102,24 +102,25 @@ void	expand_node(t_node *node)
 {
 	int	op_kind;
 	size_t	i;
-	long long ret;
+	size_t	ret;
 	t_token	*head;
 
 	head = node->word_list;
 	i = 0;
+	fprintf(stderr, "word_list_size : %zu i : %zu\n", node->word_list_size, i);
 	while (i < node->word_list_size)
 	{
-		op_kind = check_op(node->word_list);
-		if (op_kind != OP_SINGLE_Q && op_kind != OP_DOUBLE_Q && op_kind != OP_Dollar)
+		op_kind = node->word_list->kind;
+		if (op_kind != TK_OP_SINGLE_Q && op_kind != TK_OP_DOUBLE_Q && op_kind != TK_OP_DOLLAR)
 			i++;
 		else
 		{
+			fprintf(stderr, "$$$$\n");
 			if (i == 0)
 			{
 				ret = expand_token(&(node->word_list), op_kind);
 				i += ret;
-				// i += expand_token(&(node->word_list), op_kind);
-				node->word_list_size -= ret;
+				node->word_list_size += ret - 2;
 				fprintf(stderr, "word_list-str:  %.*s\n", node->word_list->len, node->word_list->str);
 				head = node->word_list;
 			}
@@ -127,10 +128,10 @@ void	expand_node(t_node *node)
 			{
 				ret = expand_token(&(node->word_list), op_kind);
 				i += ret;
-				// i += expand_token(&(node->word_list), op_kind);
-				node->word_list_size -= ret;
+				node->word_list_size += ret - 2;
 			}
 		}
+		fprintf(stderr, "word_list_size : %zu i : %zu\n", node->word_list_size, i);
 		node->word_list = node->word_list->next;
 	}
 	node->word_list = head;

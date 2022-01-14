@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tshigena <tshigena@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:52:59 by iyamada           #+#    #+#             */
-/*   Updated: 2022/01/13 15:35:05 by tshigena         ###   ########.fr       */
+/*   Updated: 2022/01/14 17:22:23 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	count_command_size(t_token **tok)
 	size_t	cnt;
 
 	cnt = 0;
-	while ((*tok)->kind != TK_EOF && check_op(*tok) != OP_PIPE)
+	while ((*tok)->kind != TK_EOF && (*tok)->kind != TK_OP_PIPE)
 	{
 		cnt++;
 		(*tok) = (*tok)->next;
@@ -32,7 +32,7 @@ t_node	*new_node_command(t_token **tok)
 	node = (t_node *)ft_calloc(1, sizeof(t_node));
 	if (node == NULL)
 		error("parse.c 22 : malloc error");
-	if ((*tok)->kind == TK_EOF || check_op(*tok) == OP_PIPE)
+	if ((*tok)->kind == TK_EOF || (*tok)->kind == TK_OP_PIPE)
 		error("minishell: syntax error near unexpected token `|'\n");
 	node->word_list = *tok;
 	node->word_list_size = count_command_size(tok);
@@ -51,6 +51,7 @@ t_node	*new_node_pipe(t_token *token, t_node *left, t_node *right)
 	node->right = right;
 	node->kind = ND_PIPE;
 	node->word_list = token;
+	node->word_list_size = 1;
 	return (node);
 }
 
@@ -61,7 +62,7 @@ t_node	*command_line(t_token **tok)
 	t_node	*tmp_nd;
 
 	node = new_node_command(tok);
-	while (check_op(*tok) == OP_PIPE)
+	while ((*tok)->kind == TK_OP_PIPE)
 	{
 		tmp_tk = *tok;
 		*tok = (*tok)->next;

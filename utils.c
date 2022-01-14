@@ -6,15 +6,15 @@ void error(char *str)
     exit(1);
 }
 
-int	check_op(t_token *tok)
+int	check_op(char *s)
 {
 	const char *kw[] = {"<<", ">>", "<", ">", "|", "'", "\"", "$", NULL};
-	size_t  i;
+	int		i;
 
 	i = 0;
 	while (kw[i] != NULL)
 	{
-		if (!ft_strncmp(tok->str, kw[i], ft_strlen(kw[i])))
+		if (!ft_strncmp(s, kw[i], ft_strlen(kw[i])))
 			return (i);
 		i++;
 	}

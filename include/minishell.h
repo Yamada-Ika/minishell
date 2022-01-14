@@ -17,21 +17,16 @@
 
 char	***ft_split_triple(char const **strs, char *sets);
 
-typedef enum e_operation_kind
-{
-	OP_DOUBLE_GR,	// ">>"
-	OP_SINGLE_LS,	// "<<"
-	OP_LS,			// "<"
-	OP_GR,			// ">"
- 	OP_PIPE,		// "|"
-	OP_SINGLE_Q,	// "'"
-	OP_DOUBLE_Q,	// """
-	OP_Dollar,		// "$"
-} t_operation_kind;
-
 typedef enum e_token_kind
 {
-	TK_OP,
+	TK_OP_DOUBLE_GR,	// ">>"
+	TK_OP_SINGLE_LS,	// "<<"
+	TK_OP_LS,			// "<"
+	TK_OP_GR,			// ">"
+ 	TK_OP_PIPE,			// "|"
+	TK_OP_SINGLE_Q,		// "'"
+	TK_OP_DOUBLE_Q,		// """
+	TK_OP_DOLLAR,		// "$"
 	TK_WORD,
 	TK_EOF,
 } t_token_kind;
@@ -85,7 +80,7 @@ struct s_node
 // utils.c
 void error(char *str);
 char	*here_doc(char *eos);
-int	check_op(t_token *tok);
+int		check_op(char *s);
 size_t  get_word_len(char *p, char *str);
 
 // parse.c

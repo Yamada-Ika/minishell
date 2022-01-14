@@ -30,16 +30,6 @@ size_t get_operator_len(char *p)
 	return (0);
 }
 
-// size_t  get_word_len(char *p)
-// {
-// 	size_t  len;
-
-// 	len = 0;
-// 	while (!ft_strchr(" ><|'\"", p[len]) || (p[len] == '$' && p[len + 1] != ' '))
-// 		len++;
-// 	return (len);
-// }
-
 t_token *tokenize(char *p)
 {
 	t_token	*cur;
@@ -53,7 +43,7 @@ t_token *tokenize(char *p)
 			p++;
 		if (get_operator_len(p))
 		{
-			cur->next = new_token(TK_OP, p, get_operator_len(p));
+			cur->next = new_token(check_op(p), p, get_operator_len(p));
 			cur->next->prev = cur;
 			cur = cur->next;
 			p += cur->len;
@@ -67,7 +57,6 @@ t_token *tokenize(char *p)
 			p += cur->len;
 			continue;
 		}
-		// error("invalid character\n");
 	}
 	cur->next = new_token(TK_EOF, p, 0);
 	cur->next->prev = cur;
@@ -77,9 +66,22 @@ t_token *tokenize(char *p)
 
 void debug_tokenize(t_token *token)
 {
-	const char *kind[] = {"TK_OP", "TK_WORD", "TK_EOF"};
+	const char *kind[] = {
+		"TK_OP_DOUBLE_GR",
+		"TK_OP_SINGLE_LS",
+		"TK_OP_LS",
+		"TK_OP_GR",
+		"TK_OP_PIPE",
+		"TK_OP_SINGLE_Q",
+		"TK_OP_DOUBLE_Q",
+		"TK_OP_DOLLAR",
+		"TK_WORD",
+		"TK_EOF",
+	};
 	while (token->kind != TK_EOF)
 	{
+		if (token == NULL)
+			continue ;
 		printf("{kind:%s, str:%.*s, prev->kind:%s, prev->str:%.*s}\n", 
 			kind[token->kind],
 			token->len,
@@ -96,11 +98,6 @@ void	debug_node(t_node *node)
 {
 	while (node != NULL)
 	{
-		// printf("word_list_size %zu word_list->str %.*s\n", 
-		// 	node->word_list_size,
-		// 	node->word_list->len,
-		// 	node->word_list->str
-		// );
 		t_token	*head_left;
 		size_t i_left = 0;
 		head_left = node->word_list;
