@@ -33,7 +33,7 @@ size_t get_operator_len(char *p)
 	return (0);
 }
 
-t_token_kind	check_word_kind(char *p)
+t_token_kind	get_word_kind(char *p)
 {
 	t_token_kind	kind;
 
@@ -66,7 +66,7 @@ t_token_kind	check_word_kind(char *p)
 	return (kind);
 }
 
-static void	ft_skip_space(char **s)
+static void	_skip_space(char **s)
 {
 	while (**s == ' ')
 		(*s)++;
@@ -82,13 +82,13 @@ t_token *tokenize(char *p)
 	cur = &head;
 	while (*p)
 	{
-		ft_skip_space(&p);
+		_skip_space(&p);
 		if (get_operator_len(p))
 		{
 			cur = new_token(cur, check_op(p), &p, get_operator_len(p));
 			continue ;
 		}
-		word_kind = check_word_kind(p);
+		word_kind = get_word_kind(p);
 		if (word_kind != -1)
 		{
 			cur = new_token(cur, word_kind, &p, get_word_len(p, word_kind, " ><|'\"" ));
