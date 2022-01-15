@@ -86,12 +86,12 @@ t_token *tokenize(char *p)
 			break ;
 		op_len = _get_operator_len(p);
 		if (op_len != 0)
-		{
 			cur = new_token(cur, check_op(p), &p, op_len);
-			continue ;
+		else
+		{
+			word_kind = _get_word_kind(p);
+			cur = new_token(cur, word_kind, &p, get_word_len(p, word_kind, " ><|'\"" ));
 		}
-		word_kind = _get_word_kind(p);
-		cur = new_token(cur, word_kind, &p, get_word_len(p, word_kind, " ><|'\"" ));
 	}
 	cur = new_token(cur, TK_EOF, &p, 0);
 	cur->next = head.next;
