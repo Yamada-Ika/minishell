@@ -29,7 +29,8 @@ size_t  get_word_len(char *p, t_token_kind kind, char *str)
 
 	len = 0;
 	quote_count = 0;
-	while (kind != TK_WORD || !ft_strchr(str, p[len]) || (p[len] == '$' && p[len + 1] != ' '))
+	// while ((kind != TK_WORD && kind != TK_OP_DOLLAR) || !ft_strchr(str, p[len]) || (p[len] == '$' && p[len + 1] != ' '))
+	while ((kind != TK_WORD && kind != TK_OP_DOLLAR) || !ft_strchr(str, p[len]))
 	{
 		if (p[len] == '\'' && kind == TK_WORD_IN_SINGLE_Q)
 			quote_count += 1;
@@ -37,6 +38,8 @@ size_t  get_word_len(char *p, t_token_kind kind, char *str)
 			quote_count += 1;
 		if (quote_count == 2)
 			kind = TK_WORD;
+		if (kind == TK_WORD && p[len] == '$' && !ft_strchr(" $", p[len + 1]))
+			break ;
 		len++;
 	}
 	return (len);

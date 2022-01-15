@@ -21,8 +21,8 @@ size_t get_operator_len(char *p)
 	size_t		i;
 
 	i = 0;
-	if (*p == '$' && *(p + 1) != ' ')
-		return (1);
+	// if (*p == '$' && *(p + 1) != ' ')
+	// 	return (1);
 	while (kw[i] != NULL)
 	{
 		if (!ft_strncmp(kw[i], p, ft_strlen(kw[i])))
@@ -32,7 +32,7 @@ size_t get_operator_len(char *p)
 	return (0);
 }
 
-t_token_kind	check_word_kind(char *p, char *str)
+t_token_kind	check_word_kind(char *p)
 {
 	t_token_kind	kind;
 
@@ -53,8 +53,11 @@ t_token_kind	check_word_kind(char *p, char *str)
 				return (kind);
 			kind = TK_WORD_IN_DOUBLE_Q;
 		}
-		if (kind == TK_WORD && ft_strchr(str, *p))
+		// fprintf(stderr, "56 : kind %d\n", kind);
+		if (kind == TK_WORD && ft_strchr(" ><|", *p))
 			return (kind);
+		if (kind == TK_WORD && *p == '$' && !ft_strchr(" $", *(p + 1)))
+			return (TK_OP_DOLLAR);
 		p++;
 	}
 	if (kind != TK_WORD)
@@ -80,10 +83,11 @@ t_token *tokenize(char *p)
 			p += cur->len;
 			continue ;
 		}
-		word_kind = check_word_kind(p, " ><|");
+		word_kind = check_word_kind(p);
+		fprintf(stderr, "kind : %d\n", word_kind);
 		if (word_kind != -1)
 		{
-			cur = new_token(cur, word_kind, p, get_word_len(p, word_kind, " ><|" ));
+			cur = new_token(cur, word_kind, p, get_word_len(p, word_kind, " ><|'\"" ));
 			p += cur->len;
 			continue ;
 		}
@@ -196,11 +200,11 @@ int	main(int argc, char **argv)
 	debug_tokenize(token);
 	// printf("%.*s\n", token->len, token->str);
 
-//	// parse
-//	t_node	*node = command_line(&token);
-//	printf("parse: =========================================\n");
-//	debug_node(node);
-//	expansion(node);
-//	printf("expansion: =========================================\n");
-//	debug_node(node);
+	// parse
+	t_node	*node = command_line(&token);
+	printf("parse: =========================================\n");
+	debug_node(node);
+	// expansion(node);
+	// printf("expansion: =========================================\n");
+	// debug_node(node);
 }

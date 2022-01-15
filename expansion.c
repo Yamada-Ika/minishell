@@ -27,7 +27,7 @@ static size_t	join_valiable(char *p, t_token **tok)
 	{
 		while (*p == ' ')
 			p++;
-		if (get_word_len(p," "))
+		if (get_word_len(p, " "))
 		{
 			count++;
 			cur->next = new_token(TK_EXP_WORD, p, get_word_len(p," "));
