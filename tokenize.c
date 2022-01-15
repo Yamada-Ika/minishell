@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_token	*new_token(t_token *cur, t_token_kind kind, char *p, size_t len)
+t_token	*new_token(t_token *cur, t_token_kind kind, char **p, size_t len)
 {
 	t_token	*new;
 
@@ -8,10 +8,11 @@ t_token	*new_token(t_token *cur, t_token_kind kind, char *p, size_t len)
 	if (new == NULL)
 		error("malloc error\n");
 	new->kind = kind;
-	new->str = p;
+	new->str = *p;
 	new->len = len;
 	cur->next = new;
 	new->prev = cur;
+	*p += len;
 	return (new);
 }
 
@@ -65,6 +66,12 @@ t_token_kind	check_word_kind(char *p)
 	return (kind);
 }
 
+static void	ft_skip_space(char **s)
+{
+	while (**s == ' ')
+		(*s)++;
+}
+
 t_token *tokenize(char *p)
 {
 	t_token			*cur;
@@ -75,20 +82,16 @@ t_token *tokenize(char *p)
 	cur = &head;
 	while (*p)
 	{
-		while (*p == ' ')
-			p++;
+		ft_skip_space(&p);
 		if (get_operator_len(p))
 		{
-			cur = new_token(cur, check_op(p), p, get_operator_len(p));
-			p += cur->len;
+			cur = new_token(cur, check_op(p), &p, get_operator_len(p));
 			continue ;
 		}
 		word_kind = check_word_kind(p);
-		fprintf(stderr, "kind : %d\n", word_kind);
 		if (word_kind != -1)
 		{
-			cur = new_token(cur, word_kind, p, get_word_len(p, word_kind, " ><|'\"" ));
-			p += cur->len;
+			cur = new_token(cur, word_kind, &p, get_word_len(p, word_kind, " ><|'\"" ));
 			continue ;
 		}
 	}
