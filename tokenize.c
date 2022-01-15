@@ -95,7 +95,7 @@ t_token *tokenize(char *p)
 			continue ;
 		}
 	}
-	cur = new_token(cur, TK_EOF, p, 0);
+	cur = new_token(cur, TK_EOF, &p, 0);
 	cur->next = head.next;
 	head.next->prev = cur;
 	return (head.next);
