@@ -75,6 +75,7 @@ t_token *tokenize(char *p)
 	t_token			*cur;
 	t_token			head;
 	t_token_kind	word_kind;
+	size_t			op_len;
 
 	head.next = NULL;
 	cur = &head;
@@ -83,9 +84,10 @@ t_token *tokenize(char *p)
 		_skip_space(&p);
 		if (*p == '\0')
 			break ;
-		if (_get_operator_len(p))
+		op_len = _get_operator_len(p);
+		if (op_len != 0)
 		{
-			cur = new_token(cur, check_op(p), &p, _get_operator_len(p));
+			cur = new_token(cur, check_op(p), &p, op_len);
 			continue ;
 		}
 		word_kind = _get_word_kind(p);
