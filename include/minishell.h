@@ -24,10 +24,10 @@ typedef enum e_token_kind
 	TK_OP_LS,			// "<"
 	TK_OP_GR,			// ">"
  	TK_OP_PIPE,			// "|"
-	TK_OP_SINGLE_Q,		// "'"
-	TK_OP_DOUBLE_Q,		// """
 	TK_OP_DOLLAR,		// "$"
 	TK_WORD,
+	TK_WORD_IN_SINGLE_Q,		// "'"
+	TK_WORD_IN_DOUBLE_Q,		// """
 	TK_EXP_WORD,
 	TK_EOF,
 } t_token_kind;
@@ -82,8 +82,7 @@ struct s_node
 void error(char *str);
 char	*here_doc(char *eos);
 int		check_op(char *s);
-size_t  get_word_len(char *p, char *str);
-
+size_t  get_word_len(char *p, t_token_kind kind, char *str);
 // parse.c
 t_node	*command_line(t_token **tok);
 

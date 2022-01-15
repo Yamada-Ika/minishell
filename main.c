@@ -31,7 +31,6 @@ static int	ft_set_signal(int	signal)
 void free_double(char **p)
 {
 	size_t i;
-
 	i = 0;
 	while (p[i])
 	{
