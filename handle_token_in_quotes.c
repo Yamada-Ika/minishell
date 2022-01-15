@@ -38,6 +38,12 @@ char	*remove_quotes(t_token *token, char quote)
 	return (str);
 }
 
+//char	*valiable_expansion_in_quote(char *str)
+//{
+//	char *
+//}
+
+
 void	handle_token_in_quotes(t_token *token)
 {
 	char *str;

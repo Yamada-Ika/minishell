@@ -272,7 +272,8 @@ int main(int argc, char **argv, char *envp[]) {
 		if (ft_strncmp(str, "exit", 4) == 0)
 			exit(0);
 		if (*str != '\0') // 改行が入力されたか
-			handle_command(envp, str);
+//			handle_command(envp, str);
+			main_(str);
 		free(str);
 	}
 	// system("leaks minishell");

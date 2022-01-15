@@ -55,7 +55,7 @@ static t_token_kind	_get_word_kind(char *p)
 		// fprintf(stderr, "56 : kind %d\n", kind);
 		if (kind == TK_WORD && ft_strchr(" ><|", *p))
 			return (kind);
-		if (kind == TK_WORD && *p == '$' && ft_isalnum( *(p + 1)))
+		if (kind == TK_WORD && *p == '$' && ft_isalnum(*(p + 1)))
 			return (TK_OP_DOLLAR);
 		p++;
 	}
