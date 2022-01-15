@@ -37,8 +37,6 @@ static t_token_kind	_get_word_kind(char *p)
 {
 	t_token_kind	kind;
 
-	if (*p == ' ' || *p == '\0')
-		return (-1);
 	kind = TK_WORD;
 	while (*p)
 	{
@@ -83,17 +81,15 @@ t_token *tokenize(char *p)
 	while (*p)
 	{
 		_skip_space(&p);
+		if (*p == '\0')
+			break ;
 		if (_get_operator_len(p))
 		{
 			cur = new_token(cur, check_op(p), &p, _get_operator_len(p));
 			continue ;
 		}
 		word_kind = _get_word_kind(p);
-		if (word_kind != -1)
-		{
-			cur = new_token(cur, word_kind, &p, get_word_len(p, word_kind, " ><|'\"" ));
-			continue ;
-		}
+		cur = new_token(cur, word_kind, &p, get_word_len(p, word_kind, " ><|'\"" ));
 	}
 	cur = new_token(cur, TK_EOF, &p, 0);
 	cur->next = head.next;
@@ -120,7 +116,7 @@ void debug_tokenize(t_token *token)
 	{
 		if (token == NULL)
 			continue ;
-		printf("{kind:%s, str:%.*s, prev->kind:%s, prev->str:%.*s}\n", 
+		printf("{kind:%20s, str:%.*s, prev->kind:%20s, prev->str:%.*s}\n", 
 			kind[token->kind],
 			token->len,
 			token->str,
