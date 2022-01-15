@@ -55,7 +55,7 @@ static t_token_kind	_get_word_kind(char *p)
 		// fprintf(stderr, "56 : kind %d\n", kind);
 		if (kind == TK_WORD && ft_strchr(" ><|", *p))
 			return (kind);
-		if (kind == TK_WORD && *p == '$' && !ft_strchr(" $", *(p + 1)))
+		if (kind == TK_WORD && *p == '$' && ft_isalnum( *(p + 1)))
 			return (TK_OP_DOLLAR);
 		p++;
 	}
@@ -185,11 +185,12 @@ void	debug_node(t_node *node)
 	}
 }
 
-int	main(int argc, char **argv)
+//int	main(int argc, char **argv)
+int	main_(char *str)
 {
-	if (argc == 1)
-		error("Invalid argument!\n");
-	t_token	*token = tokenize(argv[1]);
+//	if (argc == 1)
+//		error("Invalid argument!\n");
+	t_token	*token = tokenize(str);
 
 	// tokenize
 	if (token->kind == TK_EOF)
