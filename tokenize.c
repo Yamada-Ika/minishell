@@ -1,22 +1,24 @@
 #include "minishell.h"
 
-t_token	*new_token(t_token_kind kind, char *p, size_t len)
+t_token	*new_token(t_token *cur, t_token_kind kind, char *p, size_t len)
 {
-	t_token	*token;
+	t_token	*new;
 
-	token = (t_token *)ft_calloc(1, sizeof(t_token));
-	if (token == NULL)
+	new = (t_token *)ft_calloc(1, sizeof(t_token));
+	if (new == NULL)
 		error("malloc error\n");
-	token->kind = kind;
-	token->str = p;
-	token->len = len;
-	return (token);
+	new->kind = kind;
+	new->str = p;
+	new->len = len;
+	cur->next = new;
+	new->prev = cur;
+	return (new);
 }
 
 size_t get_operator_len(char *p)
 {
 	const char *kw[] = {"<<", ">>", "<", ">", "|", NULL};
-	size_t  i;
+	size_t		i;
 
 	i = 0;
 	if (*p == '$' && *(p + 1) != ' ')
@@ -30,22 +32,20 @@ size_t get_operator_len(char *p)
 	return (0);
 }
 
- t_token_kind	check_word_kind(char *p, char *str)
- {
+t_token_kind	check_word_kind(char *p, char *str)
+{
 	t_token_kind	kind;
 
-	kind = TK_WORD;
 	if (*p == ' ' || *p == '\0')
-	return (-1);
+		return (-1);
+	kind = TK_WORD;
 	while (*p)
 	{
 		if (*p == '\'' && kind != TK_WORD_IN_DOUBLE_Q)
 		{
-			printf("46===== %d\n", kind);
 			if (kind == TK_WORD_IN_SINGLE_Q)
 				return (kind);
 			kind = TK_WORD_IN_SINGLE_Q;
-			printf("===== %d\n", kind);
 		}
 		if (*p =='"' && kind != TK_WORD_IN_SINGLE_Q)
 		{
@@ -58,10 +58,9 @@ size_t get_operator_len(char *p)
 		p++;
 	}
 	if (kind != TK_WORD)
-	error("quote error");
+		error("quote error\n");
 	return (kind);
- }
-
+}
 
 t_token *tokenize(char *p)
 {
@@ -75,30 +74,23 @@ t_token *tokenize(char *p)
 	{
 		while (*p == ' ')
 			p++;
-		printf("------------------------------\n");
 		if (get_operator_len(p))
 		{
-			cur->next = new_token(check_op(p), p, get_operator_len(p));
-			cur->next->prev = cur;
-			cur = cur->next;
+			cur = new_token(cur, check_op(p), p, get_operator_len(p));
 			p += cur->len;
 			continue;
 		}
-		printf("85 p : %c\n", *p);
 		word_kind = check_word_kind(p, " ><|");
-		printf("87 kind : %d\n", word_kind);
 		if (word_kind != -1)
 		{
 			cur->next = new_token(word_kind, p, get_word_len(p,  word_kind, " ><|" ));
-			cur->next->prev = cur;
-			cur = cur->next;
 			p += cur->len;
 			continue;
 		}
 	}
-	cur->next = new_token(TK_EOF, p, 0);
-	cur->next->prev = cur;
-	head.next->prev = cur->next;
+	cur = new_token(cur, TK_EOF, p, 0);
+	cur->next = head.next;
+	head.next->prev = cur;
 	return (head.next);
 }
 
