@@ -78,14 +78,14 @@ t_token *tokenize(char *p)
 		{
 			cur = new_token(cur, check_op(p), p, get_operator_len(p));
 			p += cur->len;
-			continue;
+			continue ;
 		}
 		word_kind = check_word_kind(p, " ><|");
 		if (word_kind != -1)
 		{
-			cur->next = new_token(word_kind, p, get_word_len(p,  word_kind, " ><|" ));
+			cur = new_token(cur, word_kind, p, get_word_len(p, word_kind, " ><|" ));
 			p += cur->len;
-			continue;
+			continue ;
 		}
 	}
 	cur = new_token(cur, TK_EOF, p, 0);
