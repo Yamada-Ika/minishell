@@ -83,6 +83,8 @@ void error(char *str);
 char	*here_doc(char *eos);
 int		check_op(char *s);
 size_t  get_word_len(char *p, t_token_kind kind, char *str);
+size_t	get_valiable_name_len(char *str);
+
 // parse.c
 t_node	*command_line(t_token **tok);
 

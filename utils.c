@@ -44,3 +44,15 @@ size_t  get_word_len(char *p, t_token_kind kind, char *str)
 	}
 	return (len);
 }
+
+size_t	get_valiable_name_len(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	printf("utils.c 53:   str[i] = %c,  isalnum  %d\n",(unsigned char)str[i], ft_isalnum((unsigned char) str[i]));
+	while (ft_isalnum((char) str[i]))
+		i++;
+	printf("utils 56:   str[i] = %c, i == %zu\n",(unsigned char) str[i], i);
+	return (i);
+}

@@ -5,8 +5,8 @@ CFLAGS = -g -fsanitize=address #-Wall -Wextra -Werror
 LDFLAGS = -lreadline -lhistory -L$(shell brew --prefix readline)/lib
 INCLUDE = -Iinclude/ -I$(shell brew --prefix readline)/include -Iinclude
 # SRCS =  samples/pipe.c
- SRCS =  main.c ft_split_triple.c  here_doc.c  tokenize.c utils.c parse.c  expansion.c handle_token_in_quotes.c #sum_up_token_in_quote.c
-#SRCS =  test.c tokenize.c utils.c parse.c  expansion.c handle_token_in_quotes.c #sum_up_token_in_quote.c
+# SRCS =  main.c ft_split_triple.c  here_doc.c  tokenize.c utils.c parse.c  expansion.c handle_token_in_quotes.c #sum_up_token_in_quote.c
+SRCS = test.c tokenize.c utils.c parse.c  expansion.c handle_token_in_quotes.c #sum_up_token_in_quote.c
 OBJS = $(SRCS:%.c=%.o)
 
 all: $(NAME)
