@@ -92,4 +92,7 @@ void	expansion(t_node *node);
 // sum_up_token_in_quote.c
 void	sum_up_token_in_quote(t_node *node);
 
+//handle_token_in_quotes.c
+void	handle_token_in_quotes(t_token *token);
+
 # endif

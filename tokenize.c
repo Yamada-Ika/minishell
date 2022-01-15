@@ -205,7 +205,7 @@ int	main(int argc, char **argv)
 	t_node	*node = command_line(&token);
 	printf("parse: =========================================\n");
 	debug_node(node);
-	// expansion(node);
-	// printf("expansion: =========================================\n");
-	// debug_node(node);
+	 expansion(node);
+	 printf("expansion: =========================================\n");
+	 debug_node(node);
 }
