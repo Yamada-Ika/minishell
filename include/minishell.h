@@ -28,7 +28,6 @@ typedef enum e_token_kind
 	TK_WORD,
 	TK_WORD_IN_SINGLE_Q,		// "'"
 	TK_WORD_IN_DOUBLE_Q,		// """
-	TK_EXP_WORD,
 	TK_EOF,
 } t_token_kind;
 
@@ -85,6 +84,7 @@ char	*here_doc(char *eos);
 int		check_op(char *s);
 size_t  get_word_len(char *p, t_token_kind kind, char *str);
 size_t	get_valiable_name_len(char *str);
+bool	is_redirect_kind(t_token_kind kind);
 
 // parse.c
 t_node	*command_line(t_token **tok);

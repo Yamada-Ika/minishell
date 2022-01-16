@@ -58,3 +58,12 @@ size_t	get_valiable_name_len(char *str)
 	printf("utils 56:   str[i] = %c, i == %zu\n",(unsigned char) str[i], i);
 	return (i);
 }
+
+bool	is_redirect_kind(t_token_kind kind)
+{
+	return (kind == TK_OP_DOUBLE_GR
+		|| kind == TK_OP_SINGLE_LS
+		|| kind == TK_OP_LS
+		|| kind == TK_OP_GR
+	);
+}

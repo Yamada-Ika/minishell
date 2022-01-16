@@ -54,4 +54,5 @@ void	handle_token_in_quotes(t_token *token)
 	printf("remove_quotes 91 : %s\n", str);
 	token->str = str;
 	token->len = ft_strlen(str);
+	token->kind = TK_WORD;
 }

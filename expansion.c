@@ -116,11 +116,10 @@ static void debug_token(t_token *token, size_t loop_cnt)
 		"TK_OP_LS",
 		"TK_OP_GR",
 		"TK_OP_PIPE",
-		"TK_WORD_IN_SINGLE_Q",
-		"TK_WORD_IN_DOUBLE_Q",
 		"TK_OP_DOLLAR",
 		"TK_WORD",
-		"TK_EXP_WORD",
+		"TK_WORD_IN_SINGLE_Q",
+		"TK_WORD_IN_DOUBLE_Q",
 		"TK_EOF",
 	};
 	size_t	i;

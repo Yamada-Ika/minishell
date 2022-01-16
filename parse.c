@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:52:59 by iyamada           #+#    #+#             */
-/*   Updated: 2022/01/14 17:22:23 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/01/16 21:55:40 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ t_node	*new_node_pipe(t_token *token, t_node *left, t_node *right)
 	return (node);
 }
 
+static void	_check_continuous_redirect(t_token *tok)
+{
+	if (is_redirect_kind(tok) && is_redirect_kind(tok->next))
+		error("minishell: syntax error near unexpected token redirection\n");
+}
+
 t_node	*command_line(t_token **tok)
 {
 	t_node	*node;
@@ -64,6 +70,7 @@ t_node	*command_line(t_token **tok)
 	node = new_node_command(tok);
 	while ((*tok)->kind == TK_OP_PIPE)
 	{
+		// _check_continuous_redirect(*tok);
 		tmp_tk = *tok;
 		*tok = (*tok)->next;
 		tmp_nd = new_node_command(tok);

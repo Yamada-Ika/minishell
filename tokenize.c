@@ -146,7 +146,6 @@ void	debug_node(t_node *node)
 		"TK_WORD",
 		"TK_WORD_IN_SINGLE_Q",
 		"TK_WORD_IN_DOUBLE_Q",
-		"TK_EXP_WORD",
 		"TK_EOF",
 	};
 
