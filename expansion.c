@@ -92,7 +92,7 @@ static size_t	join_valiable(char **p, t_token **tok)
 	cur = &head;
 	while (p[count])
 	{
-		cur->next = new_token(TK_EXP_WORD, p[count], ft_strlen(p[count]));
+		cur->next = new_token(TK_WORD, p[count], ft_strlen(p[count]));
 		cur->next->prev = cur;
 		cur = cur->next;
 		count++;
@@ -235,6 +235,7 @@ void	expand_node(t_node *node) {
 		node->word_list = node->word_list->next;
 		}
 		node->word_list = head;
+		create_t_command(node);
 	}
 
 void	expansion(t_node *node)
