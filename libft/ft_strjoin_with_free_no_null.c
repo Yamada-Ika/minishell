@@ -27,9 +27,7 @@ char	*ft_strjoin_with_free_no_null(char *s1, char *s2)
 		ft_strlcat(total, s2, len + 1);
 	}
 	free(s1);
-	s1 = NULL;
 	free(s2);
-	s2 = NULL;
 	if (total == NULL)
 		return (NULL);
 	return (total);

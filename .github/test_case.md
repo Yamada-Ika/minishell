@@ -64,3 +64,7 @@ word_list_size 4 word_list->str $
 % echo $hoge
 ja_JP.UTF-8
 ```
+- 環境変数が空の場合の処理に不明点あり
+```
+cat | $hoge(空)
+```

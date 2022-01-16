@@ -5,7 +5,7 @@
 
 int sts;
 
-char *cmd1[] = {"cat", "main.c", NULL};
+char *cmd1[] = {"cat", "pipe.c", NULL};
 char *cmd2[] = {"head", NULL};
 char *cmd3[] = {"grep", "char", NULL};
 char **cmds[] = {cmd1, cmd2, cmd3};

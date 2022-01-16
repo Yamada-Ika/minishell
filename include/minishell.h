@@ -40,6 +40,7 @@ struct s_token
 	t_token			*prev;
 	char			*str;
 	size_t			len;
+	bool			is_join_prev;
 };
 
 t_token *tokenize(char *p);
@@ -90,6 +91,7 @@ t_node	*command_line(t_token **tok);
 
 // expansion.c
 void	expansion(t_node *node);
+char	*expand_str(char *str);
 
 // sum_up_token_in_quote.c
 void	sum_up_token_in_quote(t_node *node);
