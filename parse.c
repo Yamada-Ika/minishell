@@ -6,11 +6,19 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:52:59 by iyamada           #+#    #+#             */
-/*   Updated: 2022/01/16 21:55:40 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/01/16 22:28:57 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	_check_invalid_redirect(t_token *tok)
+{
+	if (is_redirect_kind(tok->kind) && (is_redirect_kind(tok->next->kind)
+		|| tok->next->kind == TK_OP_PIPE || tok->next->kind == TK_EOF)
+	)
+		error("minishell: syntax error near unexpected token redirection\n");
+}
 
 size_t	count_command_size(t_token **tok)
 {
@@ -19,6 +27,7 @@ size_t	count_command_size(t_token **tok)
 	cnt = 0;
 	while ((*tok)->kind != TK_EOF && (*tok)->kind != TK_OP_PIPE)
 	{
+		_check_invalid_redirect(*tok);
 		cnt++;
 		(*tok) = (*tok)->next;
 	}
@@ -55,11 +64,6 @@ t_node	*new_node_pipe(t_token *token, t_node *left, t_node *right)
 	return (node);
 }
 
-static void	_check_continuous_redirect(t_token *tok)
-{
-	if (is_redirect_kind(tok) && is_redirect_kind(tok->next))
-		error("minishell: syntax error near unexpected token redirection\n");
-}
 
 t_node	*command_line(t_token **tok)
 {
@@ -70,7 +74,6 @@ t_node	*command_line(t_token **tok)
 	node = new_node_command(tok);
 	while ((*tok)->kind == TK_OP_PIPE)
 	{
-		// _check_continuous_redirect(*tok);
 		tmp_tk = *tok;
 		*tok = (*tok)->next;
 		tmp_nd = new_node_command(tok);
