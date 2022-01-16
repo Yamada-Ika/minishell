@@ -55,7 +55,7 @@ struct s_redirect_list
 {
 	char			*word;
 	char			*redirect;
-	size_t			len;
+	// size_t			len;
 	t_redirect_list	*next;
 };
 
@@ -65,13 +65,14 @@ struct s_command
 	char			**word_list; // e.g. cat -option file_name
 	t_redirect_list	*in_redir;
 	t_redirect_list	*out_redir;
+	t_redirect_list	*heredoc;
 };
 
 typedef struct s_node t_node;
 struct s_node
 {
 	t_node_kind	kind;
-	t_command	*command;
+	t_command	command;
 	t_token		*word_list;
 	size_t		word_list_size;
 	t_node		*left;
@@ -98,6 +99,9 @@ void	sum_up_token_in_quote(t_node *node);
 
 //handle_token_in_quotes.c
 void	handle_token_in_quotes(t_token *token);
+
+// void	create_t_command.c
+void	create_t_command(t_node *node);
 
 //tmp
 int	main_(char *str);
