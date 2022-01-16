@@ -8,8 +8,11 @@ t_token	*new_token(t_token *cur, t_token_kind kind, char **p, size_t len)
 	if (new == NULL)
 		error("malloc error\n");
 	new->kind = kind;
-	new->str = *p;
+	new->is_join_prev = false;
+	new->str = ft_substr(*p, 0, len);
 	new->len = len;
+	if (cur->next == NULL  && *(*p - 1) != ' ')
+		new->is_join_prev = true;
 	cur->next = new;
 	new->prev = cur;
 	*p += len;
@@ -77,7 +80,7 @@ t_token *tokenize(char *p)
 	t_token_kind	word_kind;
 	size_t			op_len;
 
-	head.next = NULL;
+//	head.next = NULL;
 	cur = &head;
 	while (*p)
 	{
@@ -118,8 +121,9 @@ void debug_tokenize(t_token *token)
 	{
 		if (token == NULL)
 			continue ;
-		printf("{kind:%20s, str:%.*s, prev->kind:%20s, prev->str:%.*s}\n", 
+		printf("{kind:%20s, is_join_prev: %d, str:[%.*s], prev->kind:%20s, prev->str:[%.*s]}\n",
 			kind[token->kind],
+			token->is_join_prev,
 			token->len,
 			token->str,
 			kind[token->prev->kind],
