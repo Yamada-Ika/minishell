@@ -2,7 +2,6 @@
 
 static char	**_alloc_word_list(t_token *tok, size_t size)
 {
-	char	**word_list;
 	size_t	i;
 	size_t	word_list_size;
 
@@ -10,13 +9,105 @@ static char	**_alloc_word_list(t_token *tok, size_t size)
 	i = 0;
 	while (i < size)
 	{
-		if (tok->kind == TK_WORD && !_is_redirect_kind(tok->prev->kind))
+		if (tok->kind == TK_WORD && !is_redirect_kind(tok->prev->kind))
 			word_list_size++;
 		tok = tok->next;
 		i++;
 	}
-	
-	return (word_list);
+	fprintf(stderr, "***word_list_size : %zu\n", word_list_size);
+	return ((char **)ft_calloc(word_list_size + 1, sizeof(char *)));
+}
+
+static t_redirect_list	*_new_redir_list(char *word, char *redirct)
+{
+	t_redirect_list	*new;
+
+	new = (t_redirect_list *)ft_calloc(1, sizeof(t_redirect_list));
+	if (new == NULL && errno)
+		error(strerror(errno));
+	new->word = word;
+	new->redirect = redirct;
+	return (new);
+}
+
+static t_redirect_list	*_redir_lstlast(t_redirect_list *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+
+static void	_redir_lstadd_back(t_redirect_list **lst, t_redirect_list *new)
+{
+	t_redirect_list	*lst_last;
+
+	if (!lst || !new)
+		return ;
+	if (*lst)
+	{
+		lst_last = _redir_lstlast(*lst);
+		// fprintf(stderr, "-------word : %s redirect : %s\n", (*lst)->word, (*lst)->redirect);
+		lst_last->next = new;
+	}
+	else
+		*lst = new;
+}
+
+static void	_add_back_redir_list(t_redirect_list **redir_list, t_token *tok)
+{
+	t_redirect_list	*new;
+
+	new = _new_redir_list(tok->next->str, tok->str);
+	if (*redir_list == NULL)
+		*redir_list = new;
+	else
+		_redir_lstadd_back(redir_list, new);
+}
+
+static void	_add_redir_list(t_node *node, t_token *tok)
+{
+	if (tok->kind == TK_OP_GR || tok->kind == TK_OP_DOUBLE_GR) // > or >>
+		_add_back_redir_list(&node->command.in_redir, tok);
+	if (tok->kind == TK_OP_LS) // <
+		_add_back_redir_list(&node->command.out_redir, tok);
+	if (tok->kind == TK_OP_SINGLE_LS) // <<
+		_add_back_redir_list(&node->command.heredoc, tok);
+}
+
+static void	_debug_strs(char **strs)
+{
+	size_t	i = 0;
+
+	while (strs[i])
+	{
+		fprintf(stderr, "create_t_command : 42 : strs debug : %s\n", strs[i]);
+		i++;
+	}
+}
+
+static void	_debug_redirlist(t_redirect_list *lst)
+{
+	if (lst == NULL)
+		fprintf(stderr, "create_t_command : _debug_redirlist : lst is NULL!!!\n");
+	while (lst)
+	{
+		fprintf(stderr, "create_t_command : 85 : _debug_redirlist : word     : %s\n", lst->word);
+		fprintf(stderr, "create_t_command : 85 : _debug_redirlist : redirect : %s\n", lst->redirect);
+		lst = lst->next;
+	}
+}
+
+static void	_debug_command(t_command cmd)
+{
+	_debug_strs(cmd.word_list);
+	fprintf(stderr, "create_t_command : in_redir\n");
+	_debug_redirlist(cmd.in_redir);
+	fprintf(stderr, "create_t_command : out_redir\n");
+	_debug_redirlist(cmd.out_redir);
+	fprintf(stderr, "create_t_command : heredoc\n");
+	_debug_redirlist(cmd.heredoc);
 }
 
 // grep -a > file > file2
@@ -26,15 +117,27 @@ static char	**_alloc_word_list(t_token *tok, size_t size)
 void	create_t_command(t_node *node)
 {
 	size_t	i;
-	t_token	*head;
+	size_t	word_list_i;
+	t_token	*tok;
 
-	head = node->word_list;
-	node->command->word_list = _alloc_word_list(head, node->word_list_size);
+	tok = node->word_list;
+	node->command.word_list = _alloc_word_list(tok, node->word_list_size);
+	if (node->command.word_list == NULL && errno)
+		error(strerror(errno));
+	word_list_i = 0;
 	i = 0;
 	while (i < node->word_list_size)
 	{
-		
-		node->word_list = node->word_list->next;
+		if (tok->kind == TK_WORD && !is_redirect_kind(tok->prev->kind))
+			node->command.word_list[word_list_i++] = tok->str;
+		if (is_redirect_kind(tok->kind) && tok->next->kind == TK_WORD)
+		{
+			_add_redir_list(node, tok);
+			tok = tok->next;
+			i++;
+		}
+		tok = tok->next;
 		i++;
 	}
+	_debug_command(node->command);
 }
