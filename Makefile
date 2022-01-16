@@ -1,20 +1,24 @@
 NAME = minishell
 LIBFT = libft/libft.a
+DEBUG = test/debug.a
 CC = gcc
 CFLAGS = -g -fsanitize=address #-Wall -Wextra -Werror
 LDFLAGS = -lreadline -lhistory -L$(shell brew --prefix readline)/lib
 INCLUDE = -Iinclude/ -I$(shell brew --prefix readline)/include -Iinclude
 # SRCS =  samples/pipe.c
 # SRCS =  main.c ft_split_triple.c  here_doc.c  tokenize.c utils.c parse.c  expansion.c handle_token_in_quotes.c #sum_up_token_in_quote.c
-SRCS = test.c tokenize.c utils.c parse.c  expansion.c handle_token_in_quotes.c create_t_command.c #sum_up_token_in_quote.c
+SRCS = test.c tokenize.c utils.c parse.c  expansion.c handle_token_in_quotes.c create_t_command.c test/debug.c #sum_up_token_in_quote.c
 OBJS = $(SRCS:%.c=%.o)
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) $(LIBFT) $(LDFLAGS)
+$(NAME): $(LIBFT) $(OBJS) $(DEBUG)
+	#$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) $(LIBFT) $(LDFLAGS)
+	$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) $(DEBUG)  $(LIBFT) $(LDFLAGS)
 $(LIBFT): empty
 	make -C libft
+$(DEBUG): empty
+	make -C test
 empty:
 
 %.o:%.c
@@ -23,9 +27,11 @@ empty:
 clean:
 	$(RM) $(OBJS)
 	make clean -C libft
+	make clean -C test
 fclean: clean
 	$(RM) $(NAME)
 	$(RM) $(LIBFT)
+	$(RM) $(DEBUG)
 re: fclean all
 # test: $(NAME)
 # 	$(CC) $(CFLAGS) $(NAME) main.c &&./a.out

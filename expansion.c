@@ -45,7 +45,7 @@ char	*expand_str(char *str)
 		{
 			variable_name = ft_substr(str + i, 1, get_valiable_name_len(str + i + 1));
 			t_str = ft_strdup(getenv(variable_name));
-			printf("handle_token_in_quotes 56: variable_name = %s, str[i] = %c\n", variable_name, str[i]);
+			printf("handle_token_in_quotes 56: variable_name = %s, str[i] = %c\n",  variable_name, str[i]);
 			if (t_str == NULL && errno == 0)
 				t_str = ft_strdup("");
 			printf("handle_token_in_quotes 40: t_str = %s\n", t_str);
@@ -53,7 +53,7 @@ char	*expand_str(char *str)
 			printf("handle_token_in_quotes 42: t_str = %s\n", t_str);
 			i += ft_strlen(variable_name);
 			free(tmp);
-			tmp =  ft_strjoin_with_free_no_null(t_str, ft_substr(str+ i + 1, 0, ft_strlen(str+ i + 1)));
+			tmp = ft_strjoin_with_free_no_null(t_str, ft_substr(str+ i + 1, 0, ft_strlen(str+ i + 1)));
 			if (tmp == NULL)
 				error("handle_token_in_quotes.c 84: malloc error");
 			printf("handle_token_in_quotes 54: tmp = %s, i = %d\n", tmp, i);
@@ -65,7 +65,6 @@ char	*expand_str(char *str)
 //	if (tmp != NULL)
 		str = tmp;
 	return (str);
-	
 }
 
 static t_token	*new_token(t_token_kind kind, char *p, size_t len)
@@ -108,45 +107,8 @@ static size_t	join_valiable(char **p, t_token **tok)
 	return (count);
 }
 
-static void debug_token(t_token *token, size_t loop_cnt)
+size_t	replace_token(t_token **token, char *str)
 {
-	const char *kind[] = {
-		"TK_OP_DOUBLE_GR",
-		"TK_OP_SINGLE_LS",
-		"TK_OP_LS",
-		"TK_OP_GR",
-		"TK_OP_PIPE",
-		"TK_OP_DOLLAR",
-		"TK_WORD",
-		"TK_WORD_IN_SINGLE_Q",
-		"TK_WORD_IN_DOUBLE_Q",
-		"TK_EOF",
-	};
-	size_t	i;
-
-	i = 0;
-	while (i < loop_cnt)
-	{
-		if (token == NULL)
-		{
-			i++;
-			continue ;
-		}
-		printf("{kind:%s, str:%.*s, prev->kind:%s, prev->str:%.*s}\n", 
-			kind[token->kind],
-			token->len,
-			token->str,
-			kind[token->prev->kind],
-			token->prev->len,
-			token->prev->str
-			);
-		token = token->next;
-		i++;
-	}
-}
-
- size_t	replace_token(t_token **token, char *str)
- {
  	t_token	*head;
  	size_t	increase_tok_num;
 	char	**strs;

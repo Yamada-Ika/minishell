@@ -12,6 +12,7 @@
 #include <readline/history.h>
 
 #include "../libft/libft.h"
+//#include "../test/debug.h"
 #include <stdbool.h>
 #include <dirent.h>
 
@@ -105,5 +106,12 @@ void	create_t_command(t_node *node);
 
 //tmp
 int	main_(char *str);
+
+
+//debug
+void	debug_node(t_node *node);
+void debug_tokenize(t_token *token);
+void debug_token(t_token *token, size_t loop_cnt);
+void	_debug_command(t_command cmd);
 
 # endif

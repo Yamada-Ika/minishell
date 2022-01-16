@@ -76,40 +76,6 @@ static void	_add_redir_list(t_node *node, t_token *tok)
 		_add_back_redir_list(&node->command.heredoc, tok);
 }
 
-static void	_debug_strs(char **strs)
-{
-	size_t	i = 0;
-
-	while (strs[i])
-	{
-		fprintf(stderr, "create_t_command : 42 : strs debug : %s\n", strs[i]);
-		i++;
-	}
-}
-
-static void	_debug_redirlist(t_redirect_list *lst)
-{
-	if (lst == NULL)
-		fprintf(stderr, "create_t_command : _debug_redirlist : lst is NULL!!!\n");
-	while (lst)
-	{
-		fprintf(stderr, "create_t_command : 85 : _debug_redirlist : word     : %s\n", lst->word);
-		fprintf(stderr, "create_t_command : 85 : _debug_redirlist : redirect : %s\n", lst->redirect);
-		lst = lst->next;
-	}
-}
-
-static void	_debug_command(t_command cmd)
-{
-	_debug_strs(cmd.word_list);
-	fprintf(stderr, "create_t_command : in_redir\n");
-	_debug_redirlist(cmd.in_redir);
-	fprintf(stderr, "create_t_command : out_redir\n");
-	_debug_redirlist(cmd.out_redir);
-	fprintf(stderr, "create_t_command : heredoc\n");
-	_debug_redirlist(cmd.heredoc);
-}
-
 // grep -a > file > file2
 // word_list[0] = "grep"
 // word_list[1] = "-a"
