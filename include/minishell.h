@@ -104,8 +104,22 @@ void	handle_token_in_quotes(t_token *token);
 // void	create_t_command.c
 void	create_t_command(t_node *node);
 
+// exec.c
+char	**get_command_path(char **envp);
+void    handle_command(char **paths, t_node *node);
+
+// built_in_command.c
+void	pwd_();
+void	cd_(int i, char **cmds);
+
+// signal.c
+int	ft_get_signal(int	signal);
+int	ft_set_signal(int	signal);
+
+// run_command_line.c
+void	run_command_line(char *str, char **paths);
 //tmp
-int	main_(char *str);
+t_node	*main_(char *str);
 
 
 //debug

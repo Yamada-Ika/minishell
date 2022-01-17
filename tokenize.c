@@ -102,7 +102,7 @@ t_token *tokenize(char *p)
 	return (head.next);
 }
 //int	main(int argc, char **argv)
-int	main_(char *str)
+t_node	*main_(char *str)
 {
 //	if (argc == 1)
 //		error("Invalid argument!\n");
@@ -125,4 +125,7 @@ int	main_(char *str)
 	 expansion(node);
 	 printf("expansion: =========================================\n");
 	 debug_node(node);
+//	 printf("tokenize ========= token %zu\n", node->word_list_size);
+//	 printf("tokenize ========= token %s\n", node->word_list->str);
+	 return (node);
 }

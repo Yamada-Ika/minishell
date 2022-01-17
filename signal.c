@@ -1,33 +1,26 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 22:06:44 by iyamada           #+#    #+#             */
-/*   Updated: 2022/01/10 22:08:18 by iyamada          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-// signal
-# include <signal.h>
-
-volatile sig_atomic_t	g_signal;
-
-static void	ft_get_signal(int	signal)
+int	ft_get_signal(int	signal)
 {
-	g_signal = signal;
-}
-
-int	main(void)
-{
-	signal(SIGINT, ft_get_signal);
-	while (true)
+	if (signal == SIGINT)
 	{
-		pause();
-		printf("g_signal : %d\n", g_signal);
+		ft_putchar_fd('\n', 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
+	return (0);
 }
+
+int	ft_set_signal(int	signal)
+{
+	if (signal == SIGINT)
+	{
+		// ft_putchar_fd('\n', 1);
+		rl_on_new_line();
+		// rl_replace_line("", 0);
+		// rl_redisplay();
+	}
+	return (0);
+}
+
