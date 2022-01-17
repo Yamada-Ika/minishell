@@ -68,3 +68,8 @@ ja_JP.UTF-8
 ```
 cat | $hoge(空)
 ```
+- 初手joinだとword_listに入らない
+```
+ "l""s" -l
+ $hoge'l'
+```
