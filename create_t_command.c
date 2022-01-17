@@ -94,14 +94,14 @@ void	create_t_command(t_node *node)
 	i = 0;
 	while (i < node->word_list_size)
 	{
-		if (tok->kind == TK_WORD && !is_redirect_kind(tok->prev->kind))
-			node->command.word_list[word_list_i++] = tok->str;
 		if (is_redirect_kind(tok->kind) && tok->next->kind == TK_WORD)
 		{
 			_add_redir_list(node, tok);
 			tok = tok->next;
 			i++;
 		}
+		else if (tok->kind == TK_WORD)
+			node->command.word_list[word_list_i++] = tok->str;
 		tok = tok->next;
 		i++;
 	}
