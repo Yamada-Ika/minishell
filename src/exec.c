@@ -72,6 +72,10 @@ void recursive(t_node *node, char **paths)
 	if (pid == 0) {
 		close(fd[1]);
 		dup2(fd[0], 0);
+		if (node->right->command.in_redir != NULL)
+			handle_in_redir(node->right->command.in_redir);
+		if (node->right->command.out_redir != NULL)
+			handle_out_redir(node->right->command.out_redir);
 //		if (ft_strncmp(cmds[i][0], "pwd", 3) == 0 && cmds[i][1] == NULL)
 //			pwd_();
 //		else

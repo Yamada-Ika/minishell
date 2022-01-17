@@ -121,6 +121,9 @@ void	run_command_line(char *str, char **paths);
 //tmp
 t_node	*main_(char *str);
 
+// redirect.c
+void	handle_in_redir(t_redirect_list *redirect);
+void	handle_out_redir(t_redirect_list *redirect);
 
 //debug
 void	debug_node(t_node *node);
