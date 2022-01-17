@@ -11,7 +11,8 @@ t_token	*new_token(t_token *cur, t_token_kind kind, char **p, size_t len)
 	new->is_join_prev = false;
 	new->str = ft_substr(*p, 0, len);
 	new->len = len;
-	if (cur->next == NULL  && *(*p - 1) != ' ')
+	if (cur->next == NULL  && *(*p - 1) != ' ' && !is_redirect_kind(cur->kind) &&
+		cur->kind != TK_OP_PIPE && !is_redirect_kind(kind) && kind != TK_OP_PIPE)
 		new->is_join_prev = true;
 	cur->next = new;
 	new->prev = cur;
