@@ -3,12 +3,14 @@
 void	join_token_and_token_prev(t_token **token)
 {
 	printf("join_token_and_token_perv called\n");
-	(*token)->str = ft_strjoin_with_free(&(*token)->prev->str, &(*token)->str);
-	if ((*token)->str == NULL)
+	(*token)->prev->str = ft_strjoin_with_free(&(*token)->prev->str, &(*token)->str);
+	if ((*token)->prev->str == NULL)
 		error("expansion.c 7: malloc error");
-	(*token)->len = ft_strlen((*token)->str);
-	(*token)->prev->prev->next = *token;
-	(*token)->prev = (*token)->prev->prev;
+	(*token)->prev->len = ft_strlen((*token)->prev->str);
+	(*token)->prev->next = (*token)->next;
+	(*token)->next->prev = (*token)->prev;
+	printf("join_token_and_token_perv 12: str == %s\n", (*token)->prev->str);
+	free(*token);
 }
 
 char	*strdup_before_valiable(char *tmp, char *variable_name)
@@ -155,48 +157,33 @@ size_t	replace_token(t_token **token, char *str)
 
 void	expand_node(t_node *node) {
 	int op_kind;
-	size_t i;
-	size_t ret;
+	size_t cur_index;
+	size_t added_token_size;
 	t_token *head;
 
-	head = node->word_list;
-	i = 0;
-	fprintf(stderr, "word_list_size : %zu i : %zu\n", node->word_list_size, i);
-	while (i < node->word_list_size) {
+	head = node->word_list->prev;
+	cur_index = 0;
+	fprintf(stderr, "word_list_size : %zu cur_index : %zu\n", node->word_list_size, cur_index);
+	while (cur_index++ < node->word_list_size) {
 		op_kind = node->word_list->kind;
-		if (op_kind != TK_WORD_IN_SINGLE_Q && op_kind != TK_WORD_IN_DOUBLE_Q && op_kind != TK_OP_DOLLAR)
-			i++;
-		else if (op_kind == TK_WORD_IN_SINGLE_Q || op_kind == TK_WORD_IN_DOUBLE_Q)
-		{
+		if (op_kind == TK_WORD_IN_SINGLE_Q || op_kind == TK_WORD_IN_DOUBLE_Q)
 			handle_token_in_quotes(node->word_list);
-			i++;
-		}
 		else if (op_kind == TK_OP_DOLLAR)
 		{
-			if (i == 0)
-			{
-				ret = expand_token(&(node->word_list), op_kind);
-				i += ret;
-				node->word_list_size += ret - 1;
-				head = node->word_list;
-			}
-			else
-			{
-				ret = expand_token(&(node->word_list), op_kind);
-				i += ret;
-				node->word_list_size += ret - 1;
-			}
+			added_token_size = expand_token(&(node->word_list), op_kind) - 1;
+			cur_index += added_token_size;
+			node->word_list_size += added_token_size;
 		}
 		if (node->word_list->is_join_prev == true)
 		{
 			join_token_and_token_prev(&(node->word_list));
 			node->word_list_size -= 1;
-			i--;
+			cur_index--;
 		}
-		fprintf(stderr, "226         word_list_size : %zu i : %zu,  node->word_list->str = %s \n", node->word_list_size, i, node->word_list->str);
+		fprintf(stderr, "226         word_list_size : %zu i : %zu,  node->word_list->str = %s \n", node->word_list_size, cur_index, node->word_list->str);
 		node->word_list = node->word_list->next;
 		}
-		node->word_list = head;
+		node->word_list = head->next;
 		create_t_command(node);
 	}
 
