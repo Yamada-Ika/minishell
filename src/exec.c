@@ -31,6 +31,17 @@ void exec(char **paths, char **commands) {
 	size_t i;
 
 	i = 0;
+	if (ft_strncmp(commands[0], "cd", 2) == 0)
+	{
+		cd_(1, commands);
+		exit(0);
+	}
+	if (ft_strncmp(commands[0], "pwd", 3) == 0 && commands[1] == NULL)
+	{
+		pwd_();
+		exit(0);
+	}
+	else
 	command = ft_strjoin("/", commands[0]);
 	while (paths[i]) {
 		absolute_path = ft_strjoin(paths[i], command);
@@ -79,10 +90,7 @@ void recursive(t_node *node, char **paths)
 			handle_in_redir(node->right->command.in_redir);
 		if (node->right->command.out_redir != NULL)
 			handle_out_redir(node->right->command.out_redir);
-		if (ft_strncmp(node->right->command.word_list[0], "pwd", 3) == 0 && node->right->command.word_list[1] == NULL)
-			pwd_();
-		else
-			exec(paths, node->right->command.word_list);
+		exec(paths, node->right->command.word_list);
 		close(fd[0]);
 	}
 	else
@@ -97,29 +105,16 @@ void recursive(t_node *node, char **paths)
 void    handle_command(char **paths, t_node *node)
 {
 	int ret;
-//	int int_ret;
+	int int_ret;
 
-//	int_ret = signal(SIGINT, ft_set_signal);
+	int_ret = signal(SIGINT, ft_set_signal);
 	pid_t pid = fork();
 	if (pid == 0)
 	{
 		// here =  here_doc("EOS");
-//		ret = signal(SIGQUIT, SIG_DFL);
+		ret = signal(SIGQUIT, SIG_DFL);
 		recursive(node, paths);
 		return;
 	}
-	// if (signal(SIGINT, ft_set_signal) == SIG_ERR)
-	// 	printf("signal error\n");
-	// else
-	// 	return ;
-	// fprintf(stderr, "int_ret : %d\n", int_ret);
-	// if (int_ret == 0)
-	// {
-	// 	ft_putstr_fd("-----", STDERR_FILENO);
-	// 	return ;
-	// }
 	waitpid(pid, &sts, 0);
-	// fprintf(stderr, "hoge\n");
-//	if (ret != SIG_ERR)
-//		ft_putchar_fd('\n', STDOUT_FILENO);
 }
