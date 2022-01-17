@@ -26,7 +26,6 @@ char	**get_command_path(char **envp)
 
 void exec(char **paths, char **commands) {
 
-
 	char *absolute_path;
 	char *command;
 	size_t i;
@@ -61,28 +60,33 @@ void recursive(t_node *node, char **paths)
 
 	if (node->left == NULL )
 	{
+		if (node->command.in_redir != NULL)
+			handle_in_redir(node->command.in_redir);
+		if (node->command.out_redir != NULL)
+			handle_out_redir(node->command.out_redir);
 		exec(paths, node->command.word_list);
 		return;
 	}
 
-
 	pipe(fd);
 	pid = fork();
 
-	if (pid == 0) {
+	if (pid == 0)
+	{
 		close(fd[1]);
 		dup2(fd[0], 0);
 		if (node->right->command.in_redir != NULL)
 			handle_in_redir(node->right->command.in_redir);
 		if (node->right->command.out_redir != NULL)
 			handle_out_redir(node->right->command.out_redir);
-//		if (ft_strncmp(cmds[i][0], "pwd", 3) == 0 && cmds[i][1] == NULL)
-//			pwd_();
-//		else
+		if (ft_strncmp(node->right->command.word_list[0], "pwd", 3) == 0 && node->right->command.word_list[1] == NULL)
+			pwd_();
+		else
 			exec(paths, node->right->command.word_list);
 		close(fd[0]);
 	}
-	else {
+	else
+	{
 		close(fd[0]);
 		dup2(fd[1], 1);
 		recursive(node->left, paths);
