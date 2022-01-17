@@ -4,7 +4,7 @@ void	run_command_line(char *str, char **paths)
 {
 	t_token	*token;
 
-//	printf("run_command_line 7:  str = %s\n", str);
+	printf("run_command_line 7:  str = %s\n", str);
 	token = tokenize(str);
 	debug_tokenize(token);
 	// parse
