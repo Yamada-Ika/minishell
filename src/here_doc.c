@@ -62,6 +62,7 @@ bool	is_exec_with_here_doc(t_command command, char **paths)
 			dup2(fd[1], 1);
 			close(fd[1]);
 			ft_putstr_fd(last->word, 1);
+			exit (0);
 		}
 		else
 		{
