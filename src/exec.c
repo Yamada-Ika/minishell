@@ -31,17 +31,8 @@ void exec(char **paths, char **commands) {
 	size_t i;
 
 	i = 0;
-	if (ft_strncmp(commands[0], "cd", 2) == 0)
-	{
-		cd_(1, commands);
+	if (is_exec_built_in(commands) == true)
 		exit(0);
-	}
-	if (ft_strncmp(commands[0], "pwd", 3) == 0)
-	{
-		pwd_();
-		exit(0);
-	}
-	else
 	command = ft_strjoin("/", commands[0]);
 	while (paths[i]) {
 		absolute_path = ft_strjoin(paths[i], command);
@@ -76,7 +67,6 @@ void recursive(t_node *node, char **paths)
 		if (node->command.out_redir != NULL)
 			handle_out_redir(node->command.out_redir);
 		t_redirect_list *last = _redir_lstlast(node->command.out_redir);
-		fprintf(stderr,"last->word : %s, redirect %s\n", last->word, last->redirect);
 		if (last_is_here_doc(last))
 		{
 			pipe(fd);
@@ -128,6 +118,8 @@ void recursive(t_node *node, char **paths)
 void    handle_command(char **paths, t_node *node)
 {
 	signal(SIGINT, (void *)ft_set_signal);
+	if (node->left == NULL && is_exec_built_in(node->command.word_list) == true)
+		return;
 	pid_t pid = fork();
 	if (pid == 0)
 	{
