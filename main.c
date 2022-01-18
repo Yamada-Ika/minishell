@@ -11,7 +11,8 @@ int main(int argc, char **argv, char *envp[]) {
 	using_history();
 	read_history(".my_history"); // [ToDo]historyファイルが無いときの動作の検証
 	paths = get_command_path(envp);
-	while (1) {
+	while (1)
+	{
 		char *str = readline(prompt);
 		add_history(str);
 		if (str == NULL)
@@ -19,18 +20,8 @@ int main(int argc, char **argv, char *envp[]) {
 		if (ft_strncmp(str, "exit", 4) == 0)
 			exit(0);
 		if (*str != '\0') // 改行が入力されたか
-		{
-			pid = fork();
-			if (pid == 0)
-			{
-				run_command_line(str, paths);
-				free(str);
-				return (0);
-			}
-			waitpid(pid, &sts, 0);
-		}
+			run_command_line(str, paths);
 		free(str);
 	}
-	// system("leaks minishell");
 	write_history(".my_history");
 }

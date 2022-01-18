@@ -111,7 +111,8 @@ void    handle_command(char **paths, t_node *node);
 
 // built_in_command.c
 void	pwd_();
-void	cd_(int i, char **cmds);
+void	cd_(char **cmds);
+bool	is_exec_built_in(char **cmds);
 
 // signal.c
 int	ft_get_signal(int	signal);
