@@ -25,6 +25,9 @@ empty:
 %.o:%.c
 	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
 
+test:
+	make -C test
+
 clean:
 	$(RM) $(OBJS)
 	make clean -C libft
@@ -41,4 +44,4 @@ re: fclean all
 # test-: $(NAME)
 # 	$(CC) $(NAME) main.c &&./a.out
 
-.PHONY: all clean fclean re empty
+.PHONY: all clean fclean re empty test
