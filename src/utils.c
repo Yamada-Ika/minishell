@@ -67,3 +67,13 @@ bool	is_redirect_kind(t_token_kind kind)
 		|| kind == TK_OP_GR
 	);
 }
+
+t_redirect_list	*_redir_lstlast(t_redirect_list *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+

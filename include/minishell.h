@@ -87,6 +87,7 @@ int		check_op(char *s);
 size_t  get_word_len(char *p, t_token_kind kind, char *str);
 size_t	get_valiable_name_len(char *str);
 bool	is_redirect_kind(t_token_kind kind);
+t_redirect_list	*_redir_lstlast(t_redirect_list *lst);
 
 // parse.c
 t_node	*command_line(t_token **tok);
@@ -124,6 +125,10 @@ t_node	*main_(char *str);
 // redirect.c
 void	handle_in_redir(t_redirect_list *redirect);
 void	handle_out_redir(t_redirect_list *redirect);
+
+// here_doc.c
+bool	last_is_here_doc(t_redirect_list *last);
+char	*get_here_doc(char *eos);
 
 //debug
 void	debug_node(t_node *node);

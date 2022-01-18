@@ -22,11 +22,14 @@ void	handle_out_redir(t_redirect_list *redirect)
 	int	fd;
 
 	fprintf(stderr,"handle_out_redir called:  \n");
-	fd = open(redirect->word, O_RDONLY);
-	if (fd == -1)
-		error(strerror(errno));
-	dup2(fd, 0);
-	close(fd);
+	if (ft_strncmp(redirect->redirect, "<<", 2))
+	{
+		fd = open(redirect->word, O_RDONLY);
+		if (fd == -1)
+			error(strerror(errno));
+		dup2(fd, 0);
+		close(fd);
+	}
 	if (redirect->next != NULL)
 		handle_out_redir(redirect->next);
 }

@@ -30,15 +30,6 @@ static t_redirect_list	*_new_redir_list(char *word, char *redirct)
 	return (new);
 }
 
-static t_redirect_list	*_redir_lstlast(t_redirect_list *lst)
-{
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
-}
-
 static void	_redir_lstadd_back(t_redirect_list **lst, t_redirect_list *new)
 {
 	t_redirect_list	*lst_last;
@@ -58,7 +49,8 @@ static void	_redir_lstadd_back(t_redirect_list **lst, t_redirect_list *new)
 static void	_add_back_redir_list(t_redirect_list **redir_list, t_token *tok)
 {
 	t_redirect_list	*new;
-
+	if (tok->kind == TK_OP_SINGLE_LS)
+		tok->next->str = get_here_doc(tok->next->str);
 	new = _new_redir_list(tok->next->str, tok->str);
 	if (*redir_list == NULL)
 		*redir_list = new;
@@ -70,10 +62,10 @@ static void	_add_redir_list(t_node *node, t_token *tok)
 {
 	if (tok->kind == TK_OP_GR || tok->kind == TK_OP_DOUBLE_GR) // > or >>
 		_add_back_redir_list(&node->command.in_redir, tok);
-	if (tok->kind == TK_OP_LS) // <
+	if (tok->kind == TK_OP_LS || tok->kind == TK_OP_SINGLE_LS) // <
 		_add_back_redir_list(&node->command.out_redir, tok);
-	if (tok->kind == TK_OP_SINGLE_LS) // <<
-		_add_back_redir_list(&node->command.heredoc, tok);
+//	if (tok->kind == TK_OP_SINGLE_LS) // <<
+//		_add_back_redir_list(&node->command.heredoc, tok);
 }
 
 // grep -a > file > file2
