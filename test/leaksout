@@ -1,0 +1,2 @@
+leaks[41618]: leaks cannot find any existing process you have access to which has a name like 'pipex'; try running with `sudo`.
+leaks[41618]: [fatal] mach port for process 0 not valid
