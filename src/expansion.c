@@ -111,26 +111,29 @@ static size_t	join_valiable(char **p, t_token **tok)
 
 size_t	replace_token(t_token **token, char *str)
 {
- 	t_token	*head;
  	size_t	increase_tok_num;
 	char	**strs;
+	t_token	*tmp;
 
- 	head = *token;
  	if (*str == '\0')
  	{
+		 tmp = (*token)->prev;
+		 if ((*token)->next->is_join_prev == true)
+			 (*token)->next->is_join_prev = false;
  		(*token)->prev->next = (*token)->next;
- 		(*token)->next->prev = head->prev;
- 		*token = head->next;
-		free(head);
+ 		(*token)->next->prev = (*token)->prev;
+		free((*token));
  		free(str);
+		 *token = tmp;
+		fprintf(stderr,"126: p = %p\n", tmp);
  		return (0);
  	}
 	 strs = ft_split(str, ' ');
  	if (strs == NULL)
 		 error("expansion.c 153: malloc error");
  	increase_tok_num = join_valiable(strs, token);
- 	debug_token(head, 1);
- 	free(head);
+ 	debug_token((*token), 1);
+ 	free((*token));
 
  	return (increase_tok_num);
  }
@@ -173,6 +176,7 @@ void	expand_node(t_node *node) {
 			added_token_size = expand_token(&(node->word_list), op_kind) - 1;
 			cur_index += added_token_size;
 			node->word_list_size += added_token_size;
+			fprintf(stderr,"177: p = %p\n", node->word_list);
 		}
 		if (node->word_list->is_join_prev == true)
 		{
