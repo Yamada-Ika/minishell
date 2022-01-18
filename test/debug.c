@@ -24,9 +24,8 @@ void	debug_node(t_node *node)
 		head_left = node->word_list;
 		while (i_left < node->word_list_size)
 		{
-			printf("left:::::: word_list_size %zu word_list->str %.*s word_list->kind %s\n",
+			printf("left:::::: word_list_size %zu word_list->str %s word_list->kind %s\n",
 				   node->word_list_size,
-				   node->word_list->len,
 				   node->word_list->str,
 				   kind[node->word_list->kind]
 			);
@@ -41,9 +40,8 @@ void	debug_node(t_node *node)
 			head_right = node->right->word_list;
 			while (i_right < node->right->word_list_size)
 			{
-				printf("right:::::: word_list_size %zu word_list->str %.*s word_list->kind %s\n",
+				printf("right:::::: word_list_size %zu word_list->str %s word_list->kind %s\n",
 					   node->right->word_list_size,
-					   node->right->word_list->len,
 					   node->right->word_list->str,
 					   kind[node->right->word_list->kind]
 				);
@@ -76,13 +74,11 @@ void debug_tokenize(t_token *token)
 	{
 		if (token == NULL)
 			continue ;
-		printf("{kind:%20s, is_join_prev: %d, str:[%.*s], prev->kind:%20s, prev->str:[%.*s]}\n",
+		printf("{kind:%20s, is_join_prev: %d, str:[%s], prev->kind:%20s, prev->str:[%s]}\n",
 			   kind[token->kind],
 			   token->is_join_prev,
-			   token->len,
 			   token->str,
 			   kind[token->prev->kind],
-			   token->prev->len,
 			   token->prev->str
 		);
 		token = token->next;
@@ -113,12 +109,10 @@ void debug_token(t_token *token, size_t loop_cnt)
 			i++;
 			continue ;
 		}
-		printf("{kind:%s, str:%.*s, prev->kind:%s, prev->str:%.*s}\n",
+		printf("{kind:%s, str:%s, prev->kind:%s, prev->str:%s}\n",
 			   kind[token->kind],
-			   token->len,
 			   token->str,
 			   kind[token->prev->kind],
-			   token->prev->len,
 			   token->prev->str
 		);
 		token = token->next;
