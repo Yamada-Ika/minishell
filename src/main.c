@@ -6,8 +6,8 @@ int main(int argc, char **argv, char *envp[]) {
 	pid_t pid;
 	int sts;
 
-	signal(SIGINT, ft_get_signal);
-	signal(SIGQUIT	, SIG_IGN);
+	signal(SIGINT, (void *)ft_get_signal);
+	signal(SIGQUIT, SIG_IGN);
 	using_history();
 	read_history(".my_history"); // [ToDo]historyファイルが無いときの動作の検証
 	paths = get_command_path(envp);

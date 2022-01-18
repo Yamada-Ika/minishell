@@ -17,7 +17,7 @@ char	*remove_quotes(t_token *token, char quote)
 	str = ft_strdup("");
 	i = head_index;
 //	i = *head - *(token->str);
-		printf("handle_token_in_quotes.c 19: *cur %c, i %d\n", cur[i], i);
+		printf("handle_token_in_quotes.c 19: *cur %c, i %zu\n", cur[i], i);
 	while(i <= token->len)
 	{
 //		printf("handle_token_in_quotes.c 22: *cur %c\n", cur[i]);
@@ -26,7 +26,7 @@ char	*remove_quotes(t_token *token, char quote)
 			if (i != head_index)
 			{
 				tmp = ft_substr(token->str + head_index, 0, i - head_index);
-				printf("handle_token_in_quotes.c 19: tmp %s, len %d\n", tmp, i - head_index);
+				printf("handle_token_in_quotes.c 19: tmp %s, len %zu\n", tmp, i - head_index);
 				str = ft_strjoin_with_free(&str, &tmp);
 			}
 			if (str == NULL)
@@ -42,7 +42,7 @@ void	handle_token_in_quotes(t_token *token)
 {
 	char *str;
 
-	printf("remove_quotes: %.*s len %zu\n",token->len,  token->str, token->len);
+	printf("remove_quotes: %s len %zu\n", token->str, token->len);
 	if (token->kind == TK_WORD_IN_SINGLE_Q)
 		str = remove_quotes(token, '\'');
 	if (token->kind == TK_WORD_IN_DOUBLE_Q)

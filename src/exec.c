@@ -104,15 +104,12 @@ void recursive(t_node *node, char **paths)
 
 void    handle_command(char **paths, t_node *node)
 {
-	int ret;
-	int int_ret;
-
-	int_ret = signal(SIGINT, ft_set_signal);
+	signal(SIGINT, (void *)ft_set_signal);
 	pid_t pid = fork();
 	if (pid == 0)
 	{
 		// here =  here_doc("EOS");
-		ret = signal(SIGQUIT, SIG_DFL);
+		signal(SIGQUIT, (void *)SIG_DFL);
 		recursive(node, paths);
 		return;
 	}

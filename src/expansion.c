@@ -58,7 +58,7 @@ char	*expand_str(char *str)
 			tmp = ft_strjoin_with_free_no_null(t_str, ft_substr(str+ i + 1, 0, ft_strlen(str+ i + 1)));
 			if (tmp == NULL)
 				error("handle_token_in_quotes.c 84: malloc error");
-			printf("handle_token_in_quotes 54: tmp = %s, i = %d\n", tmp, i);
+			printf("handle_token_in_quotes 54: tmp = %s, i = %zu\n", tmp, i);
 //			printf("handle_token_in_quotes 54: tmp = %s, i = %d, tmp[i] = %c\n", tmp, i, tmp[i]);
 //			continue;
 		}
@@ -105,7 +105,7 @@ static size_t	join_valiable(char **p, t_token **tok)
 	(*tok)->prev->next = head.next;
 	head.next->prev = (*tok)->prev;
 	*tok = cur;
-	fprintf(stderr, "count : %lld\n", count);
+	fprintf(stderr, "count : %zu\n", count);
 	return (count);
 }
 
