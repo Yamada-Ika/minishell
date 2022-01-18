@@ -115,7 +115,7 @@ t_node	*main_(char *str)
 		free(token);
 		return (0);
 	}
-	printf("%s\n", token->prev->prev);
+	printf("%s\n", token->prev->prev->str);
 	debug_tokenize(token);
 	// printf("%.*s\n", token->len, token->str);
 
