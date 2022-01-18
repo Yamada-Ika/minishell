@@ -36,7 +36,7 @@ void exec(char **paths, char **commands) {
 		cd_(1, commands);
 		exit(0);
 	}
-	if (ft_strncmp(commands[0], "pwd", 3) == 0 && commands[1] == NULL)
+	if (ft_strncmp(commands[0], "pwd", 3) == 0)
 	{
 		pwd_();
 		exit(0);
@@ -75,7 +75,30 @@ void recursive(t_node *node, char **paths)
 			handle_in_redir(node->command.in_redir);
 		if (node->command.out_redir != NULL)
 			handle_out_redir(node->command.out_redir);
-		exec(paths, node->command.word_list);
+		t_redirect_list *last = _redir_lstlast(node->command.out_redir);
+		fprintf(stderr,"last->word : %s, redirect %s\n", last->word, last->redirect);
+		if (last_is_here_doc(last))
+		{
+			pipe(fd);
+			pid = fork();
+			if (pid == 0)
+			{
+				close(fd[0]);
+				dup2(fd[1], 1);
+				close(fd[1]);
+				ft_putstr_fd(last->word, 1);
+			}
+			else
+			{
+				close(fd[1]);
+				dup2(fd[0], 0);
+				close(fd[0]);
+				waitpid(pid, &sts, 0);
+				exec(paths, node->command.word_list);
+			}
+		}
+		else
+			exec(paths, node->command.word_list);
 		return;
 	}
 
@@ -86,19 +109,19 @@ void recursive(t_node *node, char **paths)
 	{
 		close(fd[1]);
 		dup2(fd[0], 0);
+		close(fd[0]);
 		if (node->right->command.in_redir != NULL)
 			handle_in_redir(node->right->command.in_redir);
 		if (node->right->command.out_redir != NULL)
 			handle_out_redir(node->right->command.out_redir);
 		exec(paths, node->right->command.word_list);
-		close(fd[0]);
 	}
 	else
 	{
 		close(fd[0]);
 		dup2(fd[1], 1);
-		recursive(node->left, paths);
 		close(fd[1]);
+		recursive(node->left, paths);
 	}
 }
 
