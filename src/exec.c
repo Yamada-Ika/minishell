@@ -42,6 +42,7 @@ void exec(char **paths, char **commands)
 		int ok = access(absolute_path, X_OK);
 		if (ok == F_OK)
 		{
+			free(command);
 			execve(absolute_path, commands, NULL);
 			free(absolute_path);
 			break;
@@ -52,8 +53,18 @@ void exec(char **paths, char **commands)
 	if (paths[i] == NULL) {
 		ft_putstr_fd("minishell: command not found: ", 2);
 		ft_putendl_fd(command + 1, 2);
+		exit (127);
 	}
-	free(command);
+}
+
+void	exec_t_command(t_command command, char **paths)
+{
+	if (command.in_redir != NULL)
+		handle_in_redir(command.in_redir);
+	if (command.out_redir != NULL)
+		handle_out_redir(command.out_redir);
+	if (is_exec_with_here_doc(command, paths) == false)
+		exec(paths, command.word_list);
 }
 
 void recursive(t_node *node, char **paths)
@@ -62,14 +73,7 @@ void recursive(t_node *node, char **paths)
 	int fd[2];
 
 	if (node->left == NULL )
-	{
-		if (node->command.in_redir != NULL)
-			handle_in_redir(node->command.in_redir);
-		if (node->command.out_redir != NULL)
-			handle_out_redir(node->command.out_redir);
-		if (is_exec_with_here_doc(node, paths) == false)
-			exec(paths, node->command.word_list);
-	}
+		exec_t_command(node->command, paths);
 
 	pipe(fd);
 	pid = fork();
@@ -79,12 +83,7 @@ void recursive(t_node *node, char **paths)
 		close(fd[1]);
 		dup2(fd[0], 0);
 		close(fd[0]);
-		if (node->right->command.in_redir != NULL)
-			handle_in_redir(node->right->command.in_redir);
-		if (node->right->command.out_redir != NULL)
-			handle_out_redir(node->right->command.out_redir);
-		if (is_exec_with_here_doc(node, paths) == false)
-			exec(paths, node->command.word_list);
+		exec_t_command(node->right->command, paths);
 	}
 	else
 	{

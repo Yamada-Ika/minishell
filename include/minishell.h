@@ -131,7 +131,7 @@ void	handle_out_redir(t_redirect_list *redirect);
 // here_doc.c
 bool	last_is_here_doc(t_redirect_list *last);
 char	*get_here_doc(char *eos);
-bool	is_exec_with_here_doc(t_node *node, char **paths);
+bool	is_exec_with_here_doc(t_command command, char **paths);
 
 //debug
 void	debug_node(t_node *node);

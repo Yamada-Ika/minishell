@@ -44,14 +44,14 @@ char	*get_here_doc(char *eos)
 	return (doc);
 }
 
-bool	is_exec_with_here_doc(t_node *node, char **paths)
+bool	is_exec_with_here_doc(t_command command, char **paths)
 {
 	int				fd[2];
 	int				sts;
 	pid_t			pid;
 	t_redirect_list *last;
 
-	last = _redir_lstlast(node->command.out_redir);
+	last = _redir_lstlast(command.out_redir);
 	if (last && ft_strncmp(last->redirect, "<<", 2) == 0)
 	{
 		pipe(fd);
@@ -69,7 +69,7 @@ bool	is_exec_with_here_doc(t_node *node, char **paths)
 			dup2(fd[0], 0);
 			close(fd[0]);
 			waitpid(pid, &sts, 0);
-			exec(paths, node->command.word_list);
+			exec(paths, command.word_list);
 		}
 	}
 	return (false);
