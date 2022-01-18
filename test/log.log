@@ -1,0 +1,4 @@
+
+ls
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
