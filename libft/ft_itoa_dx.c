@@ -34,8 +34,6 @@ static int	nummber_of_digits(unsigned long long n, int base)
 	i = 0;
 	if (n == 0)
 		return (1);
-	if (n < 0)
-		n *= -1;
 	while (n != 0)
 	{
 		i++;
@@ -50,8 +48,6 @@ static void	int_to_str(unsigned long long n, char *str_num, int base)
 	char	c;
 
 	c = 0;
-	if (n < 0)
-		n *= -1;
 	last_num = n % base;
 	n = n / base;
 	if (n > 0)

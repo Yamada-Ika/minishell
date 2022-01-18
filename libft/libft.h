@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdbool.h>
 # include "ft_printf/ft_printf.h"
 
 typedef struct s_list
@@ -75,5 +76,6 @@ int		ft_atoi_simple(const char *str);
 char	*ft_itoa_dx(unsigned long long n, int base);
 char	*ft_strjoin_with_free(char **s1, char **s2);
 char	*ft_strjoin_with_free_no_null(char *s1, char *s2);
+char	***ft_split_triple(char const **strs, char *sets);
 
 #endif
