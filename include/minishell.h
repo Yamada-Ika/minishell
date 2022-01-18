@@ -108,6 +108,7 @@ void	create_t_command(t_node *node);
 // exec.c
 char	**get_command_path(char **envp);
 void    handle_command(char **paths, t_node *node);
+void exec(char **paths, char **commands);
 
 // built_in_command.c
 void	pwd_();
@@ -130,6 +131,7 @@ void	handle_out_redir(t_redirect_list *redirect);
 // here_doc.c
 bool	last_is_here_doc(t_redirect_list *last);
 char	*get_here_doc(char *eos);
+bool	is_exec_with_here_doc(t_node *node, char **paths);
 
 //debug
 void	debug_node(t_node *node);

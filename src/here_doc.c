@@ -5,14 +5,14 @@
 //
 //}
 
-bool	last_is_here_doc(t_redirect_list *last)
-{
-	if (last == NULL)
-		return (false);
-	if (ft_strncmp(last->redirect, "<<", 2) == 0)
-		return (true);
-	return (false);
-}
+//bool	last_is_here_doc(t_redirect_list *last)
+//{
+//	if (last == NULL)
+//		return (false);
+//	if (ft_strncmp(last->redirect, "<<", 2) == 0)
+//		return (true);
+//	return (false);
+//}
 
 char	*get_here_doc(char *eos)
 {
@@ -42,6 +42,37 @@ char	*get_here_doc(char *eos)
 	free(str);
 	free(eos_n);
 	return (doc);
+}
+
+bool	is_exec_with_here_doc(t_node *node, char **paths)
+{
+	int				fd[2];
+	int				sts;
+	pid_t			pid;
+	t_redirect_list *last;
+
+	last = _redir_lstlast(node->command.out_redir);
+	if (last && ft_strncmp(last->redirect, "<<", 2) == 0)
+	{
+		pipe(fd);
+		pid = fork();
+		if (pid == 0)
+		{
+			close(fd[0]);
+			dup2(fd[1], 1);
+			close(fd[1]);
+			ft_putstr_fd(last->word, 1);
+		}
+		else
+		{
+			close(fd[1]);
+			dup2(fd[0], 0);
+			close(fd[0]);
+			waitpid(pid, &sts, 0);
+			exec(paths, node->command.word_list);
+		}
+	}
+	return (false);
 }
 
 
