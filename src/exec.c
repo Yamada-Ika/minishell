@@ -32,8 +32,10 @@ void exec(char **paths, char **commands)
 	size_t i;
 
 	i = 0;
-	if (is_exec_built_in(commands, NULL) == true)
-		exit(0);
+	if (ft_strncmp(commands[0], "cd", 2) == 0)
+		cd_(commands);
+	if (ft_strncmp(commands[0], "pwd", 3) == 0)
+		pwd_();
 	command = ft_strjoin("/", commands[0]);
 	while (paths[i]) {
 		absolute_path = ft_strjoin(paths[i], command);
@@ -96,7 +98,7 @@ void recursive(t_node *node, char **paths)
 void    handle_command(char **paths, t_node *node)
 {
 	signal(SIGINT, (void *)ft_set_signal);
-	if (node->left == NULL && is_exec_built_in(node->command.word_list, &node->command) == true)
+	if (node->left == NULL && is_exec_built_in(node->command.word_list, node->command) == true)
 		return;
 	pid_t pid = fork();
 	if (pid == 0)

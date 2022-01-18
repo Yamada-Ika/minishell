@@ -22,25 +22,17 @@ void	cd_(char **cmds)
 	printf("\n%s\n",pathname);
 }
 
-void redirect_in_parrent( t_command *redir, int *fd)
+void redirect_in_parrent( t_command redir, int *fd)
 {
-	if (redir)
-	{
-		fd[0] = dup(0);
-		fd[1] = dup(1);
-		if ((*redir).in_redir != NULL)
-			handle_in_redir((*redir).in_redir);
-		if ((*redir).out_redir != NULL)
-			handle_out_redir((*redir).out_redir);
-	}
-	else
-	{
-		fd[0] = 0;
-		fd[1] = 0;
-	}
+	fd[0] = dup(0);
+	fd[1] = dup(1);
+	if (redir.in_redir != NULL)
+		handle_in_redir(redir.in_redir);
+	if (redir.out_redir != NULL)
+		handle_out_redir(redir.out_redir);
 }
 
-bool	is_exec_built_in(char **cmds, t_command *redir)
+bool	is_exec_built_in(char **cmds, t_command redir)
 {
 	int	fd[2];
 

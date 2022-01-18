@@ -113,7 +113,7 @@ void exec(char **paths, char **commands);
 // built_in_command.c
 void	pwd_();
 void	cd_(char **cmds);
-bool	is_exec_built_in(char **cmds, t_command *redir);
+bool	is_exec_built_in(char **cmds, t_command redir);
 
 // signal.c
 int	ft_get_signal(int	signal);
