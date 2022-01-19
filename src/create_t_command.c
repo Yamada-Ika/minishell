@@ -39,7 +39,6 @@ static void	_redir_lstadd_back(t_redirect_list **lst, t_redirect_list *new)
 	if (*lst)
 	{
 		lst_last = _redir_lstlast(*lst);
-		// fprintf(stderr, "-------word : %s redirect : %s\n", (*lst)->word, (*lst)->redirect);
 		lst_last->next = new;
 	}
 	else
@@ -68,10 +67,6 @@ static void	_add_redir_list(t_node *node, t_token *tok)
 //		_add_back_redir_list(&node->command.heredoc, tok);
 }
 
-// grep -a > file > file2
-// word_list[0] = "grep"
-// word_list[1] = "-a"
-// out_redir -> "file", "file2"
 void	create_t_command(t_node *node)
 {
 	size_t	i;

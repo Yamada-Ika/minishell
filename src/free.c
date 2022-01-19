@@ -3,6 +3,7 @@
 void	free_token_list(t_token *token)
 {
 	t_token *token_next;
+	fprintf(stderr, "free_token_list: token-str = %s, token-kind = %d\n", token->str, token->kind);
 	while (token->kind != TK_EOF)
 	{
 		free (token->str);
@@ -30,11 +31,12 @@ void free_double(char **p)
 
 void	free_t_redirect_list(t_redirect_list *redirect)
 {
+	t_redirect_list	*next_redirect;
 	while(redirect)
 	{
-		free(redirect->word);
-		free(redirect->redirect);
-		redirect = redirect->next;
+		next_redirect = redirect->next;
+		free(redirect);
+		redirect = next_redirect;
 	}
 }
 

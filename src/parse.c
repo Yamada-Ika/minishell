@@ -77,25 +77,35 @@ t_node	*new_node_pipe(t_token *token, t_node *left, t_node *right)
 	return (node);
 }
 
+t_node	*parse_error(t_node *node, t_token *token)
+{
+	free_token_list(token);
+	if (node != NULL)
+		free_node_list(node);
+	return (NULL);
+}
+
 t_node	*command_line(t_token **tok)
 {
-	t_node	*node;
 	t_token	*tmp_tk;
+	t_token	*tk_eof;
+	t_node	*node;
 	t_node	*tmp_nd;
 
+	tk_eof = (*tok)->prev;
 	node = new_node_command(tok);
+	if (node == NULL)
+		return (parse_error(node, tk_eof->next));
 	while ((*tok)->kind == TK_OP_PIPE)
 	{
 		tmp_tk = *tok;
 		*tok = (*tok)->next;
 		tmp_nd = new_node_command(tok);
 		if (tmp_nd == NULL)
-		{
-			free_node_list(node);
-			return (NULL);
-		}
+			return (parse_error(node, tk_eof->next));
 		node = new_node_pipe(tmp_tk, node, tmp_nd);
 	}
+	*tok = tk_eof;
 	return (node);
 }
 
