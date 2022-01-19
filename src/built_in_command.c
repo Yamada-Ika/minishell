@@ -1,27 +1,5 @@
 #include "minishell.h"
 
-void	pwd_()
-{
-	char	pathname[512];
-
-	getcwd(pathname, 512); // getcwdはカレントディレクトリ
-	printf("%s\n",pathname);
-}
-
-void	cd_(char **cmds)
-{
-	char	pathname[512];
-	DIR		*dp;
-	struct dirent *dirp;
-
-	memset(pathname, '\0', 512); // memsetはバイトメモリブロックのセット
-
-	chdir(cmds[1]);
-	printf("\n%s\n",cmds[1]);
-	getcwd(pathname, 512); // getcwdはカレントディレクトリ
-	printf("\n%s\n",pathname);
-}
-
 void redirect_in_parrent( t_command redir, int *fd)
 {
 	fd[0] = dup(0);
