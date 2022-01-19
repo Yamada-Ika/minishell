@@ -2,7 +2,7 @@ NAME = debug.a
 CC = gcc
 CFLAGS = #-Wall -Wextra -Werror
 LDFLAGS = -lreadline -lhistory -L$(shell brew --prefix readline)/lib
-INCLUDE = -I ../include -I$(shell brew --prefix readline)/include -Iinclude
+INCLUDE = -I ../include -I$(shell brew --prefix readline)/include -Iinclude -I../builtin -I../libft
 SRCS = debug.c
 OBJS = $(SRCS:%.c=%.o)
 
