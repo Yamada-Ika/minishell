@@ -133,6 +133,10 @@ bool	last_is_here_doc(t_redirect_list *last);
 char	*get_here_doc(char *eos);
 bool	is_exec_with_here_doc(t_command command, char **paths);
 
+// free.c
+void	free_token_list(t_token *token);
+void	free_node_list(t_node *node);
+
 //debug
 void	debug_node(t_node *node);
 void debug_tokenize(t_token *token);
