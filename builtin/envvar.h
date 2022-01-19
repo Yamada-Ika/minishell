@@ -1,6 +1,10 @@
 #ifndef ENVVAR_H
 #define ENVVAR_H
 
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+
 typedef struct s_envvar t_envvar;
 struct s_envvar
 {
@@ -9,18 +13,14 @@ struct s_envvar
 	t_envvar	*next;
 };
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-
 // env.c
-void	env(t_envvar *envs);
+void	msh_env(t_envvar *envs);
 
 // export.c
-void	export(t_envvar **envs, char *key, char *val);
+void	msh_export(t_envvar **envs, char *key, char *val);
 
 // unset.c
-void	unset(t_envvar **envs, char *key);
+void	msh_unset(t_envvar **envs, char *key);
 
 // envvar_utils.c
 t_envvar	*new_envlist(char *key, char *val);

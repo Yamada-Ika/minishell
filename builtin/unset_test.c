@@ -12,18 +12,18 @@ int	main(void)
 	fflush(stdout);
 	bzero(stdout_buf, 8192);
 	setbuf(stdout, stdout_buf);
-	export(&env_var, strdup("key"), strdup("val"));
-	export(&env_var, strdup("hoge"), strdup("hoge_val"));
-	unset(&env_var, "key");
-	env(env_var);
+	msh_export(&env_var, strdup("key"), strdup("val"));
+	msh_export(&env_var, strdup("hoge"), strdup("hoge_val"));
+	msh_unset(&env_var, "key");
+	msh_env(env_var);
 	ex = "hoge=hoge_val";
 	assert(strncmp(stdout_buf, ex, strlen(ex)) == 0);
 
 	fflush(stdout);
 	bzero(stdout_buf, 8192);
 	setbuf(stdout, stdout_buf);
-	unset(&env_var, "hoge");
-	env(env_var);
+	msh_unset(&env_var, "hoge");
+	msh_env(env_var);
 	ex = "";
 	assert(strncmp(stdout_buf, ex, strlen(ex)) == 0);
 

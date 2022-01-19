@@ -1,9 +1,9 @@
 #include "envvar.h"
 
-void	export(t_envvar **envs, char *key, char *val)
+void	msh_export(t_envvar **envs, char *key, char *val)
 {
 	if (key == NULL && val == NULL)
-		env(*envs);
+		msh_env(*envs);
 	else if (*envs == NULL)
 		*envs = new_envlist(key, val);
 	else

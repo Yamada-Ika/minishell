@@ -12,7 +12,7 @@ int	main(void)
 	fflush(stdout);
 	bzero(stdout_buf, 8192);
 	setbuf(stdout, stdout_buf);
-	env(env_var);
+	msh_env(env_var);
 	printf("%s\n", stdout_buf);
 	ex = "";
 	assert(strncmp(stdout_buf, ex, strlen(ex)) == 0);
@@ -20,8 +20,8 @@ int	main(void)
 	fflush(stdout);
 	bzero(stdout_buf, 8192);
 	setbuf(stdout, stdout_buf);
-	export(&env_var, strdup("key"), strdup("val"));
-	env(env_var);
+	msh_export(&env_var, strdup("key"), strdup("val"));
+	msh_env(env_var);
 	printf("%s\n", stdout_buf);
 	ex = "key=val";
 	assert(strncmp(stdout_buf, ex, strlen(ex)) == 0);

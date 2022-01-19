@@ -1,6 +1,6 @@
 #include "envvar.h"
 
-void	unset(t_envvar **envs, char *key)
+void	msh_unset(t_envvar **envs, char *key)
 {
 	t_envvar	*head;
 	t_envvar	*cur;

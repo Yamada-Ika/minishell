@@ -1,6 +1,6 @@
 #include "envvar.h"
 
-void	env(t_envvar *envs)
+void	msh_env(t_envvar *envs)
 {
 	while (envs != NULL)
 	{
