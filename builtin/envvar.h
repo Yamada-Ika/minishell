@@ -1,9 +1,11 @@
 #ifndef ENVVAR_H
 #define ENVVAR_H
 
-#include <stdlib.h>
-#include <string.h>
+// #include <stdlib.h>
+// #include <string.h>
 #include <stdio.h>
+
+#include "libft.h"
 
 typedef struct s_envvar t_envvar;
 struct s_envvar
@@ -21,6 +23,12 @@ void	msh_export(t_envvar **envs, char *key, char *val);
 
 // unset.c
 void	msh_unset(t_envvar **envs, char *key);
+
+// my_getenv.c
+char	*my_getenv(t_envvar *envs, char *key);
+
+// inherite_env_val.c
+void	inherite_env_val(t_envvar **env_list, char **envp);
 
 // envvar_utils.c
 t_envvar	*new_envlist(char *key, char *val);

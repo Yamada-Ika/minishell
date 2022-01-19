@@ -21,6 +21,8 @@ t_envvar	*get_envlistlast(t_envvar *envs)
 	return (envs);
 }
 
+// 前につけた方が良い（追加した順に取得したら計算量減らせる）
+// oldsがNULLだった時にlistnewする責任をここにする
 void	add_envlist(t_envvar *olds, t_envvar *new)
 {
 	t_envvar	*olds_last;
