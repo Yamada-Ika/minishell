@@ -6,9 +6,13 @@ void	run_command_line(char *str, char **paths)
 
 	printf("run_command_line 7:  str = %s\n", str);
 	token = tokenize(str);
+	if (token == NULL)
+		return;
 	debug_tokenize(token);
 	// parse
 	t_node	*node = command_line(&token);
+	if (node == NULL)
+		return;
 	printf("parse: =========================================\n");
 	debug_node(node);
 	printf("expansion: =========================================\n");
