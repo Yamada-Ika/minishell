@@ -12,8 +12,12 @@ then
 else
 	ARG="EXPAND"
 fi
-LDFLAGS="-lreadline -lhistory -L$(brew --prefix readline)/lib"
-INCLUDE="-I ../include -I$(brew --prefix readline)/include -Iinclude"
+#LDFLAGS="-lreadline -lhistory -L$(brew --prefix readline)/lib"
+INCLUDE="-I ../include"
+#LDFLAGS="-lreadline -lhistory -L$(brew --prefix readline)/lib"
+#INCLUDE="-I ../include -I$(brew --prefix readline)/include -Iinclude"
 echo "$2" >> log.log
-gcc $INCLUDE $LDFLAGS -D$ARG -o debug ../src/*.c *.c ../libft/libft.a && ./debug $2 1>> log.log
-rm -rf debug
+gcc $INCLUDE -D$ARG -o debug ../src/parse.c ../src/expansion.c ../src/tokenize.c ../src/utils.c ../src/free.c \
+ ../src/here_doc.c  ../src/handle_token_in_quotes.c ../src/create_t_command.c *.c ../libft/libft.a && ./debug $2 1>> log.log
+#gcc $INCLUDE $LDFLAGS -D$ARG -o debug ../src/*.c *.c ../libft/libft.a && ./debug $2 1>> log.log
+#rm -rf debug
