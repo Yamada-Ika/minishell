@@ -9,10 +9,10 @@ void	msh_unset(t_envvar **envs, char *key)
 
 	head = *envs;
 	prev = NULL;
-	key_len = strlen(key);
+	key_len = ft_strlen(key);
 	while (*envs != NULL)
 	{
-		if (strcmp((*envs)->key, key) == 0)
+		if (ft_strcmp((*envs)->key, key) == 0)
 		{
 			delete_envvar_contents((*envs)->key, (*envs)->val);
 			cur = *envs;
