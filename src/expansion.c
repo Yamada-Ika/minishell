@@ -54,6 +54,7 @@ char	*expand_str(char *str)
 			t_str = ft_strjoin_with_free_no_null(strdup_before_valiable(tmp, variable_name), t_str);
 			printf("handle_token_in_quotes 42: t_str = %s\n", t_str);
 			i += ft_strlen(variable_name);
+			free(variable_name);
 			free(tmp);
 			tmp = ft_strjoin_with_free_no_null(t_str, ft_substr(str+ i + 1, 0, ft_strlen(str+ i + 1)));
 			if (tmp == NULL)
@@ -99,6 +100,7 @@ static size_t	join_valiable(char **p, t_token **tok)
 		count++;
 		printf("expansion.c 88: count %zu\n", count);
 	}
+	free(p);
 	cur->next = (*tok)->next;
 	printf("expansion.c 91: tok-next-str %s\n",  (*tok)->next->str);
 	cur->next->prev = cur;
@@ -132,6 +134,7 @@ size_t	replace_token(t_token **token, char *str)
 	 strs = ft_split(str, ' ');
  	if (strs == NULL)
 		 error("expansion.c 153: malloc error");
+	free(str);
  	increase_tok_num = join_valiable(strs, token);
  	debug_token((*token), 1);
  	// free((*token));
