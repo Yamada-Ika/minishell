@@ -6,20 +6,20 @@
 #define EXPAND 1
 #endif
 
-__attribute__((destructor))
-void	destructor(void)
-{
-	int	status;
-
-	system("leaks debug");
-//	status = system("leaks debug &> leaksout");
-//	if (status)
-//	{
-//		write(2, "leak!!!\n", 8);
-//		system("cat leaksout >/dev/stderr");
-//		exit(1);
-//	}
-}
+//__attribute__((destructor))
+//void	destructor(void)
+//{
+//	int	status;
+//
+//	system("leaks debug");
+////	status = system("leaks debug &> leaksout");
+////	if (status)
+////	{
+////		write(2, "leak!!!\n", 8);
+////		system("cat leaksout >/dev/stderr");
+////		exit(1);
+////	}
+//}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -53,7 +53,8 @@ int	main(int argc, char **argv, char **envp)
 	printf("expand =========================================\n");
 	debug_node(node);
 	#endif
-	free_token_list(token);
+//	fprintf(stderr, "===== kind = %d\n", token->kind);
+	free_token_list(token->next);
 	free_node_list(node);
 
 	// handle_command

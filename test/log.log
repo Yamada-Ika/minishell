@@ -4,3 +4,243 @@ expand =========================================
 left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
 
 
+ls | cat
+ls | cat
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+ls | cat
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+ls
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+ls | cat
+ls | cat
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+Process:         debug [52356]
+Path:            /Users/USER/*/debug
+Load Address:    0x10d6df000
+Identifier:      debug
+Version:         ???
+Code Type:       X86-64
+Platform:        macOS
+Parent Process:  bash [52341]
+
+Date/Time:       2022-01-19 14:07:10.033 +0900
+Launch Time:     2022-01-19 14:07:09.279 +0900
+OS Version:      macOS 11.6.2 (20G314)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 13.2.1 (13C100)
+
+Physical footprint:         328K
+Physical footprint (peak):  328K
+----
+
+leaks Report Version: 4.0
+Process 52356: 166 nodes malloced for 12 KB
+Process 52356: 1 leak for 48 total leaked bytes.
+
+    1 (48 bytes) ROOT LEAK: 0x7f98acd04080 [48]
+
+ls | cat
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+Process:         debug [52447]
+Path:            /Users/USER/*/debug
+Load Address:    0x101e4d000
+Identifier:      debug
+Version:         ???
+Code Type:       X86-64
+Platform:        macOS
+Parent Process:  bash [52432]
+
+Date/Time:       2022-01-19 14:07:52.142 +0900
+Launch Time:     2022-01-19 14:07:51.440 +0900
+OS Version:      macOS 11.6.2 (20G314)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 13.2.1 (13C100)
+
+Physical footprint:         296K
+Physical footprint (peak):  296K
+----
+
+leaks Report Version: 4.0
+Process 52447: 171 nodes malloced for 13 KB
+Process 52447: 6 leaks for 224 total leaked bytes.
+
+    6 (224 bytes) ROOT LEAK: 0x7faad6405a90 [80]
+       4 (128 bytes) 0x7faad6405a10 [48]
+          2 (64 bytes) 0x7faad6405a50 [48]
+             1 (16 bytes) 0x7faad6405a80 [16]
+          1 (16 bytes) 0x7faad6405a40 [16]  length: 2  "ls"
+       1 (16 bytes) 0x7faad6405ae0 [16]
+
+ls | cat
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+Process:         debug [52500]
+Path:            /Users/USER/*/debug
+Load Address:    0x1063f4000
+Identifier:      debug
+Version:         ???
+Code Type:       X86-64
+Platform:        macOS
+Parent Process:  bash [52485]
+
+Date/Time:       2022-01-19 14:08:18.906 +0900
+Launch Time:     2022-01-19 14:08:18.209 +0900
+OS Version:      macOS 11.6.2 (20G314)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 13.2.1 (13C100)
+
+Physical footprint:         296K
+Physical footprint (peak):  296K
+----
+
+leaks Report Version: 4.0
+Process 52500: 169 nodes malloced for 13 KB
+Process 52500: 4 leaks for 160 total leaked bytes.
+
+    4 (160 bytes) ROOT LEAK: 0x7ff436c05a90 [80]
+       2 (64 bytes) 0x7ff436c05a10 [48]
+          1 (16 bytes) 0x7ff436c05a40 [16]  length: 2  "ls"
+       1 (16 bytes) 0x7ff436c05ae0 [16]
+
+ls | cat
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+Process:         debug [52556]
+Path:            /Users/USER/*/debug
+Load Address:    0x10a8e3000
+Identifier:      debug
+Version:         ???
+Code Type:       X86-64
+Platform:        macOS
+Parent Process:  bash [52541]
+
+Date/Time:       2022-01-19 14:08:30.722 +0900
+Launch Time:     2022-01-19 14:08:30.155 +0900
+OS Version:      macOS 11.6.2 (20G314)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 13.2.1 (13C100)
+
+Physical footprint:         296K
+Physical footprint (peak):  296K
+----
+
+leaks Report Version: 4.0
+Process 52556: 166 nodes malloced for 12 KB
+Process 52556: 1 leak for 48 total leaked bytes.
+
+    1 (48 bytes) ROOT LEAK: 0x7f8705c05a10 [48]
+
+ls | cat
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+ls | cat
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+ls | cat
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+ls | cat
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+ls | cat
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+ls | cat
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+ls | cat
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+ls | cat
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+ls | cat
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+ls | cat
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+ls | cat
+tokenize =========================================
+{kind:             TK_WORD, is_join_prev: 0, str:[ls], prev->kind:         TK_EXP_WORD, prev->str:[]}
+parse =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD
+expand =========================================
+left:::::: word_list_size 1 word_list->str ls word_list->kind TK_WORD

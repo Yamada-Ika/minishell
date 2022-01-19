@@ -18,6 +18,8 @@ void free_double(char **p)
 {
 	size_t i;
 	i = 0;
+	if (p == NULL)
+		return;
 	while (p[i])
 	{
 		free(p[i]);
