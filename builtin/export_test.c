@@ -10,21 +10,21 @@ int	main(void)
 	printf("export_test : START!\n\n");
 
 	fflush(stdout);
-	bzero(stdout_buf, 8192);
+	ft_bzero(stdout_buf, 8192);
 	setbuf(stdout, stdout_buf);
 	msh_export(&env_var, NULL, NULL);
 	printf("%s\n", stdout_buf);
 	ex = "";
-	assert(strncmp(stdout_buf, ex, strlen(ex)) == 0);
+	assert(ft_strncmp(stdout_buf, ex, ft_strlen(ex)) == 0);
 
 	fflush(stdout);
-	bzero(stdout_buf, 8192);
+	ft_bzero(stdout_buf, 8192);
 	setbuf(stdout, stdout_buf);
-	msh_export(&env_var, strdup("key"), strdup("val"));
+	msh_export(&env_var, ft_strdup("key"), ft_strdup("val"));
 	msh_export(&env_var, NULL, NULL);
 	printf("%s\n", stdout_buf);
 	ex = "";
-	assert(strncmp(stdout_buf, ex, strlen(ex)) == 0);
+	assert(ft_strncmp(stdout_buf, ex, ft_strlen(ex)) == 0);
 
 	delete_envlists(env_var);
 
