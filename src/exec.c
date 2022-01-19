@@ -24,6 +24,38 @@ char	**get_command_path(char **envp)
 	return (paths);
 }
 
+bool	is_exec_with_here_doc(t_command command, char **paths)
+{
+	int				fd[2];
+	int				sts;
+	pid_t			pid;
+	t_redirect_list *last;
+
+	last = _redir_lstlast(command.out_redir);
+	if (last && ft_strncmp(last->redirect, "<<", 2) == 0)
+	{
+		pipe(fd);
+		pid = fork();
+		if (pid == 0)
+		{
+			close(fd[0]);
+			dup2(fd[1], 1);
+			close(fd[1]);
+			ft_putstr_fd(last->word, 1);
+			exit (0);
+		}
+		else
+		{
+			close(fd[1]);
+			dup2(fd[0], 0);
+			close(fd[0]);
+			waitpid(pid, &sts, 0);
+			exec(paths, command.word_list);
+		}
+	}
+	return (false);
+}
+
 void exec(char **paths, char **commands)
 {
 
