@@ -1,5 +1,18 @@
 #include "minishell.h"
 
+t_token	*tokenize_error(t_token *token)
+{
+	t_token *token_next;
+	while (token != NULL)
+	{
+		free (token->str);
+		token_next = token->next;
+		free (token);
+		token = token_next;
+	}
+	return (NULL);
+}
+
 t_token	*new_token(t_token *cur, t_token_kind kind, char **p, size_t len)
 {
 	t_token	*new;
@@ -26,8 +39,6 @@ static size_t _get_operator_len(char *p)
 	size_t		i;
 
 	i = 0;
-	// if (*p == '$' && *(p + 1) != ' ')
-	// 	return (1);
 	while (kw[i] != NULL)
 	{
 		if (!ft_strncmp(kw[i], p, ft_strlen(kw[i])))
@@ -37,7 +48,7 @@ static size_t _get_operator_len(char *p)
 	return (0);
 }
 
-static t_token_kind	_get_word_kind(char *p)
+static	t_token_kind	_get_word_kind(char *p)
 {
 	t_token_kind	kind;
 
@@ -47,24 +58,26 @@ static t_token_kind	_get_word_kind(char *p)
 		if (*p == '\'' && kind != TK_WORD_IN_DOUBLE_Q)
 		{
 			if (kind == TK_WORD_IN_SINGLE_Q)
-				return (kind);
+				return (TK_WORD_IN_SINGLE_Q);
 			kind = TK_WORD_IN_SINGLE_Q;
 		}
 		if (*p =='"' && kind != TK_WORD_IN_SINGLE_Q)
 		{
 			if (kind == TK_WORD_IN_DOUBLE_Q)
-				return (kind);
+				return (TK_WORD_IN_DOUBLE_Q);
 			kind = TK_WORD_IN_DOUBLE_Q;
 		}
-		// fprintf(stderr, "56 : kind %d\n", kind);
 		if (kind == TK_WORD && ft_strchr(" ><|", *p))
-			return (kind);
+			return (TK_WORD);
 		if (kind == TK_WORD && *p == '$' && ft_isalnum(*(p + 1)))
 			return (TK_OP_DOLLAR);
 		p++;
 	}
 	if (kind != TK_WORD)
-		error("quote error\n");
+	{
+		ft_putstr_fd("quote error\n", 2);
+		kind = -1;
+	}
 	return (kind);
 }
 
@@ -74,14 +87,13 @@ static void	_skip_space(char **s)
 		(*s)++;
 }
 
-t_token *tokenize(char *p)
+t_token	*tokenize(char *p)
 {
 	t_token			*cur;
 	t_token			head;
 	t_token_kind	word_kind;
 	size_t			op_len;
 
-	head.next = NULL;
 	head.kind = -1;
 	cur = &head;
 	while (*p)
@@ -95,6 +107,11 @@ t_token *tokenize(char *p)
 		else
 		{
 			word_kind = _get_word_kind(p);
+			if (word_kind == -1)
+			{
+				cur->next = NULL;
+				return (tokenize_error(head.next));
+			}
 			cur = new_token(cur, word_kind, &p, get_word_len(p, word_kind, " ><|'\"" ));
 		}
 	}
