@@ -2,15 +2,18 @@ NAME = minishell
 LIBFT = libft/libft.a
 DEBUG = test/debug.a
 CC = gcc
-CFLAGS = -g #-fsanitize=address #-Wall -Wextra -Werror
+CFLAGS = -g -fsanitize=address #-Wall -Wextra -Werror
 LDFLAGS = -lreadline -lhistory -L$(shell brew --prefix readline)/lib
-INCLUDE = -Iinclude/ -I$(shell brew --prefix readline)/include -Iinclude
+INCLUDE = -Iinclude/ -I$(shell brew --prefix readline)/include -Ilibft -Ibuiltin
 # SRCS =  samples/pipe.c
 SRCS =	main.c \
 		src/run_command_line.c src/tokenize.c src/utils.c src/parse.c \
 		src/expansion.c src/handle_token_in_quotes.c src/create_t_command.c src/exec.c \
 		src/signal.c src/redirect.c src/built_in_command.c src/here_doc.c  src/free.c \
-		builtin/cd.c builtin/pwd.c
+
+BUITIN_SRCS	:= cd.c pwd.c inherite_env_val.c export.c env.c envvar_utils.c env_init.c my_getenv.c
+BUITIN_SRCS	:= $(addprefix builtin/, $(BUITIN_SRCS))
+SRCS		+= $(BUITIN_SRCS)
 
 #SRCS = test/test.c src/tokenize.c src/utils.c src/parse.c  src/expansion.c src/handle_token_in_quotes.c src/create_t_command.c src/exec.c test/debug.c
 OBJS = $(SRCS:%.c=%.o)
