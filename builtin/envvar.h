@@ -1,6 +1,8 @@
 #ifndef ENVVAR_H
 #define ENVVAR_H
 
+#include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 
 #include "libft.h"
