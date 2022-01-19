@@ -40,7 +40,9 @@ void	free_t_redirect_list(t_redirect_list *redirect)
 
 void	free_t_command(t_command cmds)
 {
-	free_double(cmds.word_list);
+//	free_double(cmds.word_list);
+
+	free(cmds.word_list);
 	free_t_redirect_list(cmds.in_redir);
 	free_t_redirect_list(cmds.out_redir);
 }

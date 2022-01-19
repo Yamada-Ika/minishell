@@ -1,5 +1,20 @@
 #include "minishell.h"
 
+//__attribute__((destructor))
+//void	destructor(void)
+//{
+//	int	status;
+//
+//	system("leaks minishell");
+////	status = system("leaks debug &> leaksout");
+////	if (status)
+////	{
+////		write(2, "leak!!!\n", 8);
+////		system("cat leaksout >/dev/stderr");
+////		exit(1);
+////	}
+//}
+
 int main(int argc, char **argv, char *envp[]) {
 	char *prompt = "minishell> ";
 	char	**paths;

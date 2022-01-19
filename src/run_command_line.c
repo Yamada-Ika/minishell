@@ -15,4 +15,6 @@ void	run_command_line(char *str, char **paths)
 	expansion(node);
 	debug_node(node);
 	handle_command(paths, node);
+	free_token_list(token->next);
+	free_node_list(node);
 }
