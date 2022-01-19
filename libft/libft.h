@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tshigena <tshigena@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 18:13:47 by tshigena          #+#    #+#             */
-/*   Updated: 2022/01/11 16:55:14 by tshigena         ###   ########.fr       */
+/*   Updated: 2022/01/19 16:32:29 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ char	*ft_itoa_dx(unsigned long long n, int base);
 char	*ft_strjoin_with_free(char **s1, char **s2);
 char	*ft_strjoin_with_free_no_null(char *s1, char *s2);
 char	***ft_split_triple(char const **strs, char *sets);
+int		ft_strcmp(const char*s1, const char *s2);
 
 #endif
