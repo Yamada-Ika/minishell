@@ -25,8 +25,6 @@ int	ft_atoi_simple(const char *str)
 	i = 0;
 	minus_flag = check_sign(str, &i);
 	number = 0;
-	if (str[i] == '0')
-		return (0);
 	while (str[i] != '\0')
 	{
 		checknum = insert_to_str(str[i], &number);
