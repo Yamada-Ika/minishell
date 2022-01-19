@@ -64,8 +64,8 @@ char	*expand_str(char *str)
 		}
 		i++;
 	}
-//	if (tmp != NULL)
-		str = tmp;
+	free(str);
+	str = tmp;
 	return (str);
 }
 
@@ -159,8 +159,6 @@ size_t	replace_token(t_token **token, char *str)
  	return (0);
  }
 
-#include <malloc/malloc.h>
-
 void	expand_node(t_node *node) {
 	int op_kind;
 	size_t cur_index;
@@ -181,7 +179,6 @@ void	expand_node(t_node *node) {
 			node->word_list_size += added_token_size;
 			fprintf(stderr,"177: p = %p\n", node->word_list);
 		}
-		fprintf(stderr,"177: malloc_size = %x\n", malloc_size(node->word_list));
 		if (node->word_list->is_join_prev == true)
 		{
 			join_token_and_token_prev(&(node->word_list));
