@@ -16,11 +16,11 @@
 //}
 
 int main(int argc, char **argv, char *envp[]) {
-	char *prompt = "minishell> ";
 	char	**paths;
-	pid_t pid;
-	int sts;
+	pid_t	pid;
+	int		sts;
 
+	env_init(envp);
 	signal(SIGINT, (void *)ft_get_signal);
 	signal(SIGQUIT, SIG_IGN);
 	using_history();
@@ -28,7 +28,7 @@ int main(int argc, char **argv, char *envp[]) {
 	paths = get_command_path(envp);
 	while (1)
 	{
-		char *str = readline(prompt);
+		char *str = readline("minishell> ");
 		add_history(str);
 		if (str == NULL)
 			exit(0);
