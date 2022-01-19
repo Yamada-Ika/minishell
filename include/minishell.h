@@ -16,6 +16,10 @@
 #include <stdbool.h>
 #include <dirent.h>
 
+// ------------- env -----------------
+#include "envvar.h"
+// ------------- env -----------------
+
 char	***ft_split_triple(char const **strs, char *sets);
 
 typedef enum e_token_kind
@@ -79,6 +83,28 @@ struct s_node
 	t_node		*left;
 	t_node		*right;
 };
+
+// ------------- env -----------------
+typedef struct s_mshell t_mshell;
+struct s_mshell
+{
+	t_envvar	*envlist;
+};
+
+t_mshell	*g_mshell;
+
+// env_init.c
+void	env_init(char **envp);
+
+// inherite_env_val.c
+void	inherite_env_val_wrapper(char **envp);
+
+// msh_export.c
+void	msh_export_wrapper(char *key, char *val);
+
+// my_getenv.c
+char	*my_getenv_wrapper(char *key);
+// ------------- env -----------------
 
 // utils.c
 void error(char *str);
