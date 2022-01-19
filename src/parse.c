@@ -12,12 +12,16 @@
 
 #include "minishell.h"
 
-static void	_check_invalid_redirect(t_token *tok)
+static bool	_is_invalid_redirect(t_token *tok)
 {
 	if (is_redirect_kind(tok->kind) && (is_redirect_kind(tok->next->kind)
 		|| tok->next->kind == TK_OP_PIPE || tok->next->kind == TK_EOF)
 	)
-		error("minishell: syntax error near unexpected token redirection\n");
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token redirection\n", 2);
+		return (true);
+	}
+	return (false);
 }
 
 size_t	count_command_size(t_token **tok)
@@ -27,7 +31,8 @@ size_t	count_command_size(t_token **tok)
 	cnt = 0;
 	while ((*tok)->kind != TK_EOF && (*tok)->kind != TK_OP_PIPE)
 	{
-		_check_invalid_redirect(*tok);
+		if(_is_invalid_redirect(*tok) == true)
+			return (0);
 		cnt++;
 		(*tok) = (*tok)->next;
 	}
@@ -38,13 +43,21 @@ t_node	*new_node_command(t_token **tok)
 {
 	t_node	*node;
 
+	if ((*tok)->kind == TK_EOF || (*tok)->kind == TK_OP_PIPE)
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		return (NULL);
+	}
 	node = (t_node *)ft_calloc(1, sizeof(t_node));
 	if (node == NULL)
 		error("parse.c 22 : malloc error");
-	if ((*tok)->kind == TK_EOF || (*tok)->kind == TK_OP_PIPE)
-		error("minishell: syntax error near unexpected token `|'\n");
 	node->word_list = *tok;
 	node->word_list_size = count_command_size(tok);
+	if (node->word_list_size == 0)
+	{
+		free(node);
+		return (NULL);
+	}
 	node->kind = ND_CMD;
 	return (node);
 }
@@ -76,6 +89,11 @@ t_node	*command_line(t_token **tok)
 		tmp_tk = *tok;
 		*tok = (*tok)->next;
 		tmp_nd = new_node_command(tok);
+		if (tmp_nd == NULL)
+		{
+			free_node_list(node);
+			return (NULL);
+		}
 		node = new_node_pipe(tmp_tk, node, tmp_nd);
 	}
 	return (node);

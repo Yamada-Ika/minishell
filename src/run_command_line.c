@@ -11,6 +11,8 @@ void	run_command_line(char *str, char **paths)
 	debug_tokenize(token);
 	// parse
 	t_node	*node = command_line(&token);
+	if (node == NULL)
+		return;
 	printf("parse: =========================================\n");
 	debug_node(node);
 	printf("expansion: =========================================\n");
