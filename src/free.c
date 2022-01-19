@@ -2,12 +2,15 @@
 
 void	free_token_list(t_token *token)
 {
+	t_token *token_next;
 	while (token->kind != TK_EOF)
 	{
 		free (token->str);
-		token = token->next;
-		free (token->prev);
+		token_next = token->next;
+		free (token);
+		token = token_next;
 	}
+	free (token->str);
 	free(token);
 }
 
