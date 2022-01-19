@@ -88,24 +88,24 @@ t_node	*parse_error(t_node *node, t_token *token)
 t_node	*command_line(t_token **tok)
 {
 	t_token	*tmp_tk;
-	t_token	*tk_head;
+	t_token	*tk_eof;
 	t_node	*node;
 	t_node	*tmp_nd;
 
-	tk_head = *tok;
+	tk_eof = (*tok)->prev;
 	node = new_node_command(tok);
 	if (node == NULL)
-		return (parse_error(node, tk_head));
+		return (parse_error(node, tk_eof->next));
 	while ((*tok)->kind == TK_OP_PIPE)
 	{
 		tmp_tk = *tok;
 		*tok = (*tok)->next;
 		tmp_nd = new_node_command(tok);
 		if (tmp_nd == NULL)
-			return (parse_error(node, tk_head));
+			return (parse_error(node, tk_eof->next));
 		node = new_node_pipe(tmp_tk, node, tmp_nd);
 	}
-	*tok = tk_head;
+	*tok = tk_eof;
 	return (node);
 }
 
