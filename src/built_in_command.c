@@ -31,7 +31,6 @@ bool	is_exec_built_in(char **cmds, t_command redir)
 {
 	const void	*builtin[] = {
 		"echo", "cd", "pwd", "export", "unset", "env", NULL};
-		// "echo", "cd", "pwd", "export", "unset", "env", "exit", NULL};
 	int	fd[2];
 	int	i;
 

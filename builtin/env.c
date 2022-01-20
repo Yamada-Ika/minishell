@@ -13,7 +13,7 @@ void	env_(char **args)
 	i = 0;
 	while (args[i] != NULL)
 	{
-		if (args[0][0] == '-' && ft_strlen(args[0]) >= 2) // is_option
+		if (args[0][0] == '-' && ft_strlen(args[0]) >= 2)
 		{
 			error_option2("env", args[i][1]);
 			print_command_usage2("env", "env [name=value ...]");
