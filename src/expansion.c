@@ -2,6 +2,7 @@
 
 void	join_token_and_token_prev(t_token **token)
 {
+	t_token	*tmp;
 	printf("join_token_and_token_perv called\n");
 	(*token)->prev->str = ft_strjoin_with_free(&(*token)->prev->str, &(*token)->str);
 	if ((*token)->prev->str == NULL)
@@ -10,7 +11,10 @@ void	join_token_and_token_prev(t_token **token)
 	(*token)->prev->next = (*token)->next;
 	(*token)->next->prev = (*token)->prev;
 	printf("join_token_and_token_perv 12: str == %s\n", (*token)->prev->str);
-	free(*token);
+	tmp = *token;
+	*token =
+	*token = (*token)->prev;
+	free(tmp);
 }
 
 char	*strdup_before_valiable(char *tmp, char *variable_name)
@@ -188,7 +192,7 @@ void	expand_node(t_node *node) {
 			node->word_list_size -= 1;
 			cur_index--;
 		}
-		fprintf(stderr, "226         word_list_size : %zu i : %zu,  node->word_list->str = %s \n", node->word_list_size, cur_index, node->word_list->str);
+//		fprintf(stderr, "226         word_list_size : %zu i : %zu,  node->word_list->str = %s \n", node->word_list_size, cur_index, node->word_list->str);
 		node->word_list = node->word_list->next;
 		}
 		node->word_list = head->next;
