@@ -84,6 +84,19 @@ struct s_node
 	t_node		*right;
 };
 
+// ------------- builtin -----------------
+typedef enum e_builtin_kind
+{
+	BUILTIN_ECHO,	// echo
+	BUILTIN_CD,			// cd
+	BUILTIN_PWD,		// pwd
+	BUILTIN_EXPORT,		// export
+	BUILTIN_UNSET,		// unset
+	BUILTIN_ENV,		// env
+	BUILTIN_EXIT,		// exit
+} t_builtin_kind;
+// ------------- builtin -----------------
+
 // ------------- env -----------------
 typedef struct s_mshell t_mshell;
 struct s_mshell
@@ -99,12 +112,24 @@ void	env_init(char **envp);
 // inherite_env_val.c
 void	inherite_env_val_wrapper(char **envp);
 
-// msh_export.c
+// export.c
 void	msh_export_wrapper(char *key, char *val);
 
 // my_getenv.c
 char	*my_getenv_wrapper(char *key);
 // ------------- env -----------------
+
+// ------------- builtin -----------------
+// echo.c
+void	echo(char **args);
+// export.c
+void	export_(char **cmds);
+
+// builtin_utils.c
+void	print_command_usage(char *name, char *usage);
+void	error_option(char *builtin_name, char *option_name);
+void	error_ident(char *builtin_name, char *ident);
+// ------------- builtin -----------------
 
 // utils.c
 void error(char *str);
