@@ -109,11 +109,6 @@ t_mshell	*g_mshell;
 // env_init.c
 void	env_init(char **envp);
 
-// inherite_env_val.c
-void	inherite_env_val_wrapper(char **envp);
-
-// my_getenv.c
-char	*my_getenv_wrapper(char *key);
 // ------------- env -----------------
 
 // ------------- builtin -----------------

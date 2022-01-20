@@ -1,10 +1,5 @@
 #include "minishell.h"
 
-void	inherite_env_val_wrapper(char **envp)
-{
-	inherite_env_val(&(g_mshell->envlist), envp);
-}
-
 void	inherite_env_val(t_envvar **env_list, char **envp)
 {
 	size_t	i;

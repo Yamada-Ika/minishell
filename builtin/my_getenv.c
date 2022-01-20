@@ -1,10 +1,5 @@
 #include "minishell.h"
 
-char	*my_getenv_wrapper(char *key)
-{
-	return (my_getenv(g_mshell->envlist, key));
-}
-
 // keyが見つかったらstrdupしてvalを返す
 // そうしたら、double freeを防げる気がする
 // いやどうだろ、あえてしない方が関数外でfreeする必要ないし良いかも
