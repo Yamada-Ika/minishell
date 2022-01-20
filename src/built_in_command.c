@@ -21,12 +21,14 @@ static void	_exec_builtin_cmd(t_builtin_kind kind, char **cmds)
 		pwd_();
 	if (kind == BUILTIN_EXPORT)
 		export_(++cmds);
+	if (kind == BUILTIN_UNSET)
+		unset_(++cmds);
 }
 
 bool	is_exec_built_in(char **cmds, t_command redir)
 {
 	const void	*builtin[] = {
-		"echo", "cd", "pwd", "export", NULL};
+		"echo", "cd", "pwd", "export", "unset", NULL};
 		// "echo", "cd", "pwd", "export", "unset", "env", "exit", NULL};
 	int	fd[2];
 	int	i;
