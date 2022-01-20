@@ -21,6 +21,9 @@ void	msh_env(t_envvar *envs);
 // export.c
 void	msh_export(t_envvar **envs, char *key, char *val);
 
+// exit.c
+void	exit_(char **cmds);
+
 // unset.c
 void	msh_unset(t_envvar **envs, char *key);
 

@@ -106,6 +106,7 @@ struct s_mshell
 
 t_mshell	*g_mshell;
 
+
 // env_init.c
 void	env_init(char **envp);
 // ------------- env -----------------
@@ -122,6 +123,9 @@ void	unset_(char **args);
 
 // env.c
 void	env_(char **args);
+
+// exit.c
+void	exit_(char **cmds);
 
 // builtin_utils.c
 void	print_command_usage(char *name, char *usage);

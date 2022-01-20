@@ -13,7 +13,7 @@ SRCS =	main.c \
 
 BUITIN_SRCS	:= 	echo.c cd.c pwd.c export.c env.c unset.c \
 				envvar_utils.c env_init.c my_getenv.c inherite_env_val.c \
-				builtin_utils.c
+				builtin_utils.c exit.c
 BUITIN_SRCS	:= $(addprefix builtin/, $(BUITIN_SRCS))
 SRCS		+= $(BUITIN_SRCS)
 

@@ -32,8 +32,6 @@ int main(int argc, char **argv, char *envp[]) {
 		add_history(str);
 		if (str == NULL)
 			exit(0);
-		if (ft_strncmp(str, "exit", 4) == 0)
-			exit(0);
 		if (*str != '\0') // 改行が入力されたか
 			run_command_line(str, paths);
 		free(str);

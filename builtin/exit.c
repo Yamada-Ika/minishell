@@ -53,8 +53,8 @@ void	exit_(char **cmds)
 }
 
 
-int	main(int ac, char **av)
-{
-	exit_(av );
-	return (0);
-}
+//int	main(int ac, char **av)
+//{
+//	exit_(av );
+//	return (0);
+//}
