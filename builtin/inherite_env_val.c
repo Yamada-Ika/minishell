@@ -21,6 +21,8 @@ void	inherite_env_val(t_envvar **env_list, char **envp)
 		key = ft_substr(envp[i], 0, key_len);
 		val = ft_substr(envp[i], key_len + 1, ft_strlen(envp[i]));
 		msh_export(env_list, key, val);
+		free(key);
+		free(val);
 		i++;
 	}
 }
