@@ -21,7 +21,7 @@ int	main(void)
 	ft_bzero(stdout_buf, 8192);
 	setbuf(stdout, stdout_buf);
 	echo(strs2);
-	char	*exp2 = "aaa bbb";
+	char	*exp2 = "aaa bbb\n";
 	assert(ft_strncmp(stdout_buf, exp2, ft_strlen(exp1)) == 0);
 
 	char *strs3[] = {"ccc", NULL};
@@ -29,7 +29,7 @@ int	main(void)
 	ft_bzero(stdout_buf, 8192);
 	setbuf(stdout, stdout_buf);
 	echo(strs3);
-	char	*exp3 = "ccc";
+	char	*exp3 = "ccc\n";
 	assert(ft_strncmp(stdout_buf, exp3, ft_strlen(exp1)) == 0);
 
 	printf("\necho_test : OK!\n");
