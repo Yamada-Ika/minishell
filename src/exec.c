@@ -64,7 +64,7 @@ void exec(char **paths, char **commands)
 
 	i = 0;
 	command = ft_strjoin("/", commands[0]);
-	while (path && paths[i]) {
+	while (paths && paths[i]) {
 		absolute_path = ft_strjoin(paths[i], command);
 		int ok = access(absolute_path, X_OK);
 		if (ok == F_OK)

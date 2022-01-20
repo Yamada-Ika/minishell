@@ -36,42 +36,42 @@ char	*strdup_before_valiable(char *tmp, char *variable_name)
 
 char	*expand_str(char *str)
 {
+	char	*expanded_value;
 	char	*t_str;
-	char	*tmp;
 	char	*variable_name;
 	size_t	i;
 
 	i = 0;
-	tmp = ft_strdup(str);
-	printf("strdup : tmp = %s\n", tmp);
+	t_str = ft_strdup(str);
+	printf("strdup : t_str = %s\n", t_str);
 	while (str[i])
 	{
 		printf("handle_token_in_quotes 52: i = %zu,   str[i] = %c\n", i, str[i]);
 		if (str[i] == '$' && ft_isalnum((unsigned char)(str[i + 1])))
 		{
 			variable_name = ft_substr(str + i, 1, get_valiable_name_len(str + i + 1));
-			t_str = ft_strdup(my_getenv(g_mshell->envlist, variable_name));
+			expanded_value = ft_strdup(my_getenv(g_mshell->envlist, variable_name));
 			printf("handle_token_in_quotes 56: variable_name = %s, str[i] = %c\n",  variable_name, str[i]);
-			if (t_str == NULL && errno == 0)
-				t_str = ft_strdup("");
-			printf("handle_token_in_quotes 40: t_str = %s\n", t_str);
-			t_str = ft_strjoin_with_free_no_null(strdup_before_valiable(tmp, variable_name), t_str);
-			printf("handle_token_in_quotes 42: t_str = %s\n", t_str);
+			if (expanded_value == NULL && errno == 0)
+				expanded_value = ft_strdup("");
+			printf("handle_token_in_quotes 40: expanded_value = %s\n", expanded_value);
+			expanded_value = ft_strjoin_with_free_no_null(strdup_before_valiable(t_str, variable_name), expanded_value);
+			printf("handle_token_in_quotes 42: expanded_value = %s\n", expanded_value);
 			i += ft_strlen(variable_name);
 			free(variable_name);
-			free(tmp);
-			tmp = ft_strjoin_with_free_no_null(t_str, ft_substr(str+ i + 1, 0, ft_strlen(str+ i + 1)));
-			if (tmp == NULL)
+			free(t_str);
+			t_str = ft_strjoin_with_free_no_null(expanded_value, ft_substr(str+ i + 1, 0, ft_strlen(str+ i + 1)));
+			if (t_str == NULL)
 				error("handle_token_in_quotes.c 84: malloc error");
-			printf("handle_token_in_quotes 54: tmp = %s, i = %zu\n", tmp, i);
-//			printf("handle_token_in_quotes 54: tmp = %s, i = %d, tmp[i] = %c\n", tmp, i, tmp[i]);
+			printf("handle_token_in_quotes 54: t_str = %s, i = %zu\n", t_str, i);
+//			printf("handle_token_in_quotes 54: t_str = %s, i = %d, t_str[i] = %c\n", t_str, i, t_str[i]);
 //			continue;
 		}
 		i++;
 	}
-	free(str);
-	str = tmp;
-	return (str);
+//	free(str);
+//	str = t_str;
+	return (t_str);
 }
 
 static t_token	*new_token(t_token_kind kind, char *p, size_t len)
@@ -102,17 +102,15 @@ static size_t	join_valiable(char **p, t_token **tok)
 		cur->next->prev = cur;
 		cur = cur->next;
 		count++;
-		printf("expansion.c 88: count %zu\n", count);
 	}
 	free(p);
 	cur->next = (*tok)->next;
-	printf("expansion.c 91: tok-next-str %s\n",  (*tok)->next->str);
 	cur->next->prev = cur;
 	(*tok)->prev->next = head.next;
 	head.next->prev = (*tok)->prev;
+	free((*tok)->str);
 	free(*tok);
 	*tok = cur;
-	fprintf(stderr, "count : %zu\n", count);
 	return (count);
 }
 
@@ -124,15 +122,18 @@ size_t	replace_token(t_token **token, char *str)
 
  	if (*str == '\0')
  	{
+		fprintf(stderr,"126: p = %s\n", (*token)->str);
+		if (is_redirect_kind((*token)->prev->kind) || (*token)->prev->kind == TK_OP_PIPE )
+			return (1);
 		 tmp = (*token)->prev;
 		 if ((*token)->next->is_join_prev == true)
 			 (*token)->next->is_join_prev = false;
  		(*token)->prev->next = (*token)->next;
  		(*token)->next->prev = (*token)->prev;
+		free((*token)->str);
 		free((*token));
  		free(str);
 		 *token = tmp;
-		fprintf(stderr,"126: p = %p\n", tmp);
  		return (0);
  	}
 	 strs = ft_split(str, ' ');
@@ -159,8 +160,6 @@ size_t	replace_token(t_token **token, char *str)
 		 fprintf(stderr,"expand_token 174:  %s\n", (*token)->next->str);
  		if (errno)
  			error(strerror(errno));
- 		if (str != NULL)
- 			fprintf(stderr, "%s\n", str);
  		return (replace_token(token, str));
  	}
  	return (0);
@@ -181,9 +180,12 @@ void	expand_node(t_node *node) {
 			handle_token_in_quotes(node->word_list);
 		else if (op_kind == TK_OP_DOLLAR)
 		{
-			added_token_size = expand_token(&(node->word_list), op_kind) - 1;
-			cur_index += added_token_size;
-			node->word_list_size += added_token_size;
+			added_token_size = expand_token(&(node->word_list), op_kind);
+			printf("==============token_size %zu\n", added_token_size);
+//			if (added_token_size == 0 && node->word_list->kind != TK_WORD && node->word_list->kind != TK_EOF)
+//				error(">|");
+			cur_index += added_token_size - 1;
+			node->word_list_size += added_token_size - 1;
 			fprintf(stderr,"177: p = %p\n", node->word_list);
 		}
 		if (node->word_list->is_join_prev == true)

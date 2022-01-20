@@ -150,8 +150,8 @@ void debug_token(t_token *token, size_t loop_cnt)
 	_debug_redirlist(cmd.in_redir);
 	fprintf(stderr, "create_t_command : out_redir\n");
 	_debug_redirlist(cmd.out_redir);
-	fprintf(stderr, "create_t_command : heredoc\n");
-	_debug_redirlist(cmd.heredoc);
+//	fprintf(stderr, "create_t_command : heredoc\n");
+//	_debug_redirlist(cmd.heredoc);
 }
 
 

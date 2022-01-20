@@ -60,7 +60,7 @@ struct s_redirect_list
 {
 	char			*word;
 	char			*redirect;
-	// size_t			len;
+	bool			is_ambiguous;
 	t_redirect_list	*next;
 };
 
