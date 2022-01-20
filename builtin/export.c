@@ -51,11 +51,6 @@ void	export_(char **args)
 	}
 }
 
-void	msh_export_wrapper(char *key, char *val)
-{
-	msh_export(&(g_mshell->envlist), key, val);
-}
-
 void	msh_export(t_envvar **envs, char *key, char *val)
 {
 	t_envvar	*key_at;
