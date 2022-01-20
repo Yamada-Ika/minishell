@@ -11,7 +11,8 @@ SRCS =	main.c \
 		src/expansion.c src/handle_token_in_quotes.c src/create_t_command.c src/exec.c \
 		src/signal.c src/redirect.c src/built_in_command.c src/here_doc.c  src/free.c \
 
-BUITIN_SRCS	:= cd.c pwd.c inherite_env_val.c export.c env.c envvar_utils.c env_init.c my_getenv.c
+BUITIN_SRCS	:= 	echo.c cd.c pwd.c inherite_env_val.c export.c env.c envvar_utils.c env_init.c my_getenv.c \
+				builtin_utils.c
 BUITIN_SRCS	:= $(addprefix builtin/, $(BUITIN_SRCS))
 SRCS		+= $(BUITIN_SRCS)
 
