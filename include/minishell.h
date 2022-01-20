@@ -112,9 +112,6 @@ void	env_init(char **envp);
 // inherite_env_val.c
 void	inherite_env_val_wrapper(char **envp);
 
-// export.c
-void	msh_export_wrapper(char *key, char *val);
-
 // my_getenv.c
 char	*my_getenv_wrapper(char *key);
 // ------------- env -----------------
@@ -122,8 +119,12 @@ char	*my_getenv_wrapper(char *key);
 // ------------- builtin -----------------
 // echo.c
 void	echo(char **args);
+
 // export.c
 void	export_(char **cmds);
+
+// unset.c
+void	unset_(char **args);
 
 // builtin_utils.c
 void	print_command_usage(char *name, char *usage);
