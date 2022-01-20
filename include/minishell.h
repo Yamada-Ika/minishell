@@ -108,7 +108,6 @@ t_mshell	*g_mshell;
 
 // env_init.c
 void	env_init(char **envp);
-
 // ------------- env -----------------
 
 // ------------- builtin -----------------
@@ -121,9 +120,14 @@ void	export_(char **cmds);
 // unset.c
 void	unset_(char **args);
 
+// env.c
+void	env_(char **args);
+
 // builtin_utils.c
 void	print_command_usage(char *name, char *usage);
+void	print_command_usage2(char *name, char *usage);
 void	error_option(char *builtin_name, char *option_name);
+void	error_option2(char *builtin_name, char option);
 void	error_ident(char *builtin_name, char *ident);
 // ------------- builtin -----------------
 
