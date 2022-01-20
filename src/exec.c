@@ -63,33 +63,28 @@ void exec(char **paths, char **commands)
 	size_t i;
 
 	i = 0;
-	if (ft_strncmp(commands[0], "cd", 2) == 0)
-		cd_(commands);
-	if (ft_strncmp(commands[0], "pwd", 3) == 0)
-		pwd_();
 	command = ft_strjoin("/", commands[0]);
-	while (paths[i]) {
+	while (path && paths[i]) {
 		absolute_path = ft_strjoin(paths[i], command);
 		int ok = access(absolute_path, X_OK);
 		if (ok == F_OK)
 		{
 			free(command);
 			execve(absolute_path, commands, NULL);
-			free(absolute_path);
-			break;
+//			free(absolute_path);
 		}
 		free(absolute_path);
 		i++;
 	}
-	if (paths[i] == NULL) {
-		ft_putstr_fd("minishell: command not found: ", 2);
-		ft_putendl_fd(command + 1, 2);
-		exit (127);
-	}
+	ft_putstr_fd("minishell: command not found: ", 2);
+	ft_putendl_fd(command + 1, 2);
+	exit (127);
 }
 
 void	exec_t_command(t_command command, char **paths)
 {
+	if (is_exec_built_in(command.word_list, command) == true)
+		exit(0);
 	if (command.in_redir != NULL)
 		handle_in_redir(command.in_redir);
 	if (command.out_redir != NULL)

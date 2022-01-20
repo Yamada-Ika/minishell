@@ -3,7 +3,7 @@
 void	free_token_list(t_token *token)
 {
 	t_token *token_next;
-	fprintf(stderr, "free_token_list: token-str = %s, token-kind = %d\n", token->str, token->kind);
+//	fprintf(stderr, "free_token_list: token-str = %s, token-kind = %d\n", token->str, token->kind);
 	while (token->kind != TK_EOF)
 	{
 		free (token->str);
