@@ -58,7 +58,6 @@ bool	is_exec_with_here_doc(t_command command, char **paths)
 
 void exec(char **paths, char **commands)
 {
-
 	char *absolute_path;
 	char *command;
 	size_t i;
