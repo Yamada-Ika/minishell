@@ -13,6 +13,11 @@ void	echo(char **args)
 	size_t	i;
 	char	*s;
 
+	if (args[0] == NULL)
+	{
+		printf("\n");
+		return ;
+	}
 	flag_n = _get_option(args);
 	i = 0;
 	if (flag_n)
@@ -25,6 +30,6 @@ void	echo(char **args)
 		printf(" ");
 		i++;
 	}
-	if (flag_n)
+	if (flag_n == false)
 		printf("\n");
 }
