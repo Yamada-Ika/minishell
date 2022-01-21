@@ -15,6 +15,8 @@ void	handle_in_redir(t_redirect_list *redirect)
 	close(fd);
 	if (redirect->next != NULL)
 		handle_in_redir(redirect->next);
+	else
+		fprintf(stderr,"endddddddddddddddddddddddd\n");
 }
 
 void	handle_out_redir(t_redirect_list *redirect)

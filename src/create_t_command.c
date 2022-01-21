@@ -27,6 +27,7 @@ static t_redirect_list	*_new_redir_list(char *word, char *redirct)
 		error(strerror(errno));
 	new->word = word;
 	new->redirect = redirct;
+	printf("________________________\n");
 	return (new);
 }
 
