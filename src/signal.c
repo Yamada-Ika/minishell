@@ -24,3 +24,11 @@ int	ft_set_signal(int	signal)
 	return (0);
 }
 
+int	interrupt(int	signal)
+{
+	if (signal == SIGINT)
+	{
+		g_mshell->interrupt = true;
+	}
+	return (0);
+}
