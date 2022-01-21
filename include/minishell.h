@@ -16,9 +16,9 @@
 # include <stdbool.h>
 # include <dirent.h>
 
-// ------------- env -----------------
+// env
 # include "envvar.h"
-// ------------- env -----------------
+
 # define ERROR -1
 char	***ft_split_triple(char const **strs, char *sets);
 
@@ -176,7 +176,7 @@ void 			exec(char **paths, char **commands);
 bool			is_exec_built_in(char **cmds, t_command redir);
 
 // signal.c
-int				ft_get_signal(int	signal);
+void			*display_new_prompt(int	signal);
 int				ft_set_signal(int	signal);
 int				interrupt(int	signal);
 

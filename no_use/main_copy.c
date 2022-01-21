@@ -4,7 +4,7 @@ int sts;
 
 volatile sig_atomic_t	g_signal;
 
-static int	ft_get_signal(int	signal)
+static int	display_new_prompt(int	signal)
 {
 	if (signal == SIGINT)
 	{
@@ -260,7 +260,7 @@ int main(int argc, char **argv, char *envp[]) {
 	char *prompt = "minishell> ";
 	int i = 0;
 
-	signal(SIGINT, ft_get_signal);
+	signal(SIGINT, display_new_prompt);
 	signal(SIGQUIT	, SIG_IGN);
 	using_history();
 	read_history(".my_history"); // [ToDo]historyファイルが無いときの動作の検証
