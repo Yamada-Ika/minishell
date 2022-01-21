@@ -102,6 +102,7 @@ typedef struct s_mshell t_mshell;
 struct s_mshell
 {
 	t_envvar	*envlist;
+	bool 		interrupt;
 };
 
 t_mshell	*g_mshell;
@@ -173,6 +174,7 @@ bool	is_exec_built_in(char **cmds, t_command redir);
 // signal.c
 int	ft_get_signal(int	signal);
 int	ft_set_signal(int	signal);
+int	interrupt(int	signal);
 
 // run_command_line.c
 void	run_command_line(char *str, char **paths);
@@ -187,6 +189,7 @@ int	handle_out_redir(t_redirect_list *redirect);
 bool	last_is_here_doc(t_redirect_list *last);
 char	*get_here_doc(char *eos);
 bool	is_exec_with_here_doc(t_command command, char **paths);
+void	get_here_doc_form_each_node(t_node *node);
 
 // free.c
 void	free_token_list(t_token *token);

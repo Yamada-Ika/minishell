@@ -48,8 +48,8 @@ static void	_redir_lstadd_back(t_redirect_list **lst, t_redirect_list *new)
 static void	_add_back_redir_list(t_redirect_list **redir_list, t_token *tok)
 {
 	t_redirect_list	*new;
-	if (tok->kind == TK_OP_SINGLE_LS)
-		tok->next->str = get_here_doc(tok->next->str);
+//	if (tok->kind == TK_OP_SINGLE_LS)
+//		tok->next->str = get_here_doc(tok->next->str);
 	new = _new_redir_list(tok->next->str, tok->str);
 	if (tok->next->kind != TK_WORD)
 		new->is_ambiguous = true;

@@ -90,7 +90,6 @@ void	exec_t_command(t_command command, char **paths)
 		exit (1);
 	if (handle_out_redir(command.out_redir) == ERROR)
 		exit (1);
-	printf("aaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
 	if (is_exec_with_here_doc(command, paths) == false)
 		exec(paths, command.word_list);
 }
@@ -131,6 +130,12 @@ void    handle_command(char **paths, t_node *node)
 	if (pid == 0)
 	{
 		signal(SIGQUIT, (void *)SIG_DFL);
+		get_here_doc_form_each_node(node);
+		if (g_mshell->interrupt == true)
+		{
+			g_mshell->interrupt = false;
+			exit(0);
+		}
 		printf("recursive : called\n");
 		recursive(node, paths);
 		return;

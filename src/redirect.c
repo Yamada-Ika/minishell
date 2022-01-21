@@ -55,6 +55,7 @@ int	handle_out_redir(t_redirect_list *redirect)
 		dup2(fd, 0);
 		close(fd);
 	}
+
 	if (redirect->next != NULL)
 		handle_out_redir(redirect->next);
 	return (0);
