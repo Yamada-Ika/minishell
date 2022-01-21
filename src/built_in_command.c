@@ -1,12 +1,13 @@
 #include "minishell.h"
-void redirect_in_parrent( t_command redir, int *fd)
+int redirect_in_parrent( t_command redir, int *fd)
 {
 	fd[0] = dup(0);
 	fd[1] = dup(1);
-	if (redir.in_redir != NULL)
-		handle_in_redir(redir.in_redir);
-	if (redir.out_redir != NULL)
-		handle_out_redir(redir.out_redir);
+	if (handle_in_redir(redir.in_redir) == ERROR)
+		return (-1);
+	if (handle_out_redir(redir.out_redir) == ERROR)
+		return (-1);
+	return (0);
 }
 
 // cmds[0]にはコマンド名が入っている
@@ -43,7 +44,8 @@ bool	is_exec_built_in(char **cmds, t_command redir)
 	{
 		if (ft_strcmp(cmds[0], builtin[i]) == 0)
 		{
-			redirect_in_parrent(redir, fd);
+			if (redirect_in_parrent(redir, fd) == ERROR)
+				return (true);
 			_exec_builtin_cmd(i, cmds);
 			if (fd[0])
 				dup2(fd[0], 0);
