@@ -48,10 +48,9 @@ void	exit_(char **cmds)
 	{
 		ft_putstr_fd("exit\n", 2);
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-		return;
+		return ;
 	}
 }
-
 
 //int	main(int ac, char **av)
 //{

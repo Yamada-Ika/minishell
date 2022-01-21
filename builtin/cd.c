@@ -2,14 +2,13 @@
 
 void	cd_(char **cmds)
 {
-	char	pathname[512];
-	DIR		*dp;
-	struct dirent *dirp;
+	char			pathname[512];
+	DIR				*dp;
+	struct dirent	*dirp;
 
-	memset(pathname, '\0', 512); // memsetはバイトメモリブロックのセット
-
+	ft_bzero(pathname, 512);
 	chdir(cmds[1]);
-	printf("\n%s\n",cmds[1]);
-	getcwd(pathname, 512); // getcwdはカレントディレクトリ
-	printf("\n%s\n",pathname);
+	printf("\n%s\n", cmds[1]);
+	getcwd(pathname, 512);
+	printf("\n%s\n", pathname);
 }

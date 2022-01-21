@@ -2,14 +2,14 @@
 
 void	export_(char **args)
 {
-	size_t	i;
-	size_t	arg_len;
-	size_t	key_len;
-	size_t	val_len;
-	char	*equal_at;
-	char	*key;
-	char	*val;
-	char	*env_val;
+	size_t		i;
+	size_t		arg_len;
+	size_t		key_len;
+	size_t		val_len;
+	char		*equal_at;
+	char		*key;
+	char		*val;
+	char		*env_val;
 	t_envvar	*key_at;
 
 	if (args[0] == NULL)
