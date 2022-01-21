@@ -15,6 +15,12 @@
 ////	}
 //}
 
+void static	_install_signal_handler(void)
+{
+	signal(SIGINT, (void *)ft_get_signal);
+	signal(SIGQUIT, SIG_IGN);
+}
+
 int main(int argc, char **argv, char *envp[]) {
 	char	**paths;
 	pid_t	pid;
@@ -22,8 +28,7 @@ int main(int argc, char **argv, char *envp[]) {
 
 	env_init(envp);
 	g_mshell->interrupt = false;
-	signal(SIGINT, (void *)ft_get_signal);
-	signal(SIGQUIT, SIG_IGN);
+	_install_signal_handler();
 	using_history();
 	read_history(".my_history"); // [ToDo]historyファイルが無いときの動作の検証
 	paths = get_command_path(envp);
