@@ -9,6 +9,8 @@ void	export_(char **args)
 	char	*equal_at;
 	char	*key;
 	char	*val;
+	char	*env_val;
+	t_envvar	*key_at;
 
 	if (args[0] == NULL)
 	{
@@ -37,11 +39,25 @@ void	export_(char **args)
 			i++;
 			continue ;
 		}
-		else
+		else if (*(equal_at - 1) != '+')
 		{
-			key_len = ft_strchr(args[i], '=') - args[i];
+			key_len = equal_at - args[i];
 			key = ft_substr(args[i], 0, key_len);
 			val = ft_substr(args[i], key_len + 1, ft_strlen(args[i]));
+			msh_export(&(g_mshell->envlist), key, val);
+			free(key);
+			free(val);
+			i++;
+			continue ;
+		}
+		else
+		{
+			key_len = equal_at - 1 - args[i];
+			key = ft_substr(args[i], 0, key_len);
+			val = ft_substr(args[i], key_len + 2, ft_strlen(args[i]));
+			key_at = get_envvar_with_key(g_mshell->envlist, key);
+			if (key_at != NULL)
+				val = ft_strjoin_with_free_no_null(ft_strdup(key_at->val), val);
 			msh_export(&(g_mshell->envlist), key, val);
 			free(key);
 			free(val);
