@@ -4,6 +4,8 @@ int	handle_in_redir(t_redirect_list *redirect)
 {
 	int	fd;
 
+	if (redirect == NULL)
+		return (0);
 	fprintf(stderr,"handle_in_redir called:  \n");
 	if (redirect->is_ambiguous == true)
 	{

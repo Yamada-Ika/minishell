@@ -62,6 +62,7 @@ void exec(char **paths, char **commands)
 	char *command;
 	size_t i;
 
+	printf("exec called\n");
 	i = 0;
 	command = ft_strjoin("/", commands[0]);
 	while (paths && paths[i]) {
@@ -89,6 +90,7 @@ void	exec_t_command(t_command command, char **paths)
 		exit (1);
 	if (handle_out_redir(command.out_redir) == ERROR)
 		exit (1);
+	printf("aaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
 	if (is_exec_with_here_doc(command, paths) == false)
 		exec(paths, command.word_list);
 }
@@ -129,6 +131,7 @@ void    handle_command(char **paths, t_node *node)
 	if (pid == 0)
 	{
 		signal(SIGQUIT, (void *)SIG_DFL);
+		printf("recursive : called\n");
 		recursive(node, paths);
 		return;
 	}
