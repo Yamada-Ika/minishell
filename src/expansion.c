@@ -122,6 +122,7 @@ size_t	replace_token(t_token **token, char *str)
 
  	if (*str == '\0')
  	{
+ 		free(str);
 		fprintf(stderr,"126: p = %s\n", (*token)->str);
 		if (is_redirect_kind((*token)->prev->kind) || (*token)->prev->kind == TK_OP_PIPE )
 			return (1);
@@ -132,7 +133,6 @@ size_t	replace_token(t_token **token, char *str)
  		(*token)->next->prev = (*token)->prev;
 		free((*token)->str);
 		free((*token));
- 		free(str);
 		 *token = tmp;
  		return (0);
  	}
