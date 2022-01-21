@@ -73,4 +73,7 @@ STDOUT_TEST "echo \"42\"Tokyo | cat | cat | cat"
 STDOUT_TEST "echo '42'Tokyo | cat | cat | cat"
 STDOUT_TEST "echo Paris\"42\"Tokyo | cat | cat | cat"
 
+# pwd
+STDOUT_TEST "pwd"
+
 echo "OK!"
