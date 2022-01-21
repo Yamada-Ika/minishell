@@ -86,9 +86,11 @@ void	exec_t_command(t_command command, char **paths)
 	if (is_exec_built_in(command.word_list, command) == true)
 		exit(0);
 	if (command.in_redir != NULL)
-		handle_in_redir(command.in_redir);
+		if (handle_in_redir(command.in_redir) == ERROR)
+			exit (1);
 	if (command.out_redir != NULL)
-		handle_out_redir(command.out_redir);
+		if (handle_out_redir(command.out_redir) == ERROR)
+			exit (1);
 	if (is_exec_with_here_doc(command, paths) == false)
 		exec(paths, command.word_list);
 }

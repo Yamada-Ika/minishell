@@ -19,7 +19,7 @@
 // ------------- env -----------------
 #include "envvar.h"
 // ------------- env -----------------
-
+#define ERROR -1
 char	***ft_split_triple(char const **strs, char *sets);
 
 typedef enum e_token_kind
@@ -180,8 +180,8 @@ void	run_command_line(char *str, char **paths);
 t_node	*main_(char *str);
 
 // redirect.c
-void	handle_in_redir(t_redirect_list *redirect);
-void	handle_out_redir(t_redirect_list *redirect);
+int	handle_in_redir(t_redirect_list *redirect);
+int	handle_out_redir(t_redirect_list *redirect);
 
 // here_doc.c
 bool	last_is_here_doc(t_redirect_list *last);

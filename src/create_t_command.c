@@ -51,11 +51,9 @@ static void	_add_back_redir_list(t_redirect_list **redir_list, t_token *tok)
 	t_redirect_list	*new;
 	if (tok->kind == TK_OP_SINGLE_LS)
 		tok->next->str = get_here_doc(tok->next->str);
-	printf("|||||||||||||||||| str = %s\n", tok->next->str);
 	new = _new_redir_list(tok->next->str, tok->str);
 	if (tok->next->kind != TK_WORD)
 		new->is_ambiguous = true;
-	printf("|||||||||||||||||| is_ambiguous = %d\n", new->is_ambiguous);
 	if (*redir_list == NULL)
 		*redir_list = new;
 	else
