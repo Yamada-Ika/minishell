@@ -15,10 +15,17 @@
 ////	}
 //}
 
-void static	_install_signal_handler(void)
+static void	_install_signal_handler(void)
 {
-	signal(SIGINT, (void *)ft_get_signal);
+	signal(SIGINT, display_new_prompt);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+static void	_init_global_var(char **envp)
+{
+	g_mshell = ft_calloc(1, sizeof(g_mshell));
+	inherite_env_val(&(g_mshell->envlist), envp);
+	g_mshell->interrupt = false;
 }
 
 int main(int argc, char **argv, char *envp[]) {
@@ -26,11 +33,10 @@ int main(int argc, char **argv, char *envp[]) {
 	pid_t	pid;
 	int		sts;
 
-	env_init(envp);
-	g_mshell->interrupt = false;
+	_init_global_var(envp);
 	_install_signal_handler();
 	using_history();
-	read_history(".my_history"); // [ToDo]historyファイルが無いときの動作の検証
+	read_history(".my_history");
 	paths = get_command_path(envp);
 	while (1)
 	{
@@ -38,7 +44,7 @@ int main(int argc, char **argv, char *envp[]) {
 		add_history(str);
 		if (str == NULL)
 			exit(0);
-		if (*str != '\0') // 改行が入力されたか
+		if (*str != '\0')
 			run_command_line(str, paths);
 		free(str);
 	}
