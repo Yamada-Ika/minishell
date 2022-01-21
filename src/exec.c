@@ -62,7 +62,7 @@ void exec(char **paths, char **commands)
 	char *command;
 	size_t i;
 
-	printf("exec called\n");
+	fprintf(stderr, "exec called\n");
 	i = 0;
 	command = ft_strjoin("/", commands[0]);
 	while (paths && paths[i]) {
