@@ -67,13 +67,22 @@ void	export_(char **args)
 	}
 }
 
+static void	_display_env(t_envvar *envlist)
+{
+	while (envlist != NULL)
+	{
+		printf("declare -x %s=\"%s\"\n", envlist->key, envlist->val);
+		envlist = envlist->next;
+	}
+}
+
 void	msh_export(t_envvar **envs, char *key, char *val)
 {
 	t_envvar	*key_at;
 
 	if (key == NULL && val == NULL)
 	{
-		msh_env(*envs);
+		_display_env(*envs);
 		return ;
 	}
 	if (*envs == NULL)
