@@ -21,6 +21,7 @@ int main(int argc, char **argv, char *envp[]) {
 	int		sts;
 
 	env_init(envp);
+	g_mshell->interrupt = false;
 	signal(SIGINT, (void *)ft_get_signal);
 	signal(SIGQUIT, SIG_IGN);
 	using_history();
