@@ -113,7 +113,7 @@ void	env_init(char **envp);
 
 // ------------- builtin -----------------
 // echo.c
-void	echo(char **args);
+void	echo_(char **args);
 
 // export.c
 void	export_(char **cmds);

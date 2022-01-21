@@ -1,4 +1,4 @@
-#include "builtin.h"
+#include "envvar.h"
 
 static bool	_get_option(char **args)
 {
@@ -7,9 +7,9 @@ static bool	_get_option(char **args)
 	return (false);
 }
 
-void	echo(char **args)
+void	echo_(char **args)
 {
-	bool	flag_n;
+	bool	opt_n;
 	size_t	i;
 	char	*s;
 
@@ -18,9 +18,9 @@ void	echo(char **args)
 		printf("\n");
 		return ;
 	}
-	flag_n = _get_option(args);
+	opt_n = _get_option(args);
 	i = 0;
-	if (flag_n)
+	if (opt_n)
 		i = 1;
 	while (args[i])
 	{
@@ -30,6 +30,6 @@ void	echo(char **args)
 		printf(" ");
 		i++;
 	}
-	if (flag_n == false)
+	if (opt_n == false)
 		printf("\n");
 }

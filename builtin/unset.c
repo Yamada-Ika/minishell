@@ -10,7 +10,7 @@ void	unset_(char **args)
 	i = 0;
 	while (args[i] != NULL)
 	{
-		if (args[0][0] == '-') // is_option
+		if (args[0][0] == '-')
 		{
 			error_option("unset", args[i]);
 			print_command_usage("unset", "unset [name[=value] ...]");

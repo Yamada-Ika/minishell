@@ -13,7 +13,7 @@ void redirect_in_parrent( t_command redir, int *fd)
 static void	_exec_builtin_cmd(t_builtin_kind kind, char **cmds)
 {
 	if (kind == BUILTIN_ECHO)
-		echo(++cmds);
+		echo_(++cmds);
 	if (kind == BUILTIN_CD)
 		cd_(cmds);
 	if (kind == BUILTIN_PWD)
