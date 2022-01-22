@@ -27,22 +27,22 @@ int main(int argc, char **argv)
 	_install_signal_handler();
 	using_history();
 	read_history(".my_history");
-	i = 0;
 	while (true)
 	{
 		cmd_line = readline("minishell> ");
+		if (cmd_line == NULL)
+			exit(0);
 		add_history(cmd_line);
 		splitted_newline = ft_split(cmd_line, '\n');
 		if (splitted_newline == NULL)
 			exit(0);
+		i = 0;
 		while (splitted_newline[i] != NULL)
 		{
 			if (splitted_newline[i][0] != '\0')
 				run_command_line(cmd_line);
 			i++;
 		}
-		if (cmd_line == NULL)
-			exit(0);
 		free_double(splitted_newline);
 		free(cmd_line);
 	}
