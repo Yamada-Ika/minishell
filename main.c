@@ -28,18 +28,22 @@ static void	_init_global_var(char **envp)
 	g_mshell->interrupt = false;
 }
 
-int main(int argc, char **argv, char *envp[]) {
+int main(int argc, char **argv) {
+//int main(int argc, char **argv, char *envp[]) {
 	char	**paths;
-
+	extern char	**environ;
+//	printf("env               ========  %p\n", envp);
+//	printf("env               ========  %s\n", envp[0]);
 	if (argc > 1 && argv[1])
 		return (0);
-	_init_global_var(envp);
-	_install_signal_handler();
+	_init_global_var(environ);
 	using_history();
 	read_history(".my_history");
+//	paths = environ;
 	paths = get_command_path(g_mshell->envlist);
 	while (1)
 	{
+		_install_signal_handler();
 		char *str = readline("minishell> ");
 		add_history(str);
 		if (str == NULL)

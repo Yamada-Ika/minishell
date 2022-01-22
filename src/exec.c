@@ -70,13 +70,17 @@ void exec(char **paths, char **commands)
 	char *absolute_path;
 	char *command;
 	size_t i;
+	int	ok;
 
 	fprintf(stderr, "exec called\n");
 	i = 0;
+	if(access(commands[0], X_OK) ==F_OK)
+		execve(commands[0], commands, NULL);
+
 	command = ft_strjoin("/", commands[0]);
 	while (paths && paths[i]) {
 		absolute_path = ft_strjoin(paths[i], command);
-		int ok = access(absolute_path, X_OK);
+		ok = access(absolute_path, X_OK);
 		if (ok == F_OK)
 		{
 			free(command);

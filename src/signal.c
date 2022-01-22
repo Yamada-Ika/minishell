@@ -24,9 +24,14 @@ int	ft_set_signal(int signal)
 
 int	interrupt(int signal)
 {
+	int fd;
 	if (signal == SIGINT)
 	{
 		g_mshell->interrupt = true;
+		fd = dup(0);
+		close(0);
+//		dup2(fd, 0);
+//		close(fd);
 	}
 	return (0);
 }

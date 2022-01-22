@@ -19,7 +19,9 @@ char	*get_here_doc(char *eos)
 	char	*doc;
 	char	*line;
 	char	*tmp;
+	int		fd;
 
+	fd = dup(0);
 	doc = ft_strdup("");
 	if (doc == NULL)
 		error("malloc error");
@@ -30,10 +32,15 @@ char	*get_here_doc(char *eos)
 	while (1)
 	{
 		line = readline("heredoc> ");
-		if (g_mshell->interrupt == true)
-			return (doc);
+//		if (g_mshell->interrupt == true)
+//			return (doc);
 		if (line == NULL)
+		{
+			if (g_mshell->interrupt == true)
+				dup2(fd, 0);
+			close(fd);
 			return (doc);
+		}
 		if (ft_strcmp(line, eos) == 0)
 			break;
 		tmp = ft_strdup("\n");
