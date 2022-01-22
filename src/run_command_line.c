@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	run_command_line(char *str, char **paths)
+void	run_command_line(char *str)
 {
 	t_token	*token;
 
@@ -20,7 +20,7 @@ void	run_command_line(char *str, char **paths)
 	debug_node(node);
 	printf("run_command_line 21:  node-word_list-str = %s, kind = %d\n", node->word_list->str, node->word_list->kind);
 	if (node->word_list->kind != TK_EOF)
-		handle_command(paths, node);
+		handle_command(node);
 	free_token_list(token->next);
 	free_node_list(node);
 }

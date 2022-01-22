@@ -14,7 +14,6 @@ static void	_init_global_var(char **envp)
 }
 
 int main(int argc, char **argv, char *envp[]) {
-	char	**paths;
 	char	**splitted_newline;
 	size_t	i;
 
@@ -24,7 +23,6 @@ int main(int argc, char **argv, char *envp[]) {
 	_install_signal_handler();
 	using_history();
 	read_history(".my_history");
-	paths = get_command_path(g_mshell->envlist);
 	i = 0;
 	while (1)
 	{
@@ -36,7 +34,7 @@ int main(int argc, char **argv, char *envp[]) {
 		while (splitted_newline[i] != NULL)
 		{
 			if (splitted_newline[i][0] != '\0')
-				run_command_line(str, paths);
+				run_command_line(str);
 			i++;
 		}
 		if (str == NULL)

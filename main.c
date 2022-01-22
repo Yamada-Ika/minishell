@@ -29,14 +29,12 @@ static void	_init_global_var(char **envp)
 }
 
 int main(int argc, char **argv) {
-	char	**paths;
 	extern char	**environ;
 	if (argc > 1 && argv[1])
 		return (0);
 	_init_global_var(environ);
 	using_history();
 	read_history(".my_history");
-	paths = NULL;
 	while (1)
 	{
 		_install_signal_handler();
@@ -45,7 +43,7 @@ int main(int argc, char **argv) {
 		if (str == NULL)
 			exit(0);
 		if (*str != '\0')
-			run_command_line(str, paths);
+			run_command_line(str);
 		free(str);
 	}
 	write_history(".my_history");

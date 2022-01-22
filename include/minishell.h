@@ -170,8 +170,8 @@ void			create_t_command(t_node *node);
 
 // exec.c
 char			**get_command_path(t_envvar *envlist);
-void			handle_command(char **paths, t_node *node);
-void 			exec(char **paths, char **commands);
+void			handle_command(t_node *node);
+void 			exec(char **commands);
 
 // built_in_command.c
 bool			is_exec_built_in(t_node *node, t_command redir);
@@ -182,7 +182,7 @@ int				ft_set_signal(int	signal);
 int				interrupt(int	signal);
 
 // run_command_line.c
-void			run_command_line(char *str, char **paths);
+void			run_command_line(char *str);
 //tmp
 t_node			*main_(char *str);
 
@@ -193,7 +193,7 @@ int				handle_out_redir(t_redirect_list *redirect);
 // here_doc.c
 bool			last_is_here_doc(t_redirect_list *last);
 char			*get_here_doc(char *eos);
-bool			is_exec_with_here_doc(t_command command, char **paths);
+bool			is_exec_with_here_doc(t_command command);
 void			get_here_doc_form_each_node(t_node *node);
 
 // free.c

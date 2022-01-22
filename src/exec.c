@@ -22,7 +22,7 @@ char	**get_command_path(t_envvar *envlist)
 	return (paths);
 }
 
-bool	is_exec_with_here_doc(t_command command, char **paths)
+bool	is_exec_with_here_doc(t_command command)
 {
 	int				fd[2];
 	int				sts;
@@ -48,16 +48,17 @@ bool	is_exec_with_here_doc(t_command command, char **paths)
 			dup2(fd[0], 0);
 			close(fd[0]);
 			waitpid(pid, &sts, 0);
-			exec(paths, command.word_list);
+			exec(command.word_list);
 		}
 	}
 	return (false);
 }
 
-void exec(char **paths, char **cmds)
+void exec(char **cmds)
 {
 	char	*absolute_path;
 	char	*cmd;
+	char	**paths;
 	size_t	i;
 
 	fprintf(stderr, "exec called\n");
@@ -84,7 +85,7 @@ void exec(char **paths, char **cmds)
 	exit (127);
 }
 
-void	exec_t_command(t_command command, char **paths)
+void	exec_t_command(t_command command)
 {
 	if (is_exec_built_in(NULL, command) == true)
 		exit(0);
@@ -92,17 +93,17 @@ void	exec_t_command(t_command command, char **paths)
 		exit (1);
 	if (handle_out_redir(command.out_redir) == ERROR)
 		exit (1);
-	if (is_exec_with_here_doc(command, paths) == false)
-		exec(paths, command.word_list);
+	if (is_exec_with_here_doc(command) == false)
+		exec(command.word_list);
 }
 
-void recursive(t_node *node, char **paths)
+void recursive(t_node *node)
 {
 	pid_t pid;
 	int fd[2];
 
 	if (node->left == NULL )
-		exec_t_command(node->command, paths);
+		exec_t_command(node->command);
 
 	pipe(fd);
 	pid = fork();
@@ -112,18 +113,18 @@ void recursive(t_node *node, char **paths)
 		close(fd[1]);
 		dup2(fd[0], 0);
 		close(fd[0]);
-		exec_t_command(node->right->command, paths);
+		exec_t_command(node->right->command);
 	}
 	else
 	{
 		close(fd[0]);
 		dup2(fd[1], 1);
 		close(fd[1]);
-		recursive(node->left, paths);
+		recursive(node->left);
 	}
 }
 
-void	handle_command(char **paths, t_node *node)
+void	handle_command(t_node *node)
 {
 	signal(SIGINT, (void *)ft_set_signal);
 	if (node->left == NULL && is_exec_built_in(node, node->command) == true)
@@ -139,7 +140,7 @@ void	handle_command(char **paths, t_node *node)
 			exit(0);
 		}
 		printf("recursive : called\n");
-		recursive(node, paths);
+		recursive(node);
 		return;
 	}
 	waitpid(pid, &sts, 0);
