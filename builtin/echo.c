@@ -30,5 +30,5 @@ void	echo_(char **args)
 		i++;
 	}
 	if (opt_n == false)
-		printf("\n");
+		ft_putstr_fd("\n", 1);
 }

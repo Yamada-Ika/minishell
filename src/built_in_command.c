@@ -11,7 +11,7 @@ int redirect_in_parrent( t_command redir, int *fd)
 }
 
 // cmds[0]にはコマンド名が入っている
-static void	_exec_builtin_cmd(t_builtin_kind kind, char **cmds)
+void	_exec_builtin_cmd(t_builtin_kind kind, char **cmds)
 {
 	if (kind == BUILTIN_ECHO)
 		echo_(++cmds);
