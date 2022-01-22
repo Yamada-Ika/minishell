@@ -17,7 +17,7 @@
 
 static void	_install_signal_handler(void)
 {
-	signal(SIGINT, display_new_prompt);
+	signal(SIGINT, (void *)display_new_prompt);
 	signal(SIGQUIT, SIG_IGN);
 }
 
@@ -30,9 +30,9 @@ static void	_init_global_var(char **envp)
 
 int main(int argc, char **argv, char *envp[]) {
 	char	**paths;
-	pid_t	pid;
-	int		sts;
 
+	if (argc > 1 && argv[1])
+		return (0);
 	_init_global_var(envp);
 	_install_signal_handler();
 	using_history();

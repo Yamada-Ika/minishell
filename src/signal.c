@@ -2,6 +2,7 @@
 
 void	*display_new_prompt(int signal)
 {
+	(void)signal;
 	ft_putchar_fd('\n', 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);

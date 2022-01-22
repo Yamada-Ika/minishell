@@ -2,7 +2,7 @@
 
 char	*my_getenv(t_envvar *envs, char *key)
 {
-	char	*val;
+//	char	*val;
 
 	if (envs == NULL)
 		return (NULL);

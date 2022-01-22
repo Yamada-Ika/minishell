@@ -3,7 +3,7 @@
 void	env_(char **args)
 {
 	size_t	i;
-	char	*equal_at;
+//	char	*equal_at;
 
 	if (args[0] == NULL)
 	{

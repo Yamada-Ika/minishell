@@ -149,18 +149,17 @@ size_t	replace_token(t_token **token, char *str)
 
  size_t	expand_token(t_token **token, int op_kind)
  {
- 	char	*str;
- 	char	*variable_name;
+ 	char	*expanded_value;
 
  	 fprintf(stderr,"expand_token called\n");
  	if (op_kind == TK_OP_DOLLAR)
  	{
- 		str = expand_str((*token)->str);
-		 fprintf(stderr,"expand_token 173:  %s\n", str);
+ 		expanded_value = expand_str((*token)->str);
+		 fprintf(stderr,"expand_token 173:  %s\n", expanded_value);
 		 fprintf(stderr,"expand_token 174:  %s\n", (*token)->next->str);
  		if (errno)
  			error(strerror(errno));
- 		return (replace_token(token, str));
+ 		return (replace_token(token, expanded_value));
  	}
  	return (0);
  }

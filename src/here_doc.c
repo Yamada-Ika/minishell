@@ -17,19 +17,20 @@
 char	*get_here_doc(char *eos)
 {
 	char	*doc;
-	size_t eos_len;
 	char	*line;
 	char	*tmp;
 
 	doc = ft_strdup("");
 	if (doc == NULL)
 		error("malloc error");
+	if (signal(SIGQUIT, SIG_IGN))
+		return (doc);
 	signal(SIGINT, (void *)interrupt);
 	while (1)
 	{
+		line = readline("heredoc> ");
 		if (g_mshell->interrupt == true)
 			return (doc);
-		line = readline("heredoc> ");
 		if (ft_strcmp(line, eos) == 0)
 			break;
 		tmp = ft_strdup("\n");
@@ -56,8 +57,6 @@ void	get_here_docs(t_redirect_list *redirect)
 
 void	get_here_doc_form_each_node(t_node *node)
 {
-	t_node	*left_node;
-
 	while (node->left != NULL)
 	{
 		get_here_docs(node->right->command.out_redir);

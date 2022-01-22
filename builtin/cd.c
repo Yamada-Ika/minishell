@@ -3,8 +3,7 @@
 void	cd_(char **cmds)
 {
 	char			pathname[512];
-	DIR				*dp;
-	struct dirent	*dirp;
+//	DIR				*dp;
 
 	ft_bzero(pathname, 512);
 	chdir(cmds[1]);

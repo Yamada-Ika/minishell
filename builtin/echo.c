@@ -11,7 +11,6 @@ void	echo_(char **args)
 {
 	bool	opt_n;
 	size_t	i;
-	char	*s;
 
 	if (args[0] == NULL)
 	{
