@@ -108,8 +108,6 @@ struct s_mshell
 t_mshell	*g_mshell;
 
 
-// env_init.c
-void			env_init(char **envp);
 // ------------- env -----------------
 
 // ------------- builtin -----------------
