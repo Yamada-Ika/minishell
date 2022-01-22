@@ -55,20 +55,26 @@ bool	is_exec_with_here_doc(t_command command, char **paths)
 
 void exec(char **paths, char **cmds)
 {
-	char *absolute_path;
-	char *cmd;
-	size_t i;
+	char	*absolute_path;
+	char	*cmd;
+	size_t	i;
 
 	fprintf(stderr, "exec called\n");
+	fprintf(stderr, "cmds[0] %s\n", cmds[0]);
 	i = 0;
 	if (cmds == NULL || cmds[0] == NULL)
 		exit (0);
-	if(access(cmds[0], X_OK) ==F_OK)
+	fprintf(stderr, "access(cmds[0], X_OK) %d F_OK %d\n", access(cmds[0], X_OK), F_OK);
+	if(access(cmds[0], X_OK) == F_OK)
 		execve(cmds[0], cmds, NULL);
 	cmd = ft_strjoin("/", cmds[0]);
+	fprintf(stderr, "cmd %s\n", cmd);
+	paths = get_command_path(g_mshell->envlist);
+	fprintf(stderr, "paths[0] %s\n", *paths);
 	while (paths && paths[i])
 	{
 		absolute_path = ft_strjoin(paths[i], cmd);
+		fprintf(stderr, "absolute_path %s\n", absolute_path);
 		if (access(absolute_path, X_OK) == F_OK)
 		{
 			free(cmd);
@@ -121,7 +127,7 @@ void recursive(t_node *node, char **paths)
 	}
 }
 
-void    handle_command(char **paths, t_node *node)
+void	handle_command(char **paths, t_node *node)
 {
 	signal(SIGINT, (void *)ft_set_signal);
 	if (node->left == NULL && is_exec_built_in(node, node->command) == true)

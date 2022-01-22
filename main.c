@@ -38,7 +38,8 @@ int main(int argc, char **argv) {
 	using_history();
 	read_history(".my_history");
 //	paths = environ;
-	paths = get_command_path(g_mshell->envlist);
+	// paths = get_command_path(g_mshell->envlist);
+	paths = NULL;
 	while (1)
 	{
 		_install_signal_handler();
