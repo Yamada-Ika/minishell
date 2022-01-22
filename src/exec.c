@@ -12,11 +12,11 @@ char	**get_command_path(t_envvar *envlist)
 	if (val_with_key == NULL)
 		return (NULL);
 	path_line = ft_strdup(val_with_key);
-	if (errno)
-		error(strerror(errno));
+	if (path_line == NULL)
+		error("malloc error\n");
 	paths = ft_split(path_line, ':');
-	if (errno)
-		error(strerror(errno));
+	if (paths == NULL)
+		error("malloc error\n");
 	free(path_line);
 	return (paths);
 }
