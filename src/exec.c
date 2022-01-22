@@ -33,29 +33,6 @@ char	**get_command_path(t_envvar *envlist)
 	return (paths);
 }
 
-// char	**get_command_path(char **envp)
-// {
-// 	char *str;
-
-// 	while (*envp)
-// 	{
-// 		if (ft_strnstr(*envp, "PATH", 4))
-// 		{
-// 			str = ft_strdup(*envp);
-// 			if (str == NULL)
-// 				error(strerror(errno));
-// 			break;
-// 		}
-// 		envp++;
-// 	}
-// 	char **paths = ft_split(str + 5, ':');
-// 		if (paths == NULL)
-// 			error(strerror(errno));
-// 	_debug_strs(paths);
-// 	free(str);
-// 	return (paths);
-// }
-
 bool	is_exec_with_here_doc(t_command command, char **paths)
 {
 	int				fd[2];
