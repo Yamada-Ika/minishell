@@ -46,6 +46,7 @@ empty:
 
 test:
 	make ADD_MAIN_FOR_TEST=1
+	cd test2/ && ./run_minishell_test.sh
 
 clean:
 	$(RM) $(OBJS)
