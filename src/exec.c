@@ -87,7 +87,6 @@ void exec(char **paths, char **commands)
 		{
 			free(command);
 			execve(absolute_path, commands, NULL);
-//			free(absolute_path);
 		}
 		free(absolute_path);
 		i++;
@@ -99,7 +98,7 @@ void exec(char **paths, char **commands)
 
 void	exec_t_command(t_command command, char **paths)
 {
-	if (is_exec_built_in(command.word_list, command) == true)
+	if (is_exec_built_in(NULL, command) == true)
 		exit(0);
 	if (handle_in_redir(command.in_redir) == ERROR)
 		exit (1);
@@ -139,7 +138,7 @@ void recursive(t_node *node, char **paths)
 void    handle_command(char **paths, t_node *node)
 {
 	signal(SIGINT, (void *)ft_set_signal);
-	if (node->left == NULL && is_exec_built_in(node->command.word_list, node->command) == true)
+	if (node->left == NULL && is_exec_built_in(node, node->command) == true)
 		return;
 	pid_t pid = fork();
 	if (pid == 0)
