@@ -47,13 +47,13 @@ else
 	echo -e "\n\033[31m global variable check : KO!\033[m"
 fi
 
-test_case=$(cat << EOS
-/bin/pwd
-/bin/ls
-EOS
-)
+# test_case=$(cat << EOS
+# /bin/pwd
+# /bin/ls
+# EOS
+# )
 
-STDOUT_TEST "$test_case"
+# STDOUT_TEST "$test_case"
 
 # echo
 STDOUT_TEST "echo 42"
