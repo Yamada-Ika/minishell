@@ -11,12 +11,13 @@ char	**get_command_path(t_envvar *envlist)
 	val_with_key = my_getenv(envlist, "PATH");
 	if (val_with_key == NULL)
 		return (NULL);
+	errno = INIT_ERRNO;
 	path_line = ft_strdup(val_with_key);
-	if (path_line == NULL)
-		error("malloc error\n");
+	if (errno != INIT_ERRNO && path_line == NULL)
+		error(strerror(errno));
 	paths = ft_split(path_line, ':');
-	if (paths == NULL)
-		error("malloc error\n");
+	if (errno != INIT_ERRNO && paths == NULL)
+		error(strerror(errno));
 	free(path_line);
 	return (paths);
 }
@@ -60,21 +61,16 @@ void exec(char **paths, char **cmds)
 	size_t	i;
 
 	fprintf(stderr, "exec called\n");
-	fprintf(stderr, "cmds[0] %s\n", cmds[0]);
 	i = 0;
 	if (cmds == NULL || cmds[0] == NULL)
 		exit (0);
-	fprintf(stderr, "access(cmds[0], X_OK) %d F_OK %d\n", access(cmds[0], X_OK), F_OK);
 	if(access(cmds[0], X_OK) == F_OK)
 		execve(cmds[0], cmds, NULL);
 	cmd = ft_strjoin("/", cmds[0]);
-	fprintf(stderr, "cmd %s\n", cmd);
 	paths = get_command_path(g_mshell->envlist);
-	fprintf(stderr, "paths[0] %s\n", *paths);
 	while (paths && paths[i])
 	{
 		absolute_path = ft_strjoin(paths[i], cmd);
-		fprintf(stderr, "absolute_path %s\n", absolute_path);
 		if (access(absolute_path, X_OK) == F_OK)
 		{
 			free(cmd);

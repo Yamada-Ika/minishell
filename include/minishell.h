@@ -20,6 +20,8 @@
 # include "envvar.h"
 
 # define ERROR -1
+# define INIT_ERRNO 0
+
 char	***ft_split_triple(char const **strs, char *sets);
 
 typedef enum e_token_kind
