@@ -2,25 +2,6 @@
 
 int sts;
 
-// char	**get_command_path(t_envvar *envlist)
-// {
-// 	char	*path_line;
-// 	char	*path_val;
-// 	char	**paths;
-
-// 	path_val = my_getenv(envlist, "PATH");
-// 	if (path_val == NULL)
-// 		return (NULL);
-// 	path_line = ft_strdup(path_val);
-// 	if (path_line == NULL || errno)
-// 		error(strerror(errno));
-// 	paths = ft_split(path_line, ':');
-// 	if (paths == NULL)
-// 		error(strerror(errno));
-// 	free(path_line);
-// 	return (paths);
-// }
-
 char	**get_command_path(char **envp)
 {
 	char *str;

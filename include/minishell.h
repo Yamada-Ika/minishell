@@ -169,7 +169,6 @@ void			create_t_command(t_node *node);
 
 // exec.c
 char			**get_command_path(char **envp);
-// char			**get_command_path(t_envvar *envlist);
 void			handle_command(char **paths, t_node *node);
 void 			exec(char **paths, char **commands);
 

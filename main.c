@@ -38,10 +38,9 @@ int main(int argc, char **argv, char *envp[]) {
 	using_history();
 	if (read_history(".my_history") != 0)
 		exit(1);
+	paths = get_command_path(envp);
 	while (true)
 	{
-		paths = get_command_path(envp);
-		// paths = get_command_path(g_mshell->envlist);
 		char *str = readline("minishell> ");
 		add_history(str);
 		if (str == NULL)
