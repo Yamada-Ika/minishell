@@ -6,41 +6,45 @@ static void	_install_signal_handler(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-static void	_init_global_var(char **envp)
+static void	_init_global_var()
 {
+	extern char	**environ;
+
 	g_mshell = ft_calloc(1, sizeof(g_mshell));
-	inherite_env_val(&(g_mshell->envlist), envp);
+	inherite_env_val(&(g_mshell->envlist), environ);
 	g_mshell->interrupt = false;
 }
 
-int main(int argc, char **argv, char *envp[]) {
+int main(int argc, char **argv)
+{
 	char	**splitted_newline;
+	char	*cmd_line;
 	size_t	i;
 
 	if (argc > 1 && argv[1])
 		return (0);
-	_init_global_var(envp);
+	_init_global_var();
 	_install_signal_handler();
 	using_history();
 	read_history(".my_history");
 	i = 0;
-	while (1)
+	while (true)
 	{
-		char *str = readline("minishell> ");
-		add_history(str);
-		splitted_newline = ft_split(str, '\n');
+		cmd_line = readline("minishell> ");
+		add_history(cmd_line);
+		splitted_newline = ft_split(cmd_line, '\n');
 		if (splitted_newline == NULL)
 			exit(0);
 		while (splitted_newline[i] != NULL)
 		{
 			if (splitted_newline[i][0] != '\0')
-				run_command_line(str);
+				run_command_line(cmd_line);
 			i++;
 		}
-		if (str == NULL)
+		if (cmd_line == NULL)
 			exit(0);
 		free_double(splitted_newline);
-		free(str);
+		free(cmd_line);
 	}
 	write_history(".my_history");
 }

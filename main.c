@@ -21,30 +21,34 @@ static void	_install_signal_handler(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-static void	_init_global_var(char **envp)
+static void	_init_global_var()
 {
+	extern char	**environ;
+
 	g_mshell = ft_calloc(1, sizeof(g_mshell));
-	inherite_env_val(&(g_mshell->envlist), envp);
+	inherite_env_val(&(g_mshell->envlist), environ);
 	g_mshell->interrupt = false;
 }
 
-int main(int argc, char **argv) {
-	extern char	**environ;
+int main(int argc, char **argv)
+{
+	char	*cmd_line;
+
 	if (argc > 1 && argv[1])
 		return (0);
-	_init_global_var(environ);
+	_init_global_var();
 	using_history();
 	read_history(".my_history");
-	while (1)
+	while (true)
 	{
 		_install_signal_handler();
-		char *str = readline("minishell> ");
-		add_history(str);
-		if (str == NULL)
+		cmd_line = readline("minishell> ");
+		add_history(cmd_line);
+		if (cmd_line == NULL)
 			exit(0);
-		if (*str != '\0')
-			run_command_line(str);
-		free(str);
+		if (cmd_line != '\0')
+			run_command_line(cmd_line);
+		free(cmd_line);
 	}
 	write_history(".my_history");
 }
