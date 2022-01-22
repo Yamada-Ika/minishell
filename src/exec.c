@@ -2,17 +2,6 @@
 
 int sts;
 
-static void	_debug_strs(char **strs)
-{
-	size_t	i = 0;
-
-	while (strs[i])
-	{
-		fprintf(stderr, "create_t_command : 42 : strs debug : %s\n", strs[i]);
-		i++;
-	}
-}
-
 char	**get_command_path(t_envvar *envlist)
 {
 	char	*val_with_key;
@@ -28,7 +17,6 @@ char	**get_command_path(t_envvar *envlist)
 	paths = ft_split(path_line, ':');
 	if (errno)
 		error(strerror(errno));
-	_debug_strs(paths);
 	free(path_line);
 	return (paths);
 }
