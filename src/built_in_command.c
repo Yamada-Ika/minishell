@@ -29,7 +29,7 @@ static void	_exec_builtin_cmd(t_builtin_kind kind, char **cmds)
 		exit_(cmds);
 }
 
-bool	is_exec_built_in(char **cmds, t_command redir)
+bool	is_exec_built_in(t_node *node, t_command redir)
 {
 	const void	*builtin[] = {
 		"echo", "cd", "pwd", "export", "unset", "env", "exit",  NULL};
@@ -37,20 +37,23 @@ bool	is_exec_built_in(char **cmds, t_command redir)
 	int	i;
 
 	fprintf(stderr, "is_exec_built_in called\n");
-	if (cmds == NULL)
-		error("error: is_exec_built_in");
+	if (redir.word_list == NULL || redir.word_list[0] == NULL)
+		return (false);
 	i = 0;
+	fprintf(stderr, "%p\n", redir.word_list);
 	while(builtin[i] != NULL)
 	{
-		if (ft_strcmp(cmds[0], builtin[i]) == 0)
+		if (ft_strcmp(redir.word_list[0], builtin[i]) == 0)
 		{
-			if (redirect_in_parrent(redir, fd) == ERROR)
-				return (true);
-			_exec_builtin_cmd(i, cmds);
+			if (node != NULL)
+				get_here_doc_form_each_node(node);
+			if (redirect_in_parrent(redir, fd) != ERROR &&  g_mshell->interrupt == false)
+				_exec_builtin_cmd(i, redir.word_list);
 			if (fd[0])
 				dup2(fd[0], 0);
 			if (fd[1])
 				dup2(fd[1], 1);
+			g_mshell->interrupt = false;
 			return (true);
 		}
 		i++;

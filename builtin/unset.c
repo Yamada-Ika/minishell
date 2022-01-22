@@ -38,11 +38,11 @@ void	msh_unset(t_envvar **envs, char *key)
 	t_envvar	*head;
 	t_envvar	*cur;
 	t_envvar	*prev;
-	size_t		key_len;
+//	size_t		key_len;
 
 	head = *envs;
 	prev = NULL;
-	key_len = ft_strlen(key);
+//	key_len = ft_strlen(key);
 	while (*envs != NULL)
 	{
 		if (ft_strcmp((*envs)->key, key) == 0)

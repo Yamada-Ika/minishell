@@ -172,7 +172,7 @@ void			handle_command(char **paths, t_node *node);
 void 			exec(char **paths, char **commands);
 
 // built_in_command.c
-bool			is_exec_built_in(char **cmds, t_command redir);
+bool			is_exec_built_in(t_node *node, t_command redir);
 
 // signal.c
 void			*display_new_prompt(int	signal);

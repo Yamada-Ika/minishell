@@ -53,25 +53,30 @@ bool	is_exec_with_here_doc(t_command command, char **paths)
 	return (false);
 }
 
-void exec(char **paths, char **cmds)
+void exec(char **paths, char **commands)
 {
 	char	*absolute_path;
 	char	*cmd;
 	size_t	i;
 
 	fprintf(stderr, "exec called\n");
-	if(access(cmds[0], X_OK) == F_OK)
-		execve(cmds[0], cmds, NULL);
+	if(access(commands[0], X_OK) == F_OK)
+		execve(commands[0], commands, NULL);
 	cmd = ft_strjoin("/", cmds[0]);
 	i = 0;
-	while (paths != NULL && paths[i] != NULL)
-	{
-		absolute_path = ft_strjoin(paths[i], cmd);
-		if (access(absolute_path, X_OK) == F_OK)
+	if (commands == NULL || commands[0] == NULL)
+		exit (0);
+	if(access(commands[0], X_OK) ==F_OK)
+		execve(commands[0], commands, NULL);
+
+	command = ft_strjoin("/", commands[0]);
+	while (paths && paths[i]) {
+		absolute_path = ft_strjoin(paths[i], command);
+		ok = access(absolute_path, X_OK);
+		if (ok == F_OK)
 		{
-			free(cmd);
-			execve(absolute_path, cmds, NULL);
-//			free(absolute_path);
+			free(command);
+			execve(absolute_path, commands, NULL);
 		}
 		free(absolute_path);
 		i++;
@@ -83,7 +88,7 @@ void exec(char **paths, char **cmds)
 
 void	exec_t_command(t_command command, char **paths)
 {
-	if (is_exec_built_in(command.word_list, command) == true)
+	if (is_exec_built_in(NULL, command) == true)
 		exit(0);
 	if (handle_in_redir(command.in_redir) == ERROR)
 		exit (1);
@@ -123,7 +128,7 @@ void recursive(t_node *node, char **paths)
 void    handle_command(char **paths, t_node *node)
 {
 	signal(SIGINT, (void *)ft_set_signal);
-	if (node->left == NULL && is_exec_built_in(node->command.word_list, node->command) == true)
+	if (node->left == NULL && is_exec_built_in(node, node->command) == true)
 		return;
 	pid_t pid = fork();
 	if (pid == 0)
