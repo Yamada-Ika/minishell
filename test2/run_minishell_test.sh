@@ -15,11 +15,10 @@ function IS_SAME_FILE() {
 
 function STDOUT_TEST() {
 	test_case="$1"
-
-	echo -n $test_case > test2/msh.in
+	echo -n "$test_case" > test2/msh.in
 	echo " > test2/msh.out" >> test2/msh.in
 	./minishell < test2/msh.in
-	echo -n $test_case > test2/bash.in
+	echo -n "$test_case" > test2/bash.in
 	echo " > test2/bash.out" >> test2/bash.in
 	bash < test2/bash.in
 	IS_SAME_FILE test2/msh.out test2/bash.out
@@ -33,6 +32,28 @@ function STDOUT_TEST() {
 }
 
 cd ../
+
+# Simple command
+STDOUT_TEST "/bin/ls"
+STDOUT_TEST "/bin/pwd"
+STDOUT_TEST "/bin/echo 42tokyo"
+
+# Count global variables
+global_val_count=$(cat $(find ./ -name "*.c" -or -name "*.h" | grep -v libft) | grep "\t\**g_[a-zA-Z]*;" | wc -l)
+if [ $global_val_count -eq 0 ]
+then
+	echo -e "\n\033[32m global variable check : OK!\033[m"
+else
+	echo -e "\n\033[31m global variable check : KO!\033[m"
+fi
+
+test_case=$(cat << EOS
+/bin/pwd
+/bin/ls
+EOS
+)
+
+STDOUT_TEST "$test_case"
 
 # echo
 STDOUT_TEST "echo 42"
