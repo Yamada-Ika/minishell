@@ -24,6 +24,7 @@ char	***ft_split_triple(char const **strs, char *sets);
 
 typedef enum e_token_kind
 {
+	EMPTY = -1,
 	TK_OP_DOUBLE_GR,	// ">>"
 	TK_OP_SINGLE_LS,	// "<<"
 	TK_OP_LS,			// "<"

@@ -24,7 +24,7 @@ t_token	*new_token(t_token *cur, t_token_kind kind, char **p, size_t len)
 	new->is_join_prev = false;
 	new->str = ft_substr(*p, 0, len);
 	new->len = len;
-	if (cur->kind != -1  && *(*p - 1) != ' ' && !is_redirect_kind(cur->kind) &&
+	if (cur->kind != EMPTY  && *(*p - 1) != ' ' && !is_redirect_kind(cur->kind) &&
 		cur->kind != TK_OP_PIPE && !is_redirect_kind(kind) && kind != TK_OP_PIPE && kind != TK_EOF)
 		new->is_join_prev = true;
 	cur->next = new;
@@ -76,7 +76,7 @@ static	t_token_kind	_get_word_kind(char *p)
 	if (kind != TK_WORD)
 	{
 		ft_putstr_fd("quote error\n", 2);
-		kind = -1;
+		kind = EMPTY;
 	}
 	return (kind);
 }
@@ -94,7 +94,7 @@ t_token	*tokenize(char *p)
 	t_token_kind	word_kind;
 	size_t			op_len;
 
-	head.kind = -1;
+	head.kind = EMPTY;
 	cur = &head;
 	while (*p)
 	{
@@ -107,7 +107,7 @@ t_token	*tokenize(char *p)
 		else
 		{
 			word_kind = _get_word_kind(p);
-			if (word_kind == -1)
+			if (word_kind == EMPTY)
 			{
 				cur->next = NULL;
 				return (tokenize_error(head.next));
