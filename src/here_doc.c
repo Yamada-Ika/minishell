@@ -23,13 +23,16 @@ char	*get_here_doc(char *eos)
 	doc = ft_strdup("");
 	if (doc == NULL)
 		error("malloc error");
-	if (signal(SIGQUIT, SIG_IGN))
-		return (doc);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, (void *)interrupt);
+//	if (signal(SIGINT, (void *)interrupt))
+//		return (doc);
 	while (1)
 	{
 		line = readline("heredoc> ");
 		if (g_mshell->interrupt == true)
+			return (doc);
+		if (line == NULL)
 			return (doc);
 		if (ft_strcmp(line, eos) == 0)
 			break;
