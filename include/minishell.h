@@ -128,6 +128,7 @@ void			env_(char **args);
 
 // exit.c
 void			exit_(char **cmds);
+void			msh_exit(int status);
 
 // pwd.c
 void			pwd_();
