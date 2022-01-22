@@ -204,5 +204,6 @@ void			debug_node(t_node *node);
 void			debug_tokenize(t_token *token);
 void			debug_token(t_token *token, size_t loop_cnt);
 void			_debug_command(t_command cmd);
+void			_debug_strs(char **strs);
 
 # endif
