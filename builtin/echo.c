@@ -23,10 +23,10 @@ void	echo_(char **args)
 		i = 1;
 	while (args[i])
 	{
-		printf("%s", args[i]);
+		ft_putstr_fd(args[i], 1);
 		if (args[i + 1] == NULL)
 			break ;
-		printf(" ");
+		ft_putstr_fd(" ", 1);
 		i++;
 	}
 	if (opt_n == false)
