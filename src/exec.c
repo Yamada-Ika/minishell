@@ -56,6 +56,8 @@ bool	is_exec_with_here_doc(t_command command)
 
 void exec(char **cmds)
 {
+	const void	*builtin[] = {
+			"echo", "cd", "pwd", "export", "unset", "env", "exit",  NULL};
 	char	*absolute_path;
 	char	*cmd;
 	char	**paths;
@@ -65,6 +67,11 @@ void exec(char **cmds)
 	i = 0;
 	if (cmds == NULL || cmds[0] == NULL)
 		exit (0);
+	if (ft_strcmp(cmds[0], builtin[i]) == 0)
+	{
+		_exec_builtin_cmd(i, cmds);
+		exit (0);
+	}
 	if(access(cmds[0], X_OK) == F_OK)
 		execve(cmds[0], cmds, NULL);
 	cmd = ft_strjoin("/", cmds[0]);
@@ -87,8 +94,8 @@ void exec(char **cmds)
 
 void	exec_t_command(t_command command)
 {
-	if (is_exec_built_in(NULL, command) == true)
-		exit(0);
+//	if (is_exec_built_in(NULL, command) == true)
+//		exit(0);
 	if (handle_in_redir(command.in_redir) == ERROR)
 		exit (1);
 	if (handle_out_redir(command.out_redir) == ERROR)
@@ -137,7 +144,7 @@ void	handle_command(t_node *node)
 		if (g_mshell->interrupt == true)
 		{
 			g_mshell->interrupt = false;
-			exit(0);
+			exit(1);
 		}
 		fprintf(stderr, "recursive : called\n");
 		recursive(node);

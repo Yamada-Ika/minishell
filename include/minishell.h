@@ -179,6 +179,7 @@ void 			exec(char **commands);
 
 // built_in_command.c
 bool			is_exec_built_in(t_node *node, t_command redir);
+void	_exec_builtin_cmd(t_builtin_kind kind, char **cmds);
 
 // signal.c
 void			*display_new_prompt(int signal);
