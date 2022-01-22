@@ -61,7 +61,7 @@ static	t_token_kind	_get_word_kind(char *p)
 				return (TK_WORD_IN_SINGLE_Q);
 			kind = TK_WORD_IN_SINGLE_Q;
 		}
-		if (*p =='"' && kind != TK_WORD_IN_SINGLE_Q)
+		if (*p == '"' && kind != TK_WORD_IN_SINGLE_Q)
 		{
 			if (kind == TK_WORD_IN_DOUBLE_Q)
 				return (TK_WORD_IN_DOUBLE_Q);
@@ -69,7 +69,7 @@ static	t_token_kind	_get_word_kind(char *p)
 		}
 		if (kind == TK_WORD && ft_strchr(" ><|", *p))
 			return (TK_WORD);
-		if (kind == TK_WORD && *p == '$' && ft_isalnum(*(p + 1)))
+		if (kind == TK_WORD && *p == '$' && (ft_isalnum(*(p + 1)) || *(p + 1) == '?'))
 			return (TK_OP_DOLLAR);
 		p++;
 	}

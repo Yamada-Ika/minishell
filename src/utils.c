@@ -32,7 +32,7 @@ size_t  get_word_len(char *p, t_token_kind kind, char *str)
 	// while ((kind != TK_WORD && kind != TK_OP_DOLLAR) || !ft_strchr(str, p[len]) || (p[len] == '$' && p[len + 1] != ' '))
 	while (kind != TK_WORD || !ft_strchr(str, p[len]))
 	{
-		if (kind == TK_OP_DOLLAR && p[len] != '$' && !ft_isalnum(p[len]))
+		if (kind == TK_OP_DOLLAR && p[len] != '$' && !(ft_isalnum(p[len]) || p[len] == '?'))
 			break ;
 		if (p[len] == '\'' && kind == TK_WORD_IN_SINGLE_Q)
 			quote_count += 1;
@@ -53,7 +53,7 @@ size_t	get_valiable_name_len(char *str)
 
 	i = 0;
 	printf("utils.c 53:   str[i] = %c,  isalnum  %d\n",(unsigned char)str[i], ft_isalnum((unsigned char) str[i]));
-	while (ft_isalnum((char) str[i]))
+	while (ft_isalnum((char) str[i]) || str[i] == '?')
 		i++;
 	printf("utils 56:   str[i] = %c, i == %zu\n",(unsigned char) str[i], i);
 	return (i);

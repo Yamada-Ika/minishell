@@ -47,9 +47,11 @@ char	*expand_str(char *str)
 	while (str[i])
 	{
 		printf("handle_token_in_quotes 52: i = %zu,   str[i] = %c\n", i, str[i]);
-		if (str[i] == '$' && ft_isalnum((unsigned char)(str[i + 1])))
+		if (str[i] == '$' && (ft_isalnum((unsigned char)(str[i + 1])) || str[i + 1] == '?'))
 		{
 			variable_name = ft_substr(str + i, 1, get_valiable_name_len(str + i + 1));
+			fprintf(stderr, "++++++ variable_name = %s\n", variable_name);
+			fprintf(stderr, "++++++ ? = %s\n", my_getenv(g_mshell->envlist, variable_name));
 			expanded_value = ft_strdup(my_getenv(g_mshell->envlist, variable_name));
 			printf("handle_token_in_quotes 56: variable_name = %s, str[i] = %c\n",  variable_name, str[i]);
 			if (expanded_value == NULL && errno == 0)
