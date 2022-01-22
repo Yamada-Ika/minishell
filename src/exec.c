@@ -53,34 +53,32 @@ bool	is_exec_with_here_doc(t_command command, char **paths)
 	return (false);
 }
 
-void exec(char **paths, char **commands)
+void exec(char **paths, char **cmds)
 {
 	char *absolute_path;
-	char *command;
+	char *cmd;
 	size_t i;
-	int	ok;
 
 	fprintf(stderr, "exec called\n");
 	i = 0;
-	if (commands == NULL || commands[0] == NULL)
+	if (cmds == NULL || cmds[0] == NULL)
 		exit (0);
-	if(access(commands[0], X_OK) ==F_OK)
-		execve(commands[0], commands, NULL);
-
-	command = ft_strjoin("/", commands[0]);
-	while (paths && paths[i]) {
-		absolute_path = ft_strjoin(paths[i], command);
-		ok = access(absolute_path, X_OK);
-		if (ok == F_OK)
+	if(access(cmds[0], X_OK) ==F_OK)
+		execve(cmds[0], cmds, NULL);
+	cmd = ft_strjoin("/", cmds[0]);
+	while (paths && paths[i])
+	{
+		absolute_path = ft_strjoin(paths[i], cmd);
+		if (access(absolute_path, X_OK) == F_OK)
 		{
-			free(command);
-			execve(absolute_path, commands, NULL);
+			free(cmd);
+			execve(absolute_path, cmds, NULL);
 		}
 		free(absolute_path);
 		i++;
 	}
 	ft_putstr_fd("minishell: command not found: ", 2);
-	ft_putendl_fd(command + 1, 2);
+	ft_putendl_fd(cmd + 1, 2);
 	exit (127);
 }
 
