@@ -3,8 +3,8 @@
 function IS_SAME_FILE() {
 	file_1="$1"
 	file_2="$2"
-	diff $file_1 $file_2 > out.diff
-	size=$(ls -l out.diff | awk '{print $5}')
+	diff $file_1 $file_2 > test2/out.diff
+	size=$(ls -l test2/out.diff | awk '{print $5}')
 	if [ $size -eq 0 ]
 	then
 		return 0
@@ -19,7 +19,6 @@ function STDOUT_TEST() {
 	echo -n $test_case > test2/msh.in
 	echo " > test2/msh.out" >> test2/msh.in
 	./minishell < test2/msh.in
-	pwd
 	echo -n $test_case > test2/bash.in
 	echo " > test2/bash.out" >> test2/bash.in
 	bash < test2/bash.in
