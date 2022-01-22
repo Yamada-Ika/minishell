@@ -37,9 +37,10 @@ bool	is_exec_built_in(char **cmds, t_command redir)
 	int	i;
 
 	fprintf(stderr, "is_exec_built_in called\n");
-	if (cmds == NULL)
-		error("error: is_exec_built_in");
+	if (cmds == NULL || cmds[0] == NULL)
+		return (false);
 	i = 0;
+	fprintf(stderr, "%p\n", cmds);
 	while(builtin[i] != NULL)
 	{
 		if (ft_strcmp(cmds[0], builtin[i]) == 0)

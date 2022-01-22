@@ -74,6 +74,8 @@ void exec(char **paths, char **commands)
 
 	fprintf(stderr, "exec called\n");
 	i = 0;
+	if (commands == NULL || commands[0] == NULL)
+		exit (0);
 	if(access(commands[0], X_OK) ==F_OK)
 		execve(commands[0], commands, NULL);
 
