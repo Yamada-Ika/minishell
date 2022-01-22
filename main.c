@@ -37,7 +37,7 @@ int main(int argc, char **argv, char *envp[]) {
 	_install_signal_handler();
 	using_history();
 	read_history(".my_history");
-	paths = get_command_path(envp);
+	paths = get_command_path(g_mshell->envlist);
 	while (1)
 	{
 		char *str = readline("minishell> ");

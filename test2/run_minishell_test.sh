@@ -34,6 +34,7 @@ function STDOUT_TEST() {
 
 # echo
 STDOUT_TEST "echo 42"
+exit 0
 STDOUT_TEST "echo \"42\""
 STDOUT_TEST "echo '42'"
 STDOUT_TEST "echo Tokyo\"42\""

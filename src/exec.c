@@ -2,25 +2,22 @@
 
 int sts;
 
-char	**get_command_path(char **envp)
+char	**get_command_path(t_envvar *envlist)
 {
-	char *str;
+	char	*val_with_key;
+	char	*path_line;
+	char	**paths;
 
-	while (*envp)
-	{
-		if (ft_strnstr(*envp, "PATH", 4))
-		{
-			str = ft_strdup(*envp);
-			if (str == NULL)
-				error(strerror(errno));
-			break;
-		}
-		envp++;
-	}
-	char **paths = ft_split(str + 5, ':');
-		if (paths == NULL)
-			error(strerror(errno));
-	free(str);
+	val_with_key = my_getenv(envlist, "PATH");
+	if (val_with_key == NULL)
+		return (NULL);
+	path_line = ft_strdup(val_with_key);
+	if (errno)
+		error(strerror(errno));
+	paths = ft_split(path_line, ':');
+	if (errno)
+		error(strerror(errno));
+	free(path_line);
 	return (paths);
 }
 
