@@ -40,6 +40,7 @@ t_envvar	*get_envvar_with_key(t_envvar *envlist, char *key)
 
 void	replace_val(t_envvar *env, char *val)
 {
+	free(env->val);
 	env->val = ft_strdup(val);
 	if (env->val == NULL)
 		exit(1);
