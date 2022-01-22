@@ -126,10 +126,12 @@ void recursive(t_node *node)
 
 void	handle_command(t_node *node)
 {
-	signal(SIGINT, (void *)ft_set_signal);
+	pid_t	pid;
+
+	signal(SIGINT, (void *)back_to_new_prompt);
 	if (node->left == NULL && is_exec_built_in(node, node->command) == true)
-		return;
-	pid_t pid = fork();
+		return ;
+	pid = fork();
 	if (pid == 0)
 	{
 		signal(SIGQUIT, (void *)SIG_DFL);
@@ -139,7 +141,7 @@ void	handle_command(t_node *node)
 			g_mshell->interrupt = false;
 			exit(0);
 		}
-		printf("recursive : called\n");
+		fprintf(stderr, "recursive : called\n");
 		recursive(node);
 		return;
 	}

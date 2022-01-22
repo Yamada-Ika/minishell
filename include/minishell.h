@@ -177,9 +177,9 @@ void 			exec(char **commands);
 bool			is_exec_built_in(t_node *node, t_command redir);
 
 // signal.c
-void			*display_new_prompt(int	signal);
-int				ft_set_signal(int	signal);
-int				interrupt(int	signal);
+void			*display_new_prompt(int signal);
+void			*back_to_new_prompt(int signal);
+int				interrupt(int signal);
 
 // run_command_line.c
 void			run_command_line(char *str);
