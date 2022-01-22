@@ -46,7 +46,7 @@ int main(int argc, char **argv)
 		add_history(cmd_line);
 		if (cmd_line == NULL)
 			exit(0);
-		if (cmd_line != '\0')
+		if (*cmd_line != '\0')
 			run_command_line(cmd_line);
 		free(cmd_line);
 	}
