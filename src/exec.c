@@ -55,14 +55,12 @@ bool	is_exec_with_here_doc(t_command command, char **paths)
 
 void exec(char **paths, char **commands)
 {
-	char	*absolute_path;
-	char	*cmd;
-	size_t	i;
+	char *absolute_path;
+	char *command;
+	size_t i;
+	int	ok;
 
 	fprintf(stderr, "exec called\n");
-	if(access(commands[0], X_OK) == F_OK)
-		execve(commands[0], commands, NULL);
-	cmd = ft_strjoin("/", cmds[0]);
 	i = 0;
 	if (commands == NULL || commands[0] == NULL)
 		exit (0);
@@ -82,7 +80,7 @@ void exec(char **paths, char **commands)
 		i++;
 	}
 	ft_putstr_fd("minishell: command not found: ", 2);
-	ft_putendl_fd(cmd + 1, 2);
+	ft_putendl_fd(command + 1, 2);
 	exit (127);
 }
 
