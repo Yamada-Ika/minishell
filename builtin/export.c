@@ -71,7 +71,8 @@ static void	_display_env(t_envvar *envlist)
 {
 	while (envlist != NULL)
 	{
-		printf("declare -x %s=\"%s\"\n", envlist->key, envlist->val);
+		if (ft_strcmp(envlist->key, "?") != 0)
+			printf("declare -x %s=\"%s\"\n", envlist->key, envlist->val);
 		envlist = envlist->next;
 	}
 }

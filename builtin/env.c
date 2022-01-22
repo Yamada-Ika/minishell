@@ -23,11 +23,12 @@ void	env_(char **args)
 	}
 }
 
-void	msh_env(t_envvar *envs)
+void	msh_env(t_envvar *envlist)
 {
-	while (envs != NULL)
+	while (envlist != NULL)
 	{
-		printf("%s=%s\n", envs->key, envs->val);
-		envs = envs->next;
+		if (ft_strcmp(envlist->key, "?") != 0)
+			printf("%s=%s\n", envlist->key, envlist->val);
+		envlist = envlist->next;
 	}
 }
