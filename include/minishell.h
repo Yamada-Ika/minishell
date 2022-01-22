@@ -197,6 +197,7 @@ void			get_here_doc_form_each_node(t_node *node);
 // free.c
 void			free_token_list(t_token *token);
 void			free_node_list(t_node *node);
+void			free_double(char **p);
 
 //debug
 void			debug_node(t_node *node);
