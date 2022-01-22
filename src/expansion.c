@@ -12,7 +12,7 @@ void	join_token_and_token_prev(t_token **token)
 	(*token)->next->prev = (*token)->prev;
 	printf("join_token_and_token_perv 12: str == %s\n", (*token)->prev->str);
 	tmp = *token;
-	*token =
+//	*token =
 	*token = (*token)->prev;
 	free(tmp);
 }
