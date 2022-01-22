@@ -2,8 +2,6 @@
 
 char	*my_getenv(t_envvar *envs, char *key)
 {
-//	char	*val;
-
 	if (envs == NULL)
 		return (NULL);
 	while (envs != NULL)
