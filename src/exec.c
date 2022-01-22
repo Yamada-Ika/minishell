@@ -104,10 +104,8 @@ void recursive(t_node *node)
 
 	if (node->left == NULL )
 		exec_t_command(node->command);
-
 	pipe(fd);
 	pid = fork();
-
 	if (pid == 0)
 	{
 		close(fd[1]);
