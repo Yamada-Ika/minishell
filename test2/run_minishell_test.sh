@@ -47,15 +47,38 @@ else
 	echo -e "\n\033[31m global variable check : KO!\033[m"
 fi
 
+STDOUT_TEST " "
+STDOUT_TEST "  "
+STDOUT_TEST "   "
+STDOUT_TEST "    "
+STDOUT_TEST "     "
+STDOUT_TEST "      "
+STDOUT_TEST "	"
+STDOUT_TEST "		"
+STDOUT_TEST "			"
+STDOUT_TEST "				"
+STDOUT_TEST "					"
+
+# Arguments
+STDOUT_TEST "/bin/ls -a"
+STDOUT_TEST "/bin/ls -l"
+STDOUT_TEST "/bin/pwd"
+STDOUT_TEST "/bin/echo -n 42tokyo"
+
 # test_case=$(cat << EOS
 # /bin/pwd
 # /bin/ls
 # EOS
 # )
 
-# STDOUT_TEST "$test_case"
+STDOUT_TEST \
+"/bin/ls -a
+/bin/ls -l
+/bin/pwd
+/bin/echo -n 42tokyo"
 
 # echo
+STDOUT_TEST "echo"
 STDOUT_TEST "echo 42"
 STDOUT_TEST "echo \"42\""
 STDOUT_TEST "echo '42'"
@@ -64,6 +87,44 @@ STDOUT_TEST "echo Tokyo'42'"
 STDOUT_TEST "echo \"42\"Tokyo"
 STDOUT_TEST "echo '42'Tokyo"
 STDOUT_TEST "echo Paris\"42\"Tokyo"
+STDOUT_TEST "echo -n 42"
+STDOUT_TEST "echo -n \"42\""
+STDOUT_TEST "echo -n '42'"
+STDOUT_TEST "echo -n Tokyo\"42\""
+STDOUT_TEST "echo -n Tokyo'42'"
+STDOUT_TEST "echo -n \"42\"Tokyo"
+STDOUT_TEST "echo -n '42'Tokyo"
+STDOUT_TEST "echo -n Paris\"42\"Tokyo"
+
+# double quotes
+STDOUT_TEST "echo \" 42 \""
+STDOUT_TEST "echo \"  Tokyo \""
+STDOUT_TEST "echo \"   Paris  \""
+STDOUT_TEST "echo \"    Codam   \""
+STDOUT_TEST "echo \"cat lol.c | cat > lol.c\""
+STDOUT_TEST "echo \"\$PATH\""
+STDOUT_TEST "echo \"\$USER\""
+STDOUT_TEST "echo \"\$LANG\""
+
+# single quotes
+STDOUT_TEST "echo ' 42 '"
+STDOUT_TEST "echo '  Tokyo '"
+STDOUT_TEST "echo '   Paris  '"
+STDOUT_TEST "echo '    Codam   '"
+STDOUT_TEST "echo 'cat lol.c || cat > lol.c << EOF > res.log'"
+STDOUT_TEST "echo '\$PATH'"
+STDOUT_TEST "echo '\$USER'"
+STDOUT_TEST "echo '\$LANG'"
+
+# pwd
+STDOUT_TEST "pwd"
+STDOUT_TEST \
+"cd ..
+pwd
+cd ..
+pwd
+cd ..
+pwd"
 
 # echo & pipe
 STDOUT_TEST "echo 42 | cat"
@@ -95,8 +156,5 @@ STDOUT_TEST "echo Tokyo'42' | cat | cat | cat"
 STDOUT_TEST "echo \"42\"Tokyo | cat | cat | cat"
 STDOUT_TEST "echo '42'Tokyo | cat | cat | cat"
 STDOUT_TEST "echo Paris\"42\"Tokyo | cat | cat | cat"
-
-# pwd
-STDOUT_TEST "pwd"
 
 echo -e "\033[32mAll test : OK!\033[m"
