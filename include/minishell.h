@@ -128,7 +128,7 @@ void			env_(char **args);
 
 // exit.c
 void			exit_(char **cmds);
-void			msh_exit(int status);
+// void			msh_exit(int status);
 
 // pwd.c
 void			pwd_();
@@ -143,6 +143,9 @@ void			error_option(char *builtin_name, char *option_name);
 void			error_option2(char *builtin_name, char option);
 void			error_ident(char *builtin_name, char *ident);
 // ------------- builtin -----------------
+
+// set_exit_status.c
+void	set_exit_status(int status);
 
 // utils.c
 void 			error(char *str);

@@ -82,7 +82,7 @@ void exec(char **cmds)
 	}
 	ft_putstr_fd("minishell: command not found: ", 2);
 	ft_putendl_fd(cmd + 1, 2);
-	exit (127);
+	exit(127);
 }
 
 void	exec_t_command(t_command command)
@@ -141,7 +141,9 @@ void	handle_command(t_node *node)
 		}
 		fprintf(stderr, "recursive : called\n");
 		recursive(node);
-		return;
+		return ;
 	}
 	waitpid(pid, &sts, 0);
+	fprintf(stderr, "sts : %d\n", WEXITSTATUS(sts));
+	set_exit_status(WEXITSTATUS(sts));
 }
