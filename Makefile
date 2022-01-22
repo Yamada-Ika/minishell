@@ -45,6 +45,7 @@ empty:
 	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
 
 test:
+	touch test2/main_for_test.c
 	make ADD_MAIN_FOR_TEST=1
 	cd test2/ && ./run_minishell_test.sh
 
