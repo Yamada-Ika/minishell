@@ -7,19 +7,15 @@ void	*display_new_prompt(int signal)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	return (0);
+	return (NULL);
 }
 
-int	ft_set_signal(int signal)
+void	*back_to_new_prompt(int signal)
 {
-	if (signal == SIGINT)
-	{
-		// ft_putchar_fd('\n', 1);
-		rl_on_new_line();
-		// rl_replace_line("", 0);
-		// rl_redisplay();
-	}
-	return (0);
+	(void)signal;
+	ft_putchar_fd('\n', 1);
+	rl_on_new_line();
+	return (NULL);
 }
 
 int	interrupt(int signal)
