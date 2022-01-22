@@ -7,10 +7,11 @@ LDFLAGS := -lreadline -lhistory -L$(shell brew --prefix readline)/lib
 INCLUDE := -Iinclude/ -I$(shell brew --prefix readline)/include -Ilibft -Ibuiltin
 
 SRCS	:= \
-built_in_command.c       free.c                   redirect.c               utils.c	\
-create_t_command.c       handle_token_in_quotes.c run_command_line.c				\
-exec.c                   here_doc.c               signal.c							\
-expansion.c              parse.c                  tokenize.c
+built_in_command.c       handle_token_in_quotes.c set_exit_status.c	\
+create_t_command.c       here_doc.c               signal.c			\
+exec.c                   parse.c                  tokenize.c		\
+expansion.c              redirect.c               utils.c			\
+free.c                   run_command_line.c
 SRCS	:= $(addprefix src/, $(SRCS))
 
 # If `make` use main.c, `make test` use test2/main_for_test.c
