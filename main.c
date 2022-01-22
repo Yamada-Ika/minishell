@@ -29,7 +29,6 @@ static void	_init_global_var(char **envp)
 }
 
 int main(int argc, char **argv) {
-//int main(int argc, char **argv, char *envp[]) {
 	char	**paths;
 	extern char	**environ;
 	if (argc > 1 && argv[1])
@@ -37,8 +36,6 @@ int main(int argc, char **argv) {
 	_init_global_var(environ);
 	using_history();
 	read_history(".my_history");
-//	paths = environ;
-	// paths = get_command_path(g_mshell->envlist);
 	paths = NULL;
 	while (1)
 	{
