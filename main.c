@@ -36,10 +36,9 @@ int main(int argc, char **argv, char *envp[]) {
 	_init_global_var(envp);
 	_install_signal_handler();
 	using_history();
-	if (read_history(".my_history") != 0)
-		exit(1);
+	read_history(".my_history");
 	paths = get_command_path(envp);
-	while (true)
+	while (1)
 	{
 		char *str = readline("minishell> ");
 		add_history(str);
