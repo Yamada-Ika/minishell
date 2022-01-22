@@ -27,6 +27,7 @@ static void	_init_global_var()
 
 	g_mshell = ft_calloc(1, sizeof(g_mshell));
 	inherite_env_val(&(g_mshell->envlist), environ);
+	msh_export(&(g_mshell->envlist), "?", "0");
 	g_mshell->interrupt = false;
 }
 
