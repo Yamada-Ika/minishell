@@ -1,19 +1,19 @@
 #include "minishell.h"
 
-void	run_command_line(char *str)
+void	run_command_line(char *cmd_line)
 {
 	t_token	*token;
+	t_node	*node;
 
-	printf("run_command_line 7:  str = %s\n", str);
-	token = tokenize(str);
+	fprintf(stderr, "run_command_line 7: cmd_line = %s\n", cmd_line);
+	token = tokenize(cmd_line);
 	if (token == NULL)
 		return;
 	debug_tokenize(token);
-	// parse
-	t_node	*node = command_line(&token);
+	node = command_line(&token);
 	if (node == NULL)
 		return;
-	printf("parse: =========================================\n");
+	printf("parse    : =========================================\n");
 	debug_node(node);
 	expansion(node);
 	printf("expansion: =========================================\n");
