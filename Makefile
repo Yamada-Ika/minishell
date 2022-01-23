@@ -6,16 +6,7 @@ CFLAGS		:= -g -Wall -Wextra -Werror #-fsanitize=address
 LDFLAGS 	:= -lreadline -lhistory -L$(shell brew --prefix readline)/lib
 INCLUDE 	:= -Iinclude/ -I$(shell brew --prefix readline)/include -Ilibft -Ibuiltin
 
-# SRCS		:= run_command_line.c
-# SRCS		:= $(addprefix src/, $(SRCS))
 
-# LEXAR_SRCS	:= tokenize.c
-# LEXAR_SRCS	:= $(addprefix src/lexar/, $(SRCS))
-# SRCS		+= $(LEXAR_SRCS)
-
-# PARSER_SRCS	:= parser.c
-# PARSER_SRCS	:= $(addprefix src/parse/, $(SRCS))
-# SRCS		+= $(PARSER_SRCS)
 
 # If `make` use main.c, `make test` use test2/main_for_test.c
 ifdef ADD_MAIN_FOR_TEST
