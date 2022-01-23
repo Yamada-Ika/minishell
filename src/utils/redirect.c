@@ -6,7 +6,6 @@ int	handle_in_redir(t_redirect_list *redirect)
 
 	if (redirect == NULL)
 		return (0);
-	fprintf(stderr,"handle_in_redir called:  \n");
 	if (redirect->is_ambiguous == true)
 	{
 		ft_putstr_fd("minishell: ", 2);
@@ -36,7 +35,6 @@ int	handle_out_redir(t_redirect_list *redirect)
 
 	if (redirect == NULL)
 		return (0);
-	fprintf(stderr,"handle_out_redir called:  \n");
 	if (redirect->is_ambiguous == true)
 	{
 		ft_putstr_fd("minishell: ", 2);
@@ -55,7 +53,6 @@ int	handle_out_redir(t_redirect_list *redirect)
 		dup2(fd, 0);
 		close(fd);
 	}
-
 	if (redirect->next != NULL)
 		handle_out_redir(redirect->next);
 	return (0);
