@@ -10,7 +10,8 @@ t_node	*parse_error(t_node *node, t_token *token)
 
 t_token	*tokenize_error(t_token *token)
 {
-	t_token *token_next;
+	t_token	*token_next;
+
 	while (token != NULL)
 	{
 		free (token->str);
