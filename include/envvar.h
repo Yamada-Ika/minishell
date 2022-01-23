@@ -5,7 +5,7 @@
 # include <string.h>
 # include <stdio.h>
 
-# include "libft.h"
+# include "../libft/libft.h"
 
 typedef struct s_envvar	t_envvar;
 struct s_envvar

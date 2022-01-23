@@ -1,4 +1,4 @@
-#include "envvar.h"
+#include "../include/envvar.h"
 
 t_envvar	*new_envlist(char *key, char *val)
 {

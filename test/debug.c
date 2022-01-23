@@ -54,7 +54,6 @@ void	debug_node(t_node *node)
 	}
 }
 
-
 void	debug_tokenize(t_token *token)
 {
 	const char *kind[] = {

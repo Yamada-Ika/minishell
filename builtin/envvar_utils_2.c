@@ -1,4 +1,4 @@
-#include "envvar.h"
+#include "../include/envvar.h"
 
 void	delete_envlists(t_envvar *envlist)
 {
