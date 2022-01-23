@@ -1,5 +1,19 @@
 #!/bin/bash
 
+function TAKE_LOG_FAILE_TEST() {
+	test_case="$1"
+	msh_file="$2"
+	bash_file="$3"
+	echo $msh_file $bash_file
+	echo "===============================================================" >> test2/faile.log
+	echo "test case : $test_case" >> test2/faile.log
+	echo "---------------------- minishell result -----------------------" >> test2/faile.log
+	cat $msh_file >> test2/faile.log
+	echo "------------------------- bash result -------------------------" >> test2/faile.log
+	cat $bash_file >> test2/faile.log
+	echo "===============================================================" >> test2/faile.log
+}
+
 function IS_SAME_FILE() {
 	file_1="$1"
 	file_2="$2"
@@ -27,10 +41,11 @@ function STDOUT_TEST() {
 		echo -e "\n\033[32m$test_case : OK!\033[m"
 	else
 		echo -e "\n\033[31m$test_case : KO!\033[m"
-		exit 1
+		TAKE_LOG_FAILE_TEST "$test_case" test2/msh.out test2/bash.out
 	fi
 }
 
+rm -rf faile.log
 cd ../
 
 # Simple command
@@ -62,6 +77,7 @@ STDOUT_TEST "					"
 # Arguments
 STDOUT_TEST "/bin/ls -a"
 STDOUT_TEST "/bin/ls -l"
+exit 0
 STDOUT_TEST "/bin/pwd"
 STDOUT_TEST "/bin/echo -n 42tokyo"
 
