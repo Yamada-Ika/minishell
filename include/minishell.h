@@ -50,8 +50,6 @@ struct s_token
 	bool			is_join_prev;
 };
 
-t_token	*tokenize(char *p);
-void	debug_tokenize(t_token *token);
 
 typedef enum e_node_kind{
 	ND_CMD, // command (e.g. cat)
@@ -145,7 +143,15 @@ void			error_ident(char *builtin_name, char *ident);
 // ------------- builtin -----------------
 
 // set_exit_status.c
-void	set_exit_status(int status);
+void			set_exit_status(int status);
+
+// tokenize.c
+t_token			*tokenize(char *p);
+void			debug_tokenize(t_token *token);
+
+// tokenize_utils.c
+void			skip_space(char **s);
+bool			is_quote_closed(char c, t_token_kind kind);
 
 // utils.c
 char			*here_doc(char *eos);
@@ -226,5 +232,6 @@ void			_debug_strs(char **strs);
 // error.c
 t_node			*parse_error(t_node *node, t_token *token);
 void 			error(char *str);
+t_token			*tokenize_error(t_token *token);
 
 # endif
