@@ -1,23 +1,5 @@
 #include "minishell.h"
 
-static char	**_alloc_word_list(t_token *tok, size_t size)
-{
-	size_t	i;
-	size_t	word_list_size;
-
-	word_list_size = 0;
-	i = 0;
-	while (i < size)
-	{
-		if (tok->kind == TK_WORD && !is_redirect_kind(tok->prev->kind))
-			word_list_size++;
-		tok = tok->next;
-		i++;
-	}
-	fprintf(stderr, "***word_list_size : %zu\n", word_list_size);
-	return ((char **)ft_calloc(word_list_size + 1, sizeof(char *)));
-}
-
 static t_redirect_list	*_new_redir_list(char *word, char *redirct)
 {
 	t_redirect_list	*new;
@@ -48,8 +30,7 @@ static void	_redir_lstadd_back(t_redirect_list **lst, t_redirect_list *new)
 static void	_add_back_redir_list(t_redirect_list **redir_list, t_token *tok)
 {
 	t_redirect_list	*new;
-//	if (tok->kind == TK_OP_SINGLE_LS)
-//		tok->next->str = get_here_doc(tok->next->str);
+
 	new = _new_redir_list(tok->next->str, tok->str);
 	if (tok->next->kind != TK_WORD)
 		new->is_ambiguous = true;
@@ -61,9 +42,9 @@ static void	_add_back_redir_list(t_redirect_list **redir_list, t_token *tok)
 
 static void	_add_redir_list(t_node *node, t_token *tok)
 {
-	if (tok->kind == TK_OP_GR || tok->kind == TK_OP_DOUBLE_GR) // > or >>
+	if (tok->kind == TK_OP_GR || tok->kind == TK_OP_DOUBLE_GR)
 		_add_back_redir_list(&node->command.in_redir, tok);
-	if (tok->kind == TK_OP_LS || tok->kind == TK_OP_SINGLE_LS) // <
+	if (tok->kind == TK_OP_LS || tok->kind == TK_OP_SINGLE_LS)
 		_add_back_redir_list(&node->command.out_redir, tok);
 }
 
