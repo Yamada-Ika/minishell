@@ -148,7 +148,6 @@ void			error_ident(char *builtin_name, char *ident);
 void	set_exit_status(int status);
 
 // utils.c
-void 			error(char *str);
 char			*here_doc(char *eos);
 int				check_op(char *s);
 size_t			get_word_len(char *p, t_token_kind kind, char *str);
@@ -214,6 +213,7 @@ void			_debug_command(t_command cmd);
 void			_debug_strs(char **strs);
 
 // error.c
-t_node	*parse_error(t_node *node, t_token *token);
+t_node			*parse_error(t_node *node, t_token *token);
+void 			error(char *str);
 
 # endif
