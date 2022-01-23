@@ -1,18 +1,5 @@
 #include "minishell.h"
 
-t_token	*tokenize_error(t_token *token)
-{
-	t_token *token_next;
-	while (token != NULL)
-	{
-		free (token->str);
-		token_next = token->next;
-		free (token);
-		token = token_next;
-	}
-	return (NULL);
-}
-
 t_token	*new_token(t_token *cur, t_token_kind kind, char **p, size_t len)
 {
 	t_token	*new;
@@ -24,8 +11,9 @@ t_token	*new_token(t_token *cur, t_token_kind kind, char **p, size_t len)
 	new->is_join_prev = false;
 	new->str = ft_substr(*p, 0, len);
 	new->len = len;
-	if (cur->kind != EMPTY  && *(*p - 1) != ' ' && !is_redirect_kind(cur->kind) &&
-		cur->kind != TK_OP_PIPE && !is_redirect_kind(kind) && kind != TK_OP_PIPE && kind != TK_EOF)
+	if (cur->kind != EMPTY && *(*p - 1) != ' ' && !is_redirect_kind(cur->kind)
+		&&cur->kind != TK_OP_PIPE && !is_redirect_kind(kind)
+		&& kind != TK_OP_PIPE && kind != TK_EOF)
 		new->is_join_prev = true;
 	cur->next = new;
 	new->prev = cur;
@@ -33,9 +21,9 @@ t_token	*new_token(t_token *cur, t_token_kind kind, char **p, size_t len)
 	return (new);
 }
 
-static size_t _get_operator_len(char *p)
+static size_t	_get_operator_len(char *p)
 {
-	const char *kw[] = {"<<", ">>", "<", ">", "|", NULL};
+	const char	*kw[] = {"<<", ">>", "<", ">", "|", NULL};
 	size_t		i;
 
 	i = 0;
@@ -55,21 +43,16 @@ static	t_token_kind	_get_word_kind(char *p)
 	kind = TK_WORD;
 	while (*p)
 	{
+		if ((*p == '\'' || *p == '"') && is_quote_closed(*p, kind))
+			return (kind);
 		if (*p == '\'' && kind != TK_WORD_IN_DOUBLE_Q)
-		{
-			if (kind == TK_WORD_IN_SINGLE_Q)
-				return (TK_WORD_IN_SINGLE_Q);
 			kind = TK_WORD_IN_SINGLE_Q;
-		}
 		if (*p == '"' && kind != TK_WORD_IN_SINGLE_Q)
-		{
-			if (kind == TK_WORD_IN_DOUBLE_Q)
-				return (TK_WORD_IN_DOUBLE_Q);
 			kind = TK_WORD_IN_DOUBLE_Q;
-		}
 		if (kind == TK_WORD && ft_strchr(" ><|", *p))
 			return (TK_WORD);
-		if (kind == TK_WORD && *p == '$' && (ft_isalnum(*(p + 1)) || *(p + 1) == '?'))
+		if (kind == TK_WORD && *p == '$'
+			&& (ft_isalnum(*(p + 1)) || *(p + 1) == '?'))
 			return (TK_OP_DOLLAR);
 		p++;
 	}
@@ -79,12 +62,6 @@ static	t_token_kind	_get_word_kind(char *p)
 		kind = EMPTY;
 	}
 	return (kind);
-}
-
-static void	_skip_space(char **s)
-{
-	while (**s == ' ')
-		(*s)++;
 }
 
 t_token	*tokenize(char *p)
@@ -98,20 +75,15 @@ t_token	*tokenize(char *p)
 	cur = &head;
 	while (*p)
 	{
-		_skip_space(&p);
-		if (*p == '\0')
-			break ;
+		skip_space(&p);
 		op_len = _get_operator_len(p);
 		if (op_len != 0)
 			cur = new_token(cur, check_op(p), &p, op_len);
-		else
+		else if (*p)
 		{
 			word_kind = _get_word_kind(p);
 			if (word_kind == EMPTY)
-			{
-				cur->next = NULL;
 				return (tokenize_error(head.next));
-			}
 			cur = new_token(cur, word_kind, &p, get_word_len(p, word_kind, " ><|'\"" ));
 		}
 	}
