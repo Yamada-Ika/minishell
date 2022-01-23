@@ -1,33 +1,11 @@
 #include "minishell.h"
 
-int sts;
-
-char	**get_command_path(t_envvar *envlist)
-{
-	char	*val_with_key;
-	char	*path_line;
-	char	**paths;
-
-	val_with_key = my_getenv(envlist, "PATH");
-	if (val_with_key == NULL)
-		return (NULL);
-	errno = INIT_ERRNO;
-	path_line = ft_strdup(val_with_key);
-	if (errno != INIT_ERRNO && path_line == NULL)
-		error(strerror(errno));
-	paths = ft_split(path_line, ':');
-	if (errno != INIT_ERRNO && paths == NULL)
-		error(strerror(errno));
-	free(path_line);
-	return (paths);
-}
-
 bool	is_exec_with_here_doc(t_command command)
 {
 	int				fd[2];
 	int				sts;
 	pid_t			pid;
-	t_redirect_list *last;
+	t_redirect_list	*last;
 
 	last = _redir_lstlast(command.out_redir);
 	if (last && ft_strncmp(last->redirect, "<<", 2) == 0)
@@ -36,17 +14,13 @@ bool	is_exec_with_here_doc(t_command command)
 		pid = fork();
 		if (pid == 0)
 		{
-			close(fd[0]);
-			dup2(fd[1], 1);
-			close(fd[1]);
+			handle_fd(fd[0], fd[1], 1);
 			ft_putstr_fd(last->word, 1);
 			exit (0);
 		}
 		else
 		{
-			close(fd[1]);
-			dup2(fd[0], 0);
-			close(fd[0]);
+			handle_fd(fd[1], fd[0], 0);
 			waitpid(pid, &sts, 0);
 			exec(command.word_list);
 		}
@@ -54,14 +28,14 @@ bool	is_exec_with_here_doc(t_command command)
 	return (false);
 }
 
-void exec(char **cmds)
+void	exec(char **cmds)
 {
 	const void	*builtin[] = {
-			"echo", "cd", "pwd", "export", "unset", "env", "exit",  NULL};
-	char	*absolute_path;
-	char	*cmd;
-	char	**paths;
-	size_t	i;
+			"echo", "cd", "pwd", "export", "unset", "env", "exit", NULL};
+	char		*absolute_path;
+	char		*cmd;
+	char		**paths;
+	size_t		i;
 
 	fprintf(stderr, "exec called\n");
 	i = 0;
@@ -72,7 +46,7 @@ void exec(char **cmds)
 		_exec_builtin_cmd(i, cmds);
 		exit (0);
 	}
-	if(access(cmds[0], X_OK) == F_OK)
+	if (access(cmds[0], X_OK) == F_OK)
 		execve(cmds[0], cmds, NULL);
 	cmd = ft_strjoin("/", cmds[0]);
 	paths = get_command_path(g_mshell->envlist);
@@ -94,8 +68,6 @@ void exec(char **cmds)
 
 void	exec_t_command(t_command command)
 {
-//	if (is_exec_built_in(NULL, command) == true)
-//		exit(0);
 	if (handle_in_redir(command.in_redir) == ERROR)
 		exit (1);
 	if (handle_out_redir(command.out_redir) == ERROR)
@@ -104,10 +76,10 @@ void	exec_t_command(t_command command)
 		exec(command.word_list);
 }
 
-void recursive(t_node *node)
+void	recursive(t_node *node)
 {
-	pid_t pid;
-	int fd[2];
+	pid_t	pid;
+	int		fd[2];
 
 	if (node->left == NULL )
 		exec_t_command(node->command);
@@ -115,16 +87,12 @@ void recursive(t_node *node)
 	pid = fork();
 	if (pid == 0)
 	{
-		close(fd[1]);
-		dup2(fd[0], 0);
-		close(fd[0]);
+		handle_fd(fd[1], fd[0], 0);
 		exec_t_command(node->right->command);
 	}
 	else
 	{
-		close(fd[0]);
-		dup2(fd[1], 1);
-		close(fd[1]);
+		handle_fd(fd[0], fd[1], 1);
 		recursive(node->left);
 	}
 }
@@ -132,6 +100,7 @@ void recursive(t_node *node)
 void	handle_command(t_node *node)
 {
 	pid_t	pid;
+	int		sts;
 
 	signal(SIGINT, back_to_new_prompt);
 	if (node->left == NULL && is_exec_built_in(node, node->command) == true)
