@@ -1,24 +1,13 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 21:52:59 by iyamada           #+#    #+#             */
-/*   Updated: 2022/01/16 22:28:57 by iyamada          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static bool	_is_invalid_redirect(t_token *tok)
 {
 	if (is_redirect_kind(tok->kind) && (is_redirect_kind(tok->next->kind)
-		|| tok->next->kind == TK_OP_PIPE || tok->next->kind == TK_EOF)
-	)
+			|| tok->next->kind == TK_OP_PIPE || tok->next->kind == TK_EOF))
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token redirection\n", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+		ft_putstr_fd(tok->next->str, 2);
+		ft_putstr_fd("'\n", 2);
 		return (true);
 	}
 	return (false);
@@ -31,7 +20,7 @@ size_t	count_command_size(t_token **tok)
 	cnt = 0;
 	while ((*tok)->kind != TK_EOF && (*tok)->kind != TK_OP_PIPE)
 	{
-		if(_is_invalid_redirect(*tok) == true)
+		if (_is_invalid_redirect(*tok) == true)
 			return (0);
 		cnt++;
 		(*tok) = (*tok)->next;
@@ -77,14 +66,6 @@ t_node	*new_node_pipe(t_token *token, t_node *left, t_node *right)
 	return (node);
 }
 
-t_node	*parse_error(t_node *node, t_token *token)
-{
-	free_token_list(token);
-	if (node != NULL)
-		free_node_list(node);
-	return (NULL);
-}
-
 t_node	*command_line(t_token **tok)
 {
 	t_token	*tmp_tk;
@@ -108,14 +89,3 @@ t_node	*command_line(t_token **tok)
 	*tok = tk_eof;
 	return (node);
 }
-
-// t_command	*command(t_token **tok)
-// {
-// 	t_command	*cmd;
-
-// 	cmd = (t_command *)ft_calloc(1, sizeof(t_command));
-// 	if (cmd == NULL)
-// 		error("parse.c 47 : malloc error");
-// 	cmd->word_list = 
-// 	return (cmd);
-// }
