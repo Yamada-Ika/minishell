@@ -9,16 +9,20 @@ void	run_command_line(char *cmd_line)
 	token = tokenize(cmd_line);
 	if (token == NULL)
 		return ;
+	fprintf(stderr, "DEBUG TOKENIZE START : =========================================\n");
 	debug_tokenize(token);
+	fprintf(stderr, "DEBUG TOKENIZE END   : =========================================\n");
 	node = command_line(&token);
 	if (node == NULL)
 		return ;
-	fprintf(stderr, "parse    : =========================================\n");
+	fprintf(stderr, "DEBUG PARSE START    : =========================================\n");
 	debug_node(node);
+	fprintf(stderr, "DEBUG PARSE END      : =========================================\n");
 	expansion(node);
-	fprintf(stderr, "expansion: =========================================\n");
+	fprintf(stderr, "DEBUG EXPAND START   : =========================================\n");
 	debug_node(node);
-	fprintf(stderr, "run_command_line 21:  node-word_list-str = %s, kind = %d\n", node->word_list->str, node->word_list->kind);
+	fprintf(stderr, "DEBUG EXPAND END     : =========================================\n");
+	// fprintf(stderr, "run_command_line 21:  node-word_list-str = %s, kind = %d\n", node->word_list->str, node->word_list->kind);
 	if (node->word_list->kind != TK_EOF)
 		handle_command(node);
 	free_token_list(token->next);
