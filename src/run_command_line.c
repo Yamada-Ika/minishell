@@ -22,7 +22,6 @@ void	run_command_line(char *cmd_line)
 	fprintf(stderr, "DEBUG EXPAND START   : =========================================\n");
 	debug_node(node);
 	fprintf(stderr, "DEBUG EXPAND END     : =========================================\n");
-	// fprintf(stderr, "run_command_line 21:  node-word_list-str = %s, kind = %d\n", node->word_list->str, node->word_list->kind);
 	if (node->word_list->kind != TK_EOF)
 		handle_command(node);
 	free_token_list(token->next);

@@ -38,7 +38,7 @@ static	void	_init_global_var()
 	// fprintf(stderr, "******************** \n");
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	char	*cmd_line;
 
