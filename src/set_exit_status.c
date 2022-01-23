@@ -10,4 +10,5 @@ void	set_exit_status(int status)
 	if (errno != INIT_ERRNO && status_str == NULL)
 		error(strerror(errno));
 	msh_export(&(g_mshell->envlist), "?", status_str);
+	free(status_str);
 }
