@@ -28,6 +28,22 @@ void	_exec_builtin_cmd(t_builtin_kind kind, char **cmds)
 		exit_(cmds);
 }
 
+bool	is_exec_built_in_in_child(char **cmds)
+{
+	size_t		i;
+	const void	*builtin[] = {
+		"echo", "cd", "pwd", "export", "unset", "env", "exit", NULL};
+
+	i = 0;
+	if (ft_strcmp(cmds[0], builtin[i]) == 0)
+	{
+		_exec_builtin_cmd(i, cmds);
+		return (true);
+		i++;
+	}
+	return (false);
+}
+
 bool	is_exec_built_in(t_node *node, t_command redir)
 {
 	const void	*builtin[] = {
