@@ -3,32 +3,21 @@
 char	*remove_quotes(t_token *token, char quote)
 {
 	char	*str;
-//	char	*head;
-	char	*cur;
 	char	*tmp;
 	size_t	i;
 	size_t	head_index;
 
+	head_index = 0;
 	if (*(token->str) == quote)
-		head_index = 1;
-	else
-		head_index = 0;
-	cur =token->str;
+		head_index += 1;
 	str = ft_strdup("");
 	i = head_index;
-//	i = *head - *(token->str);
-		printf("handle_token_in_quotes.c 19: *cur %c, i %zu\n", cur[i], i);
-	while(i <= token->len)
+	while (i <= token->len)
 	{
-//		printf("handle_token_in_quotes.c 22: *cur %c\n", cur[i]);
-		if (cur[i] == quote || i ==  token->len)
+		if (token->str[i] == quote || i == token->len)
 		{
-			if (i != head_index)
-			{
-				tmp = ft_substr(token->str + head_index, 0, i - head_index);
-				printf("handle_token_in_quotes.c 19: tmp %s, len %zu\n", tmp, i - head_index);
-				str = ft_strjoin_with_free(&str, &tmp);
-			}
+			tmp = ft_substr(token->str + head_index, 0, i - head_index);
+			str = ft_strjoin_with_free(&str, &tmp);
 			if (str == NULL)
 				error("handle_token_in_quotes: malloc error");
 			head_index = i + 1;
@@ -40,8 +29,8 @@ char	*remove_quotes(t_token *token, char quote)
 
 void	handle_token_in_quotes(t_token *token)
 {
-	char *str;
-	char *tmp;
+	char	*str;
+	char	*tmp;
 
 	printf("remove_quotes: %s len %zu\n", token->str, token->len);
 	if (token->kind == TK_WORD_IN_SINGLE_Q)

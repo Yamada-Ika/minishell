@@ -21,7 +21,7 @@ static void	_install_signal_handler(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-static void	_init_global_var()
+static	void	_init_global_var()
 {
 	extern char	**environ;
 
