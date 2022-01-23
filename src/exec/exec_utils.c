@@ -45,3 +45,29 @@ void	handle_fd(int close_fd, int dup_fd, int fd)
 		error(strerror(errno));
 	close(dup_fd);
 }
+
+bool	is_exec_cmd_with_full_path(char **cmds)
+{
+	char	*absolute_path;
+	char	**paths;
+	char	*cmd;
+	size_t	i;
+
+	i = 0;
+	cmd = ft_strjoin("/", cmds[0]);
+	paths = get_command_path(g_mshell->envlist);
+	if (cmd == NULL || paths == NULL)
+		error(strerror(errno));
+	while (paths && paths[i])
+	{
+		absolute_path = ft_strjoin(paths[i], cmd);
+		if (access(absolute_path, X_OK) == F_OK)
+		{
+			free(cmd);
+			execve(absolute_path, cmds, NULL);
+		}
+		free(absolute_path);
+		i++;
+	}
+	return (false);
+}
