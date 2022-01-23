@@ -19,17 +19,9 @@ void	unset_(char **args)
 		}
 		equal_at = ft_strchr(args[i], '=');
 		if (!ft_isalpha(args[i][0]) || equal_at != NULL)
-		{
-			error_ident("unset", args[i]);
-			i++;
-			continue ;
-		}
+			error_ident("unset", args[i++]);
 		else
-		{
-			msh_unset(&(g_mshell->envlist), args[i]);
-			i++;
-			continue ;
-		}
+			msh_unset(&(g_mshell->envlist), args[i++]);
 	}
 }
 
@@ -38,11 +30,9 @@ void	msh_unset(t_envvar **envs, char *key)
 	t_envvar	*head;
 	t_envvar	*cur;
 	t_envvar	*prev;
-//	size_t		key_len;
 
 	head = *envs;
 	prev = NULL;
-//	key_len = ft_strlen(key);
 	while (*envs != NULL)
 	{
 		if (ft_strcmp((*envs)->key, key) == 0)
