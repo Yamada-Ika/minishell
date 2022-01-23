@@ -51,7 +51,6 @@ int main(int argc, char **argv)
 	{
 		_install_signal_handler();
 		cmd_line = readline("minishell> ");
-		add_history(cmd_line);
 		if (cmd_line == NULL)
 		{
 			// ft_putendl_fd("exit", STDERR_FILENO);
@@ -60,7 +59,10 @@ int main(int argc, char **argv)
 			exit(0);
 		}
 		if (*cmd_line != '\0')
+		{
+			add_history(cmd_line);
 			run_command_line(cmd_line);
+		}
 		free(cmd_line);
 	}
 	write_history(".my_history");
