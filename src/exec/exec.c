@@ -133,7 +133,7 @@ void	handle_command(t_node *node)
 {
 	pid_t	pid;
 
-	signal(SIGINT, (void *)back_to_new_prompt);
+	signal(SIGINT, back_to_new_prompt);
 	if (node->left == NULL && is_exec_built_in(node, node->command) == true)
 		return ;
 	pid = fork();
@@ -151,5 +151,5 @@ void	handle_command(t_node *node)
 		return ;
 	}
 	waitpid(pid, &sts, 0);
-	set_exit_status(WEXITSTATUS(sts));
+	set_exit_status(sts);
 }

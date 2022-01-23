@@ -182,9 +182,9 @@ bool			is_exec_built_in(t_node *node, t_command redir);
 void	_exec_builtin_cmd(t_builtin_kind kind, char **cmds);
 
 // signal.c
-void			*display_new_prompt(int signal);
-void			*back_to_new_prompt(int signal);
-int				interrupt(int signal);
+void				display_new_prompt(int signal);
+void				back_to_new_prompt(int signal);
+void				interrupt(int signal);
 
 // run_command_line.c
 void			run_command_line(char *str);

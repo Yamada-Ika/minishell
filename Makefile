@@ -1,24 +1,27 @@
-NAME	:= minishell
-LIBFT	:= libft/libft.a
-DEBUG	:= test/debug.a
-CC		:= gcc
-CFLAGS	:= -g -Wall -Wextra -Werror #-fsanitize=address
-LDFLAGS := -lreadline -lhistory -L$(shell brew --prefix readline)/lib
-INCLUDE := -Iinclude/ -I$(shell brew --prefix readline)/include -Ilibft -Ibuiltin
+NAME		:= minishell
+LIBFT		:= libft/libft.a
+DEBUG		:= test/debug.a
+CC			:= gcc
+CFLAGS		:= -g -Wall -Wextra -Werror #-fsanitize=address
+LDFLAGS 	:= -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+INCLUDE 	:= -Iinclude/ -I$(shell brew --prefix readline)/include -Ilibft -Ibuiltin
 
-SRCS	:= \
-built_in_command.c       handle_token_in_quotes.c set_exit_status.c	\
-create_t_command.c       here_doc.c               signal.c			\
-exec.c                   parse.c                  tokenize.c		\
-expansion.c              redirect.c               utils.c			\
-free.c                   run_command_line.c
-SRCS	:= $(addprefix src/, $(SRCS))
+# SRCS		:= run_command_line.c
+# SRCS		:= $(addprefix src/, $(SRCS))
+
+# LEXAR_SRCS	:= tokenize.c
+# LEXAR_SRCS	:= $(addprefix src/lexar/, $(SRCS))
+# SRCS		+= $(LEXAR_SRCS)
+
+# PARSER_SRCS	:= parser.c
+# PARSER_SRCS	:= $(addprefix src/parse/, $(SRCS))
+# SRCS		+= $(PARSER_SRCS)
 
 # If `make` use main.c, `make test` use test2/main_for_test.c
 ifdef ADD_MAIN_FOR_TEST
 SRCS	+= test2/main_for_test.c
 else
-SRCS	+= main.c
+SRCS	+= src/main.c
 endif
 
 BUITIN_SRCS	:= 	echo.c cd.c pwd.c export.c env.c unset.c exit.c \
