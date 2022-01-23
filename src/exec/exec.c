@@ -30,40 +30,22 @@ bool	is_exec_with_here_doc(t_command command)
 
 void	exec(char **cmds)
 {
-	const void	*builtin[] = {
-			"echo", "cd", "pwd", "export", "unset", "env", "exit", NULL};
-	char		*absolute_path;
-	char		*cmd;
-	char		**paths;
 	size_t		i;
 
 	fprintf(stderr, "exec called\n");
 	i = 0;
 	if (cmds == NULL || cmds[0] == NULL)
 		exit (0);
-	if (ft_strcmp(cmds[0], builtin[i]) == 0)
-	{
-		_exec_builtin_cmd(i, cmds);
+	if (is_exec_built_in_in_child(cmds) == true)
 		exit (0);
-	}
 	if (access(cmds[0], X_OK) == F_OK)
 		execve(cmds[0], cmds, NULL);
-	cmd = ft_strjoin("/", cmds[0]);
-	paths = get_command_path(g_mshell->envlist);
-	while (paths && paths[i])
+	if (is_exec_cmd_with_full_path(cmds) == false)
 	{
-		absolute_path = ft_strjoin(paths[i], cmd);
-		if (access(absolute_path, X_OK) == F_OK)
-		{
-			free(cmd);
-			execve(absolute_path, cmds, NULL);
-		}
-		free(absolute_path);
-		i++;
+		ft_putstr_fd("minishell: command not found: ", 2);
+		ft_putendl_fd(cmds[0], 2);
+		exit(127);
 	}
-	ft_putstr_fd("minishell: command not found: ", 2);
-	ft_putendl_fd(cmd + 1, 2);
-	exit(127);
 }
 
 void	exec_t_command(t_command command)
