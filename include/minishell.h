@@ -160,7 +160,12 @@ t_node			*command_line(t_token **tok);
 
 // expansion.c
 void			expansion(t_node *node);
+
+// expansion_utils.c
 char			*expand_str(char *str);
+void			join_token_and_token_prev(t_token **token)
+char			*strdup_before_valiable(char *tmp, char *variable_name)
+static			t_token	*new_token(t_token_kind kind, char *p, size_t len)
 
 // sum_up_token_in_quote.c
 void			sum_up_token_in_quote(t_node *node);
