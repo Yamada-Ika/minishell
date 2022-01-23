@@ -25,10 +25,17 @@ static void	_init_global_var()
 {
 	extern char	**environ;
 
+	// fprintf(stderr, "environ %p\n", environ);
+	// fprintf(stderr, "------------------- \n");
+	// _debug_strs(environ);
+	// fprintf(stderr, "------------------- \n");
 	g_mshell = ft_calloc(1, sizeof(g_mshell));
 	inherite_env_val(&(g_mshell->envlist), environ);
 	set_exit_status(0);
 	g_mshell->interrupt = false;
+	// fprintf(stderr, "******************** \n");
+	// _debug_strs(environ);
+	// fprintf(stderr, "******************** \n");
 }
 
 int main(int argc, char **argv)
@@ -46,7 +53,12 @@ int main(int argc, char **argv)
 		cmd_line = readline("minishell> ");
 		add_history(cmd_line);
 		if (cmd_line == NULL)
+		{
+			// ft_putendl_fd("exit", STDERR_FILENO);
+			rl_replace_line("exit", 0);
+			rl_redisplay();
 			exit(0);
+		}
 		if (*cmd_line != '\0')
 			run_command_line(cmd_line);
 		free(cmd_line);
