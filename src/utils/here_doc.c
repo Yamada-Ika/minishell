@@ -1,18 +1,27 @@
 #include "minishell.h"
 
+static void	join_here_doc(char *line, char **doc)
+{
+	if (*doc == NULL)
+		*doc = ft_strdup("");
+	if (*doc == NULL)
+		error("malloc error");
+	line = ft_strjoin_with_free_no_null(line, ft_strdup("\n"));
+	*doc = ft_strjoin_with_free(doc, &line);
+	if (doc == NULL)
+		error("malloc error");
+}
+
 char	*get_here_doc(char *eos)
 {
 	char	*doc;
 	char	*line;
-	char	*tmp;
 	int		fd;
 
 	fd = dup(0);
-	doc = ft_strdup("");
-	if (doc == NULL)
-		error("malloc error");
+	doc = NULL;
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, (void *)interrupt);
+	signal(SIGINT, interrupt);
 	while (1)
 	{
 		line = readline("heredoc> ");
@@ -25,11 +34,7 @@ char	*get_here_doc(char *eos)
 		}
 		if (ft_strcmp(line, eos) == 0)
 			break ;
-		tmp = ft_strdup("\n");
-		line = ft_strjoin_with_free(&line, &tmp);
-		doc = ft_strjoin_with_free(&doc, &line);
-		if (doc == NULL)
-			error("malloc error");
+		join_here_doc(line, &doc);
 	}
 	free(line);
 	return (doc);
