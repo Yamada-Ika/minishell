@@ -8,8 +8,8 @@ OBJS = $(SRCS:%.c=%.o)
 LIBFT = ../../libft/libft.a
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)
+$(NAME): $(OBJS) $(LIBFT)
+	ar rc $(NAME) $(OBJS) $(LIBFT)
 %.o:%.c
 	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
 clean:
