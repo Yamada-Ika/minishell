@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "limits.h"
 
 static void	check_space(const char *str, size_t *i);
 static int	check_sign(const char *str, size_t *i);

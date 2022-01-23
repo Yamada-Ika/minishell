@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
+#include "limits.h"
 # include "ft_printf/ft_printf.h"
 
 typedef struct s_list
@@ -78,5 +79,6 @@ char	*ft_strjoin_with_free(char **s1, char **s2);
 char	*ft_strjoin_with_free_no_null(char *s1, char *s2);
 char	***ft_split_triple(char const **strs, char *sets);
 int		ft_strcmp(const char*s1, const char *s2);
+void	ft_free(void **p1, void **p2);
 
 #endif
