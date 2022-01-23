@@ -151,6 +151,5 @@ void	handle_command(t_node *node)
 		return ;
 	}
 	waitpid(pid, &sts, 0);
-	fprintf(stderr, "sts : %d\n", WEXITSTATUS(sts));
 	set_exit_status(WEXITSTATUS(sts));
 }
