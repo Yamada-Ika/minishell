@@ -2,8 +2,8 @@
 
 void	free_token_list(t_token *token)
 {
-	t_token *token_next;
-//	fprintf(stderr, "free_token_list: token-str = %s, token-kind = %d\n", token->str, token->kind);
+	t_token	*token_next;
+
 	while (token->kind != TK_EOF)
 	{
 		free (token->str);
@@ -15,24 +15,11 @@ void	free_token_list(t_token *token)
 	free(token);
 }
 
-void free_double(char **p)
-{
-	size_t i;
-	i = 0;
-	if (p == NULL)
-		return;
-	while (p[i])
-	{
-		free(p[i]);
-		i++;
-	}
-	free(p);
-}
-
 void	free_t_redirect_list(t_redirect_list *redirect)
 {
 	t_redirect_list	*next_redirect;
-	while(redirect)
+
+	while (redirect)
 	{
 		next_redirect = redirect->next;
 		if (ft_strncmp(redirect->redirect, "<<", 2) == 0)
