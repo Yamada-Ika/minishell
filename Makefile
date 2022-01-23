@@ -17,7 +17,7 @@ INCLUDE 	:= -Iinclude/ -I$(shell brew --prefix readline)/include -Ilibft -Ibuilt
 
 # If `make` use main.c, `make test` use test2/main_for_test.c
 ifdef ADD_MAIN_FOR_TEST
-SRCS	+= test2/main_for_test.c
+SRCS	+= test2/main_for_test.c src/run_command_line.c
 else
 SRCS	+= src/main.c src/run_command_line.c
 endif
