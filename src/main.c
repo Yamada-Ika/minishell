@@ -53,9 +53,7 @@ int main(int argc, char **argv)
 		cmd_line = readline("minishell> ");
 		if (cmd_line == NULL)
 		{
-			// ft_putendl_fd("exit", STDERR_FILENO);
-			rl_replace_line("exit", 0);
-			rl_redisplay();
+			ft_putendl_fd("exit", STDERR_FILENO);
 			exit(0);
 		}
 		if (*cmd_line != '\0')
