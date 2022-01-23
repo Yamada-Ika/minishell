@@ -1,11 +1,11 @@
 NAME		:= minishell
 LIBFT		:= libft/libft.a
-BUILTIN		:= src/libblt.a
-EXEC		:= src/libex.a
-EXPANDER	:= src/libexpander.a
-LEXAR		:= src/liblex.a
-PARSER		:= src/libprs.a
-UTILS		:= src/libutl.a
+BUILTIN		:= src/builtin/libblt.a
+EXEC		:= src/exec/libex.a
+EXPANDER	:= src/expander/libexpander.a
+LEXAR		:= src/lexar/liblex.a
+PARSER		:= src/parser/libprs.a
+UTILS		:= src/utils/libutl.a
 
 DEBUG		:= test/debug.a
 CC			:= gcc
@@ -30,7 +30,7 @@ all: $(NAME)
 $(NAME): $(LIBFT) $(OBJS) $(DEBUG) $(BUILTIN) $(EXEC) $(EXPANDER) $(LEXAR) $(PARSER) $(UTILS)
 	echo > ~/.inputrc set echo-control-characters off
 	#$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) $(LIBFT) $(LDFLAGS)
-	$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) $(DEBUG)  $(LIBFT) $(LDFLAGS)
+	$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) $(DEBUG)  $(LIBFT) $(BUILTIN) $(EXEC) $(EXPANDER) $(LEXAR) $(PARSER) $(UTILS) $(LDFLAGS)
 
 $(LIBFT): empty
 	make -C libft
