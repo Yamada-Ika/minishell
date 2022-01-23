@@ -8,7 +8,7 @@ t_node	*parse_error(t_node *node, t_token *token)
 	return (NULL);
 }
 
-void error(char *str)
+void	error(char *str)
 {
 	ft_putstr_fd(str, 2);
 	exit(1);
