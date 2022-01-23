@@ -33,7 +33,7 @@ bool	is_exec_built_in(t_node *node, t_command redir)
 	const void	*builtin[] = {
 		"echo", "cd", "pwd", "export", "unset", "env", "exit", NULL};
 	int			fd[2];
-	seze_t		i;
+	size_t		i;
 
 	if (redir.word_list == NULL || redir.word_list[0] == NULL)
 		return (false);
