@@ -15,6 +15,19 @@ static void	_init_global_var()
 	g_mshell->interrupt = false;
 }
 
+static void	_frees(char **strs)
+{
+	size_t	i;
+
+	i = 0;
+	while (strs[i] != NULL)
+	{
+		free(strs[i]);
+		i++;
+	}
+	free(strs);
+}
+
 int main(int argc, char **argv)
 {
 	char	**splitted_newline;
@@ -43,7 +56,7 @@ int main(int argc, char **argv)
 				run_command_line(cmd_line);
 			i++;
 		}
-		free_double(splitted_newline);
+		_frees(splitted_newline);
 		free(cmd_line);
 	}
 	write_history(".my_history");
