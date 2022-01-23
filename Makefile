@@ -19,14 +19,10 @@ INCLUDE 	:= -Iinclude/ -I$(shell brew --prefix readline)/include -Ilibft -Ibuilt
 ifdef ADD_MAIN_FOR_TEST
 SRCS	+= test2/main_for_test.c
 else
-SRCS	+= src/main.c
+SRCS	+= src/main.c src/run_command_line.c
 endif
 
-BUITIN_SRCS	:= 	echo.c cd.c pwd.c export.c env.c unset.c exit.c \
-				envvar_utils_1.c envvar_utils_2.c my_getenv.c inherite_env_val.c \
-				builtin_utils.c
 BUITIN_SRCS	:= $(addprefix builtin/, $(BUITIN_SRCS))
-#SRCS		+= $(BUITIN_SRCS)
 OBJS = $(SRCS:%.c=%.o)
 
 all: $(NAME)
