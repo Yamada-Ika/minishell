@@ -11,7 +11,7 @@ static size_t	join_valiable(char **p, t_token **tok)
 	cur = &head;
 	while (p[count])
 	{
-		cur->next = new_token_for_expanded_value(TK_WORD, p[count], ft_strlen(p[count]));
+		cur->next = new_token_tk_word(TK_WORD, p[count], ft_strlen(p[count]));
 		cur->next->prev = cur;
 		cur = cur->next;
 		count++;
@@ -36,7 +36,6 @@ size_t	replace_token(t_token **token, char *str)
 	if (*str == '\0')
 	{
 		free(str);
-		fprintf(stderr,"126: p = %s\n", (*token)->str);
 		if (is_redirect_kind((*token)->prev->kind))
 			return (1);
 		 tmp = (*token)->prev;
@@ -49,14 +48,12 @@ size_t	replace_token(t_token **token, char *str)
 		*token = tmp;
 		return (0);
 	}
-	 strs = ft_split(str, ' ');
+	strs = ft_split(str, ' ');
 	if (strs == NULL)
 		 error("expansion.c 153: malloc error");
 	free(str);
 	increase_tok_num = join_valiable(strs, token);
 	debug_token((*token), 1);
-	// free((*token));
-
 	return (increase_tok_num);
 }
 
