@@ -76,7 +76,7 @@ char	*expand_str(char *str)
 	return (t_str);
 }
 
-static t_token	*new_token(t_token_kind kind, char *p, size_t len)
+t_token	*new_token_for_expanded_value(t_token_kind kind, char *p, size_t len)
 {
 	t_token	*token;
 

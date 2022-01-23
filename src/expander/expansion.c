@@ -11,7 +11,7 @@ static size_t	join_valiable(char **p, t_token **tok)
 	cur = &head;
 	while (p[count])
 	{
-		cur->next = new_token(TK_WORD, p[count], ft_strlen(p[count]));
+		cur->next = new_token_for_expanded_value(TK_WORD, p[count], ft_strlen(p[count]));
 		cur->next->prev = cur;
 		cur = cur->next;
 		count++;
