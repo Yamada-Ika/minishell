@@ -213,4 +213,7 @@ void			debug_token(t_token *token, size_t loop_cnt);
 void			_debug_command(t_command cmd);
 void			_debug_strs(char **strs);
 
+// error.c
+t_node	*parse_error(t_node *node, t_token *token);
+
 # endif
