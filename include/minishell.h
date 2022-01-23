@@ -172,7 +172,6 @@ void			handle_token_in_quotes(t_token *token);
 void			create_t_command(t_node *node);
 
 // exec.c
-char			**get_command_path(t_envvar *envlist);
 void			handle_command(t_node *node);
 void 			exec(char **commands);
 
@@ -181,7 +180,9 @@ bool			is_exec_built_in(t_node *node, t_command redir);
 void			_exec_builtin_cmd(t_builtin_kind kind, char **cmds);
 
 // exec_utils.c
+char			**get_command_path(t_envvar *envlist);
 char			**_alloc_word_list(t_token *tok, size_t size);
+void			handle_fd(int close_fd, int dup_fd, int fd);
 
 // signal.c
 void				display_new_prompt(int signal);
