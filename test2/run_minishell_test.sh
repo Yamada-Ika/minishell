@@ -77,7 +77,6 @@ STDOUT_TEST "					"
 # Arguments
 STDOUT_TEST "/bin/ls -a"
 STDOUT_TEST "/bin/ls -l"
-exit 0
 STDOUT_TEST "/bin/pwd"
 STDOUT_TEST "/bin/echo -n 42tokyo"
 
@@ -132,6 +131,14 @@ STDOUT_TEST "echo '\$PATH'"
 STDOUT_TEST "echo '\$USER'"
 STDOUT_TEST "echo '\$LANG'"
 
+# env
+STDOUT_TEST "env"
+
+# export
+STDOUT_TEST "export"
+STDOUT_TEST "export hoge=hogeeeeeei"
+STDOUT_TEST "export hoge=hugahuga"
+
 # pwd
 STDOUT_TEST "pwd"
 STDOUT_TEST \
@@ -141,6 +148,29 @@ cd ..
 pwd
 cd ..
 pwd"
+
+# relative path
+STDOUT_TEST "cd libft | wc -l"
+
+# path
+STDOUT_TEST "ls"
+STDOUT_TEST "ls | wc -l"
+STDOUT_TEST "ls | awk '{print \$5}'"
+
+# redirection
+# STDOUT_TEST "cat < main.c > file1"
+
+# pipe
+STDOUT_TEST "cat main.c | grep int"
+
+# crasy
+STDOUT_TEST "dsbksdgbksdghsd"
+STDOUT_TEST "cat | cat | ls"
+
+# environment variables
+STDOUT_TEST "echo \$PATH"
+exit 0
+STDOUT_TEST "echo \"\$USER\""
 
 # echo & pipe
 STDOUT_TEST "echo 42 | cat"
