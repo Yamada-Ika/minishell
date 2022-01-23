@@ -48,6 +48,9 @@ function STDOUT_TEST() {
 rm -rf faile.log
 cd ../
 
+STDOUT_TEST "echo \$PATH"
+exit 0
+
 # Simple command
 STDOUT_TEST "/bin/ls"
 STDOUT_TEST "/bin/pwd"
@@ -126,7 +129,7 @@ STDOUT_TEST "echo ' 42 '"
 STDOUT_TEST "echo '  Tokyo '"
 STDOUT_TEST "echo '   Paris  '"
 STDOUT_TEST "echo '    Codam   '"
-STDOUT_TEST "echo 'cat lol.c || cat > lol.c << EOF > res.log'"
+STDOUT_TEST "echo 'cat lol.c | cat > lol.c << EOF > res.log'"
 STDOUT_TEST "echo '\$PATH'"
 STDOUT_TEST "echo '\$USER'"
 STDOUT_TEST "echo '\$LANG'"
@@ -169,7 +172,6 @@ STDOUT_TEST "cat | cat | ls"
 
 # environment variables
 STDOUT_TEST "echo \$PATH"
-exit 0
 STDOUT_TEST "echo \"\$USER\""
 
 # echo & pipe

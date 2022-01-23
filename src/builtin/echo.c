@@ -14,7 +14,7 @@ void	echo_(char **args)
 
 	if (args[0] == NULL)
 	{
-		printf("\n");
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		return ;
 	}
 	opt_n = _get_option(args);
@@ -23,12 +23,12 @@ void	echo_(char **args)
 		i = 1;
 	while (args[i])
 	{
-		ft_putstr_fd(args[i], 1);
+		ft_putstr_fd(args[i], STDOUT_FILENO);
 		if (args[i + 1] == NULL)
 			break ;
-		ft_putstr_fd(" ", 1);
+		ft_putstr_fd(" ", STDOUT_FILENO);
 		i++;
 	}
 	if (opt_n == false)
-		ft_putstr_fd("\n", 1);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 }
