@@ -54,7 +54,7 @@ void	export_(char **args)
 			val = ft_substr(args[i], key_len + 2, ft_strlen(args[i]));
 			key_at = get_envvar_with_key(g_mshell->envlist, key);
 			if (key_at != NULL)
-				val = ft_strjoin_with_free_no_null(ft_strdup(key_at->val), val);
+				val = strjoin_and_free(ft_strdup(key_at->val), val);
 			msh_export(&(g_mshell->envlist), key, val);
 			free(key);
 			free(val);

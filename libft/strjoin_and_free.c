@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin_with_free.c                             :+:      :+:    :+:   */
+/*   strjoin_and_free_null.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tshigena <tshigena@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char	*ft_strjoin_with_free_no_null(char *s1, char *s2)
+char	*strjoin_and_free(char *s1, char *s2)
 {
 	char	*total;
 	size_t	len;

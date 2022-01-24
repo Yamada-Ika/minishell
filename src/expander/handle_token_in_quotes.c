@@ -17,7 +17,7 @@ char	*remove_quotes(t_token *token, char quote)
 		if (token->str[i] == quote || i == token->len)
 		{
 			tmp = ft_substr(token->str + head_index, 0, i - head_index);
-			str = ft_strjoin_with_free(&str, &tmp);
+			str = strjoin_and_free_null(&str, &tmp);
 			if (str == NULL)
 				error("handle_token_in_quotes: malloc error");
 			head_index = i + 1;

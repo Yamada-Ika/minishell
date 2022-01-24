@@ -13,7 +13,6 @@ int	handle_in_redir(t_redirect_list *redirect)
 		ft_putendl_fd(": ambiguous redirect", 2);
 		return (-1);
 	}
-	errno = ERRNO_INIT_VAL;
 	if (ft_strncmp(redirect->redirect, ">>", 2) == 0)
 		fd = open(redirect->word, O_RDWR | O_APPEND | O_CREAT, 0664);
 	else
@@ -45,7 +44,6 @@ int	handle_out_redir(t_redirect_list *redirect)
 	}
 	if (ft_strncmp(redirect->redirect, "<<", 2))
 	{
-		errno = ERRNO_INIT_VAL;
 		fd = open(redirect->word, O_RDONLY);
 		if (fd == -1 || errno != ERRNO_INIT_VAL)
 		{

@@ -40,7 +40,7 @@ size_t	get_word_len(char *p, t_token_kind kind, char *str)
 	return (len);
 }
 
-size_t	get_valiable_name_len(char *str)
+size_t	get_env_name_len(char *str)
 {
 	size_t	i;
 

@@ -6,8 +6,8 @@ static void	join_here_doc(char *line, char **doc)
 		*doc = ft_strdup("");
 	if (*doc == NULL)
 		error("malloc error");
-	line = ft_strjoin_with_free_no_null(line, ft_strdup("\n"));
-	*doc = ft_strjoin_with_free(doc, &line);
+	line = strjoin_and_free(line, ft_strdup("\n"));
+	*doc = strjoin_and_free_null(doc, &line);
 	if (doc == NULL)
 		error("malloc error");
 }

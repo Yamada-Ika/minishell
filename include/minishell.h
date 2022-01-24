@@ -157,7 +157,7 @@ bool			is_quote_closed(char c, t_token_kind kind);
 char			*here_doc(char *eos);
 int				check_op(char *s);
 size_t			get_word_len(char *p, t_token_kind kind, char *str);
-size_t			get_valiable_name_len(char *str);
+size_t			get_env_name_len(char *str);
 bool			is_redirect_kind(t_token_kind kind);
 t_redirect_list	*_redir_lstlast(t_redirect_list *lst);
 
