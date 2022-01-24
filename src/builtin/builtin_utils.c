@@ -1,5 +1,6 @@
 #include "libft.h"
 
+#include <string.h>
 void	add_exit_status_to_env(int status);
 
 void	print_command_usage(char *name, char *usage)
@@ -34,6 +35,16 @@ void	error_option2(char *builtin_name, char option)
 	ft_putstr_fd(": illegal option -- ", STDERR_FILENO);
 	ft_putchar_fd(option, STDERR_FILENO);
 	ft_putchar_fd('\n', STDERR_FILENO);
+}
+
+void	error_with_errno(char *builtin_name, char *arg)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(builtin_name, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(arg, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putendl_fd(strerror(errno), STDERR_FILENO);
 }
 
 void	error_ident(char *builtin_name, char *ident)
