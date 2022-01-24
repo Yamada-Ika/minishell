@@ -1,18 +1,5 @@
 #include "minishell.h"
 
-// void	msh_exit(int status)
-// {
-// 	char	*status_str;
-
-// 	errno = ERRNO_INIT_VAL;
-// 	status_str = ft_itoa(status);
-// 	fprintf(stderr, "status_error : %s\n", status_str);
-// 	if (errno != ERRNO_INIT_VAL && status_str == NULL)
-// 		error(strerror(errno));
-// 	msh_export(&(g_mshell->envlist), "?", status_str);
-// 	exit(status);
-// }
-
 static bool	is_zero(char *num)
 {
 	if (num == NULL)
