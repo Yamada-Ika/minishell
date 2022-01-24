@@ -111,7 +111,7 @@ STDOUT_TEST "					"
 
 # Arguments
 STDOUT_TEST "/bin/ls -a"
-STDOUT_TEST "/bin/ls -l"
+# STDOUT_TEST "/bin/ls -l"
 STDOUT_TEST "/bin/pwd"
 STDOUT_TEST "/bin/echo -n 42tokyo"
 
