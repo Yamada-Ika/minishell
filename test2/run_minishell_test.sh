@@ -48,9 +48,6 @@ function STDOUT_TEST() {
 rm -rf faile.log
 cd ../
 
-STDOUT_TEST "echo \$PATH"
-exit 0
-
 # Simple command
 STDOUT_TEST "/bin/ls"
 STDOUT_TEST "/bin/pwd"
