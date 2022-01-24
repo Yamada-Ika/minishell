@@ -12,9 +12,15 @@ void	unset_(char **args)
 	{
 		equal_at = ft_strchr(args[i], '=');
 		if (!ft_isalpha(args[i][0]) || equal_at != NULL)
+		{
 			error_ident("unset", args[i++]);
+			add_exit_status_to_env(1);
+		}
 		else
+		{
 			msh_unset(&(g_mshell->envlist), args[i++]);
+			add_exit_status_to_env(0);
+		}
 	}
 }
 
