@@ -10,9 +10,6 @@ static void	get_key_and_val(char **key, char **val, char *equal_at, char *str)
 		key_len = equal_at - str;
 		*key = ft_substr(str, 0, key_len);
 		*val = ft_substr(str, key_len + 1, ft_strlen(str));
-		msh_export(&(g_mshell->envlist), *key, *val);
-		free(*key);
-		free(*val);
 		return ;
 	}
 	key_len = equal_at - 1 - str;
@@ -21,9 +18,6 @@ static void	get_key_and_val(char **key, char **val, char *equal_at, char *str)
 	key_at = get_envvar_with_key(g_mshell->envlist, *key);
 	if (key_at != NULL)
 		*val = strjoin_and_free(ft_strdup(key_at->val), *val);
-	msh_export(&(g_mshell->envlist), *key, *val);
-	free(*key);
-	free(*val);
 }
 
 void	export_(char **args)
@@ -38,18 +32,18 @@ void	export_(char **args)
 	i = 0;
 	while (args[i] != NULL)
 	{
-		if (args[0][0] == '-')
-		{
-			error_option("export", args[i]);
-			print_command_usage("export", "export [name[=value] ...]");
-		}
-		else if (!ft_isalpha(args[i][0]))
+		if (!ft_isalpha(args[i][0]))
 			error_ident("export", args[i]);
 		else
 		{
 			equal_at = ft_strchr(args[i], '=');
 			if (equal_at != NULL)
+			{
 				get_key_and_val(&key, &val, equal_at, args[i]);
+				msh_export(&(g_mshell->envlist), key, val);
+				free(key);
+				free(val);
+			}
 		}
 		i++;
 	}
