@@ -37,6 +37,15 @@ char	*strdup_before_valiable(char *tmp, char *variable_name)
 	return (NULL);
 }
 
+char	*get_str_until_env_val(char **t_str, char **env_name, char *env_val)
+{
+	char	*str;
+
+	str = strjoin_and_free(strdup_before_valiable(*t_str, *env_name), env_val);
+	ft_free((void **)env_name, (void **)t_str);
+	return (str);
+}
+
 char	*expand_str(char *str)
 {
 	char	*env_val;
@@ -45,22 +54,21 @@ char	*expand_str(char *str)
 	size_t	i;
 
 	i = 0;
+	errno = ERRNO_INIT_VAL;
 	t_str = ft_strdup(str);
 	while (str[i])
 	{
 		if (str[i] == '$' && (ft_isalnum((str[i + 1])) || str[i + 1] == '?'))
 		{
 			env_name = ft_substr(str + i, 1, get_env_name_len(str + i + 1));
-			errno = ERRNO_INIT_VAL;
 			env_val = ft_strdup(my_getenv(g_mshell->envlist, env_name));
 			if (env_val == NULL && errno == ERRNO_INIT_VAL)
 				env_val = ft_strdup("");
-			env_val = strjoin_and_free(strdup_before_valiable(t_str, env_name), env_val);
 			i += ft_strlen(env_name);
-			ft_free((void **)&env_name, (void **)&t_str);
-			t_str = strjoin_and_free(env_val, ft_strdup(str + i + 1));
+			t_str = get_str_until_env_val(&t_str, &env_name, env_val);
+			t_str = strjoin_and_free(t_str, ft_strdup(str + i + 1));
 			if (t_str == NULL)
-				error("handle_token_in_quotes.c 84: malloc error");
+				error("handle_token_in_quotes.c 65: malloc error");
 		}
 		i++;
 	}
@@ -92,17 +100,4 @@ size_t	join_valiable(char **p, t_token **tok)
 	free(*tok);
 	*tok = cur;
 	return (count);
-}
-
-t_token	*new_token_tk_word(t_token_kind kind, char *p, size_t len)
-{
-	t_token	*token;
-
-	token = (t_token *)ft_calloc(1, sizeof(t_token));
-	if (token == NULL)
-		error("malloc error\n");
-	token->kind = kind;
-	token->str = p;
-	token->len = len;
-	return (token);
 }
