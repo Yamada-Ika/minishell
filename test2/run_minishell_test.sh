@@ -171,13 +171,13 @@ STDOUT_TEST "echo '\$PATH'"
 STDOUT_TEST "echo '\$USER'"
 STDOUT_TEST "echo '\$LANG'"
 
-# env
-STDOUT_TEST "env"
+# # env
+# STDOUT_TEST "env"
 
-# export
-STDOUT_TEST "export"
-STDOUT_TEST "export hoge=hogeeeeeei"
-STDOUT_TEST "export hoge=hugahuga"
+# # export
+# STDOUT_TEST "export"
+# STDOUT_TEST "export hoge=hogeeeeeei"
+# STDOUT_TEST "export hoge=hugahuga"
 
 # pwd
 STDOUT_TEST "pwd"
