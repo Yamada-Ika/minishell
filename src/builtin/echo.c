@@ -1,5 +1,7 @@
 #include "envvar.h"
 
+void	add_exit_status_to_env(int status);
+
 static bool	_get_option(char **args)
 {
 	size_t	i;
@@ -42,4 +44,5 @@ void	echo_(char **args)
 	}
 	if (opt_n == false)
 		ft_putstr_fd("\n", STDOUT_FILENO);
+	add_exit_status_to_env(0);
 }
