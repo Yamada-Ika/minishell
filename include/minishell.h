@@ -234,4 +234,8 @@ t_node			*parse_error(t_node *node, t_token *token);
 void 			error(char *str);
 t_token			*tokenize_error(t_token *token);
 
+// ------------- src/utils -----------------
+int	my_dup2(int origin_fd, int copied_fd);
+// ------------- src/utils -----------------
+
 # endif
