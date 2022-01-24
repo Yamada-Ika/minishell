@@ -64,9 +64,8 @@ size_t	expand_token(t_token **token, int op_kind)
 	fprintf(stderr, "expand_token called\n");
 	if (op_kind == TK_OP_DOLLAR)
 	{
-		errno = ERRNO_INIT_VAL;
 		expanded_value = expand_str((*token)->str);
-		if (errno)
+		if (errno != ERRNO_INIT_VAL)
 			error(strerror(errno));
 		return (replace_token(token, expanded_value));
 	}

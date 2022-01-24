@@ -14,7 +14,6 @@ void	set_exit_status(int status)
 		printf("other exit status %d\n", WEXITSTATUS(status));
 		status = WEXITSTATUS(status);
 	}
-	errno = ERRNO_INIT_VAL;
 	status_str = ft_itoa(status);
 	if (errno != ERRNO_INIT_VAL && status_str == NULL)
 		error(strerror(errno));
