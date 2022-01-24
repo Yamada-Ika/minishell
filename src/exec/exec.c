@@ -58,14 +58,16 @@ void	exec_t_command(t_command command)
 		exec(command.word_list);
 }
 
-void	recursive(t_node *node)
+int	recursive(t_node *node)
 {
 	pid_t	pid;
 	int		fd[2];
 	int		sts;
 
+//	if (node->left == NULL )
+//		exec_t_command(node->command);
 	if (node == NULL )
-		return ;
+		return (0);
 	ft_pipe(fd);
 	pid = ft_fork();
 	if (pid == 0)
@@ -82,6 +84,8 @@ void	recursive(t_node *node)
 			recursive(node->left);
 	}
 	waitpid(pid, &sts, 0);
+	return (get_exit_status(sts));
+//	return (WEXITSTATUS(sts));
 }
 
 void	handle_command(t_node *node)
@@ -102,8 +106,8 @@ void	handle_command(t_node *node)
 			g_mshell->interrupt = false;
 			exit(1);
 		}
-		recursive(node);
-		return ;
+		sts = recursive(node);
+		exit (sts);
 	}
 	waitpid(pid, &sts, 0);
 	set_exit_status(sts);
