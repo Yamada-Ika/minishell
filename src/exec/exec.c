@@ -64,19 +64,22 @@ void	recursive(t_node *node)
 	int		fd[2];
 	int		sts;
 
-	if (node->left == NULL )
-		exec_t_command(node->command);
+	if (node == NULL )
+		return ;
 	ft_pipe(fd);
 	pid = ft_fork();
 	if (pid == 0)
 	{
 		handle_fd(fd[1], fd[0], 0);
-		exec_t_command(node->right->command);
+		if (node->right)
+			exec_t_command(node->right->command);
+		exec_t_command(node->command);
 	}
 	else
 	{
 		handle_fd(fd[0], fd[1], 1);
-		recursive(node->left);
+		if (node->left)
+			recursive(node->left);
 	}
 	waitpid(pid, &sts, 0);
 }
@@ -104,4 +107,5 @@ void	handle_command(t_node *node)
 	}
 	waitpid(pid, &sts, 0);
 	set_exit_status(sts);
+	fprintf(stderr, "========== %s %d: \n", __FILE__, __LINE__ );
 }
