@@ -35,9 +35,9 @@ void	exec(char **cmds)
 	fprintf(stderr, "exec called\n");
 	i = 0;
 	if (cmds == NULL || cmds[0] == NULL)
-		exit (0);
+		exit(0);
 	if (is_exec_built_in_in_child(cmds) == true)
-		exit (0);
+		exit(0);
 	if (access(cmds[0], X_OK) == F_OK)
 		execve(cmds[0], cmds, NULL);
 	if (is_exec_cmd_with_full_path(cmds) == false)
@@ -51,9 +51,9 @@ void	exec(char **cmds)
 void	exec_t_command(t_command command)
 {
 	if (handle_in_redir(command.in_redir) == ERROR)
-		exit (1);
+		exit(1);
 	if (handle_out_redir(command.out_redir) == ERROR)
-		exit (1);
+		exit(1);
 	if (is_exec_with_here_doc(command) == false)
 		exec(command.word_list);
 }
@@ -104,7 +104,7 @@ void	handle_command(t_node *node)
 			exit(1);
 		}
 		sts = recursive(node);
-		exit (sts);
+		exit(sts);
 	}
 	waitpid(pid, &sts, 0);
 	set_exit_status(sts);
