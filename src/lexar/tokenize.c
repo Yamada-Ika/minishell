@@ -68,7 +68,7 @@ t_token	*tokenize(char *p)
 {
 	t_token			*cur;
 	t_token			head;
-	t_token_kind	word_kind;
+	t_token_kind	kind;
 	size_t			op_len;
 
 	head.kind = EMPTY;
@@ -81,10 +81,10 @@ t_token	*tokenize(char *p)
 			cur = new_token(cur, check_op(p), &p, op_len);
 		else if (*p)
 		{
-			word_kind = _get_word_kind(p);
-			if (word_kind == EMPTY)
+			kind = _get_word_kind(p);
+			if (kind == EMPTY)
 				return (tokenize_error(head.next));
-			cur = new_token(cur, word_kind, &p, get_word_len(p, word_kind, " ><|'\"" ));
+			cur = new_token(cur, kind, &p, get_word_len(p, kind, " ><|'\"" ));
 		}
 	}
 	cur = new_token(cur, TK_EOF, &p, 0);
