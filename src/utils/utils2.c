@@ -9,6 +9,7 @@ void	ft_dup2(int oldfd, int newfd)
 int	ft_dup(int fd)
 {
 	int	duplicated_fd;
+
 	duplicated_fd = dup(fd);
 	if (duplicated_fd == ERROR)
 		error(strerror(errno));
@@ -21,7 +22,7 @@ void	ft_pipe(int *fd)
 		error(strerror(errno));
 }
 
-pid_t	ft_fork()
+pid_t	ft_fork(void)
 {
 	pid_t	pid;
 
