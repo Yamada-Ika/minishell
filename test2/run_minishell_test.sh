@@ -51,6 +51,38 @@ cd ../
 
 export TEST_STATUS=0
 
+# exit status
+STDOUT_TEST \
+"
+echo 42tokyo
+echo \$?"
+
+STDOUT_TEST \
+"
+echo -n 42tokyo
+echo \$?"
+
+STDOUT_TEST \
+"
+cd ../
+echo \$?"
+
+STDOUT_TEST \
+"
+cd hoge
+echo \$?"
+
+STDOUT_TEST \
+"
+cd
+echo \$?"
+
+
+STDOUT_TEST \
+"
+pwd
+echo \$?"
+
 # Simple command
 STDOUT_TEST "/bin/ls"
 STDOUT_TEST "/bin/pwd"
