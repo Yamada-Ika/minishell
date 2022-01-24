@@ -205,7 +205,6 @@ STDOUT_TEST "cat main.c | grep int"
 
 # crasy
 STDOUT_TEST "dsbksdgbksdghsd"
-STDOUT_TEST "cat | cat | ls"
 
 # environment variables
 STDOUT_TEST "echo \$PATH"
