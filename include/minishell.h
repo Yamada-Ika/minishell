@@ -145,6 +145,7 @@ void			error_ident(char *builtin_name, char *ident);
 // set_exit_status.c
 void			set_exit_status(int status);
 void			add_exit_status_to_env(int status);
+int				get_exit_status(int status);
 
 // tokenize.c
 t_token			*tokenize(char *p);
