@@ -1,5 +1,7 @@
 #include "libft.h"
 
+void	add_exit_status_to_env(int status);
+
 void	print_command_usage(char *name, char *usage)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
@@ -43,4 +45,5 @@ void	error_ident(char *builtin_name, char *ident)
 	ft_putstr_fd(ident, STDERR_FILENO);
 	ft_putchar_fd('\'', STDERR_FILENO);
 	ft_putendl_fd(": not a valid identifier", STDERR_FILENO);
+	add_exit_status_to_env(1);
 }
