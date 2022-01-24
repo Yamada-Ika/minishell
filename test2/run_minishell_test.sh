@@ -54,12 +54,27 @@ export TEST_STATUS=0
 # exit status
 STDOUT_TEST \
 "
+echo
+echo \$?"
+
+STDOUT_TEST \
+"
 echo 42tokyo
 echo \$?"
 
 STDOUT_TEST \
 "
+echo 4 2 T o k y o
+echo \$?"
+
+STDOUT_TEST \
+"
 echo -n 42tokyo
+echo \$?"
+
+STDOUT_TEST \
+"
+echo -n echo fourty two FOURTY TWO
 echo \$?"
 
 STDOUT_TEST \
@@ -76,7 +91,6 @@ STDOUT_TEST \
 "
 cd
 echo \$?"
-
 
 STDOUT_TEST \
 "
