@@ -2,8 +2,6 @@
 
 void	set_exit_status(int status)
 {
-	char	*status_str;
-
 	if (WIFSIGNALED(status))
 	{
 		status = 128 + WTERMSIG(status);
@@ -14,6 +12,13 @@ void	set_exit_status(int status)
 		printf("other exit status %d\n", WEXITSTATUS(status));
 		status = WEXITSTATUS(status);
 	}
+	add_exit_status_to_env(status);
+}
+
+void	add_exit_status_to_env(int status)
+{
+	char	*status_str;
+
 	status_str = ft_itoa(status);
 	if (errno != ERRNO_INIT_VAL && status_str == NULL)
 		error(strerror(errno));
