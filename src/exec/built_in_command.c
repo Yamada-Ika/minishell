@@ -47,6 +47,17 @@ bool	is_exec_built_in_in_child(char **cmds)
 	return (false);
 }
 
+bool	is_interrupted(void)
+{
+	if (g_mshell->interrupt == true)
+	{
+		add_exit_status_to_env(1);
+		g_mshell->interrupt = false;
+		return (true);
+	}
+	return (false);
+}
+
 bool	is_exec_built_in(t_node *node, t_command redir)
 {
 	const void	*builtin[] = {
@@ -62,13 +73,12 @@ bool	is_exec_built_in(t_node *node, t_command redir)
 		if (ft_strcmp(redir.word_list[0], builtin[i]) == 0)
 		{
 			get_here_doc_form_each_node(node);
-			if (redirect_in_parrent(redir, fd) != ERROR && !g_mshell->interrupt)
+			if (redirect_in_parrent(redir, fd) != ERROR && !is_interrupted())
 				_exec_builtin_cmd(i, redir.word_list);
 			ft_dup2(fd[0], 0);
 			close(fd[0]);
 			ft_dup2(fd[1], 1);
 			close(fd[1]);
-			g_mshell->interrupt = false;
 			return (true);
 		}
 		i++;
