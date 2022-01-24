@@ -92,14 +92,13 @@ void	handle_command(t_node *node)
 	pid = ft_fork();
 	if (pid == 0)
 	{
-		signal(SIGQUIT, (void *)SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		get_here_doc_form_each_node(node);
 		if (g_mshell->interrupt == true)
 		{
 			g_mshell->interrupt = false;
 			exit(1);
 		}
-		fprintf(stderr, "recursive : called\n");
 		recursive(node);
 		return ;
 	}
