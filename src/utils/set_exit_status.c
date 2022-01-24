@@ -31,14 +31,8 @@ void	add_exit_status_to_env(int status)
 int	get_exit_status(int status)
 {
 	if (WIFSIGNALED(status))
-	{
 		status = 128 + WTERMSIG(status);
-		//		printf("signal exit status %d\n", status);
-	}
 	else
-	{
-		//		printf("other exit status %d\n", WEXITSTATUS(status));
 		status = WEXITSTATUS(status);
-	}
 	return (status);
 }
