@@ -162,6 +162,12 @@ size_t			get_env_name_len(char *str);
 bool			is_redirect_kind(t_token_kind kind);
 t_redirect_list	*_redir_lstlast(t_redirect_list *lst);
 
+// utils2.c
+void			ft_dup2(int oldfd, int newfd);
+int				ft_dup(int fd);
+void			ft_pipe(int *fd);
+pid_t			ft_fork();
+
 // parse.c
 t_node			*command_line(t_token **tok);
 
@@ -200,9 +206,9 @@ void			handle_fd(int close_fd, int dup_fd, int fd);
 bool			is_exec_cmd_with_full_path(char **cmds);
 
 // signal.c
-void				display_new_prompt(int signal);
-void				back_to_new_prompt(int signal);
-void				interrupt(int signal);
+void			display_new_prompt(int signal);
+void			back_to_new_prompt(int signal);
+void			interrupt(int signal);
 
 // run_command_line.c
 void			run_command_line(char *str);

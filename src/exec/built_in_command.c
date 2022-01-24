@@ -1,8 +1,8 @@
 #include "minishell.h"
 static int	redirect_in_parrent( t_command redir, int *fd)
 {
-	fd[0] = dup(0);
-	fd[1] = dup(1);
+	fd[0] = ft_dup(0);
+	fd[1] = ft_dup(1);
 	if (handle_in_redir(redir.in_redir) == ERROR)
 		return (-1);
 	if (handle_out_redir(redir.out_redir) == ERROR)
@@ -64,9 +64,9 @@ bool	is_exec_built_in(t_node *node, t_command redir)
 			get_here_doc_form_each_node(node);
 			if (redirect_in_parrent(redir, fd) != ERROR && !g_mshell->interrupt)
 				_exec_builtin_cmd(i, redir.word_list);
-			dup2(fd[0], 0);
+			ft_dup2(fd[0], 0);
 			close(fd[0]);
-			dup2(fd[1], 1);
+			ft_dup2(fd[1], 1);
 			close(fd[1]);
 			g_mshell->interrupt = false;
 			return (true);

@@ -22,7 +22,7 @@ int	handle_in_redir(t_redirect_list *redirect)
 		ft_putendl_fd(strerror(errno), 2);
 		return (-1);
 	}
-	dup2(fd, 1);
+	ft_dup2(fd, 1);
 	close(fd);
 	if (redirect->next != NULL)
 		handle_in_redir(redirect->next);
@@ -50,7 +50,7 @@ int	handle_out_redir(t_redirect_list *redirect)
 			ft_putendl_fd(strerror(errno), 2);
 			return (-1);
 		}
-		dup2(fd, 0);
+		ft_dup2(fd, 0);
 		close(fd);
 	}
 	if (redirect->next != NULL)

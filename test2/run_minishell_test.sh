@@ -160,7 +160,7 @@ STDOUT_TEST "ls | awk '{print \$5}'"
 # redirection
 # STDOUT_TEST "cat < main.c > file1"
 
-# pipe
+# ft_pipe
 STDOUT_TEST "cat main.c | grep int"
 
 # crasy
@@ -171,7 +171,7 @@ STDOUT_TEST "cat | cat | ls"
 STDOUT_TEST "echo \$PATH"
 STDOUT_TEST "echo \"\$USER\""
 
-# echo & pipe
+# echo & ft_pipe
 STDOUT_TEST "echo 42 | cat"
 STDOUT_TEST "echo 42 | cat"
 STDOUT_TEST "echo \"42\" | cat"
@@ -182,7 +182,7 @@ STDOUT_TEST "echo \"42\"Tokyo | cat"
 STDOUT_TEST "echo '42'Tokyo | cat"
 STDOUT_TEST "echo Paris\"42\"Tokyo | cat"
 
-# echo & multi-pipe
+# echo & multi-ft_pipe
 STDOUT_TEST "echo 42 | cat | cat"
 STDOUT_TEST "echo 42 | cat | cat"
 STDOUT_TEST "echo \"42\" | cat | cat"

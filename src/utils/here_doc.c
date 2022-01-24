@@ -18,7 +18,7 @@ char	*get_here_doc(char *eos)
 	char	*line;
 	int		fd;
 
-	fd = dup(0);
+	fd = ft_dup(0);
 	doc = NULL;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, interrupt);
@@ -28,7 +28,7 @@ char	*get_here_doc(char *eos)
 		if (line == NULL)
 		{
 			if (g_mshell->interrupt == true)
-				dup2(fd, 0);
+				ft_dup2(fd, 0);
 			close(fd);
 			return (doc);
 		}

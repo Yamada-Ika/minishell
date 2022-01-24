@@ -10,8 +10,8 @@ bool	is_exec_with_here_doc(t_command command)
 	last = _redir_lstlast(command.out_redir);
 	if (last && ft_strncmp(last->redirect, "<<", 2) == 0)
 	{
-		pipe(fd);
-		pid = fork();
+		ft_pipe(fd);
+		pid = ft_fork();
 		if (pid == 0)
 		{
 			handle_fd(fd[0], fd[1], 1);
@@ -62,11 +62,12 @@ void	recursive(t_node *node)
 {
 	pid_t	pid;
 	int		fd[2];
+	int		sts;
 
 	if (node->left == NULL )
 		exec_t_command(node->command);
-	pipe(fd);
-	pid = fork();
+	ft_pipe(fd);
+	pid = ft_fork();
 	if (pid == 0)
 	{
 		handle_fd(fd[1], fd[0], 0);
@@ -77,6 +78,7 @@ void	recursive(t_node *node)
 		handle_fd(fd[0], fd[1], 1);
 		recursive(node->left);
 	}
+	waitpid(pid, &sts, 0);
 }
 
 void	handle_command(t_node *node)
@@ -87,7 +89,7 @@ void	handle_command(t_node *node)
 	signal(SIGINT, back_to_new_prompt);
 	if (node->left == NULL && is_exec_built_in(node, node->command) == true)
 		return ;
-	pid = fork();
+	pid = ft_fork();
 	if (pid == 0)
 	{
 		signal(SIGQUIT, (void *)SIG_DFL);

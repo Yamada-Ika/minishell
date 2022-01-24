@@ -3,7 +3,7 @@ CC		:= gcc
 CFLAGS	:= -Wall -Wextra -Werror
 HEADER	:= -I../../include -I../../libft -I$(shell brew --prefix readline)/include
 LDFLAGS 	:= #-lreadline -lhistory -L$(shell brew --prefix readline)/lib
-SRCS	:= free.c here_doc.c redirect.c set_exit_status.c signal.c utils.c error.c
+SRCS	:= free.c here_doc.c redirect.c set_exit_status.c signal.c utils.c  utils2.c error.c
 OBJS	:= $(SRCS:%.c=%.o)
 OBJS	:= $(addprefix obj/, $(OBJS))
 LIBFT = ../../libft/libft.a
