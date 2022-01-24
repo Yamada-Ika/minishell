@@ -64,8 +64,6 @@ int	recursive(t_node *node)
 	int		fd[2];
 	int		sts;
 
-//	if (node->left == NULL )
-//		exec_t_command(node->command);
 	if (node == NULL )
 		return (0);
 	ft_pipe(fd);
@@ -85,7 +83,6 @@ int	recursive(t_node *node)
 	}
 	waitpid(pid, &sts, 0);
 	return (get_exit_status(sts));
-//	return (WEXITSTATUS(sts));
 }
 
 void	handle_command(t_node *node)
@@ -111,5 +108,4 @@ void	handle_command(t_node *node)
 	}
 	waitpid(pid, &sts, 0);
 	set_exit_status(sts);
-	fprintf(stderr, "========== %s %d: \n", __FILE__, __LINE__ );
 }
