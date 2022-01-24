@@ -10,13 +10,6 @@ void	unset_(char **args)
 	i = 0;
 	while (args[i] != NULL)
 	{
-		if (args[0][0] == '-')
-		{
-			error_option("unset", args[i]);
-			print_command_usage("unset", "unset [name[=value] ...]");
-			i++;
-			continue ;
-		}
 		equal_at = ft_strchr(args[i], '=');
 		if (!ft_isalpha(args[i][0]) || equal_at != NULL)
 			error_ident("unset", args[i++]);
