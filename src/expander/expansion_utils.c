@@ -51,7 +51,7 @@ char	*expand_str(char *str)
 		{
 			variable_name = ft_substr(str + i, 1, get_valiable_name_len(str + i + 1));
 			expanded_value = ft_strdup(my_getenv(g_mshell->envlist, variable_name));
-			if (expanded_value == NULL && errno == 0)
+			if (expanded_value == NULL && errno == ERRNO_INIT_VAL)
 				expanded_value = ft_strdup("");
 			expanded_value = ft_strjoin_with_free_no_null(strdup_before_valiable(t_str, variable_name), expanded_value);
 			i += ft_strlen(variable_name);

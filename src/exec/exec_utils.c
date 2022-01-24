@@ -27,7 +27,6 @@ char	**get_command_path(t_envvar *envlist)
 	val_with_key = my_getenv(envlist, "PATH");
 	if (val_with_key == NULL)
 		return (NULL);
-	errno = ERRNO_INIT_VAL;
 	path_line = ft_strdup(val_with_key);
 	if (errno != ERRNO_INIT_VAL && path_line == NULL)
 		error(strerror(errno));
@@ -41,7 +40,8 @@ char	**get_command_path(t_envvar *envlist)
 void	handle_fd(int close_fd, int dup_fd, int fd)
 {
 	close(close_fd);
-	if (dup2(dup_fd, fd) == ERROR)
+	errno = ERRNO_INIT_VAL;
+	if (dup2(dup_fd, fd) == ERROR || errno != ERRNO_INIT_VAL)
 		error(strerror(errno));
 	close(dup_fd);
 }
@@ -56,7 +56,7 @@ bool	is_exec_cmd_with_full_path(char **cmds)
 	i = 0;
 	cmd = ft_strjoin("/", cmds[0]);
 	paths = get_command_path(g_mshell->envlist);
-	if (cmd == NULL || paths == NULL)
+	if (cmd == NULL || paths == NULL || errno != ERRNO_INIT_VAL)
 		error(strerror(errno));
 	while (paths && paths[i])
 	{

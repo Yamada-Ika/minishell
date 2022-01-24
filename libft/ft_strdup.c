@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tshigena <tshigena@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:40:47 by tshigena          #+#    #+#             */
-/*   Updated: 2021/11/07 23:39:14 by tshigena         ###   ########.fr       */
+/*   Updated: 2022/01/24 13:33:03 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*ft_strdup(const char *src)
 	char	*cpy;
 	size_t	str_size;
 
+	errno = 0;
 	if (src == NULL)
 		return (NULL);
 	str_size = ft_strlen(src) + 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tshigena <tshigena@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:38:13 by tshigena          #+#    #+#             */
-/*   Updated: 2021/11/07 23:36:20 by tshigena         ###   ########.fr       */
+/*   Updated: 2022/01/24 13:31:34 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	*ft_calloc(size_t count, size_t size)
 	void	*m_size;
 	size_t	product;
 
+	errno = 0;
 	if (count == 0 || size == 0)
 	{
 		count = 1;
