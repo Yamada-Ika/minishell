@@ -2,8 +2,15 @@
 
 void	pwd_(void)
 {
-	char	pathname[512];
+	int		exit_status;
+	char	*path;
 
-	getcwd(pathname, 512);
-	printf("%s\n", pathname);
+	exit_status = 0;
+	path = getcwd(NULL, 0);
+	if (path == NULL)
+		exit_status = 1;
+	if (path != NULL)
+		printf("%s\n", path);
+	add_exit_status_to_env(exit_status);
+	free(path);
 }
