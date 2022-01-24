@@ -2,6 +2,8 @@
 
 void	set_exit_status(int status)
 {
+	if (WTERMSIG(status) == SIGQUIT)
+		ft_putendl_fd("Quit: 3", STDERR_FILENO);
 	if (WIFSIGNALED(status))
 	{
 		status = 128 + WTERMSIG(status);
