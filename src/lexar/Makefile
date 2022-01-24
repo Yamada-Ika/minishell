@@ -4,6 +4,7 @@ CFLAGS	:= -Wall -Wextra -Werror
 HEADER	:= -I../../include -I../../libft
 SRCS	:= tokenize.c tokenize_utils.c
 OBJS	:= $(SRCS:%.c=%.o)
+OBJS	:= $(addprefix obj/, $(OBJS))
 LIBFT = ../../libft/libft.a
 
 all: $(NAME)
@@ -11,7 +12,7 @@ all: $(NAME)
 $(NAME): $(OBJS) $(LIBFT)
 	ar rc $(NAME) $(OBJS)  $(LIBFT)
 
-%.o:%.c
+obj/%.o:%.c
 	$(CC) $(CFLAGS) $(HEADER) -o $@ -c $<
 
 clean:

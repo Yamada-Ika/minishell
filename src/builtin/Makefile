@@ -7,6 +7,7 @@ builtin_utils.c    env.c              exit.c             my_getenv.c	\
 cd.c               envvar_utils_1.c   export.c           pwd.c			\
 echo.c             envvar_utils_2.c   inherite_env_val.c unset.c
 OBJS	:= $(SRCS:%.c=%.o)
+OBJS	:= $(addprefix obj/, $(OBJS))
 LIBFT = ../../libft/libft.a
 
 all: $(NAME)
@@ -14,7 +15,7 @@ all: $(NAME)
 $(NAME): $(OBJS) $(LIBFT)
 	ar rc $(NAME) $(OBJS) $(LIBFT)
 
-%.o:%.c
+obj/%.o:%.c
 	$(CC) $(CFLAGS) $(HEADER) -o $@ -c $<
 
 clean:
