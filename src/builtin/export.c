@@ -28,12 +28,18 @@ void	export_(char **args)
 	char		*val;
 
 	if (args[0] == NULL)
-		return (msh_export(&(g_mshell->envlist), NULL, NULL));
+	{
+		msh_export(&(g_mshell->envlist), NULL, NULL);
+		return (add_exit_status_to_env(0));
+	}
 	i = 0;
 	while (args[i] != NULL)
 	{
 		if (!ft_isalpha(args[i][0]))
+		{
 			error_ident("export", args[i]);
+			add_exit_status_to_env(1);
+		}
 		else
 		{
 			equal_at = ft_strchr(args[i], '=');
@@ -41,6 +47,7 @@ void	export_(char **args)
 			{
 				get_key_and_val(&key, &val, equal_at, args[i]);
 				msh_export(&(g_mshell->envlist), key, val);
+				add_exit_status_to_env(0);
 				free(key);
 				free(val);
 			}
