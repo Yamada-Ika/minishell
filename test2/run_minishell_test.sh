@@ -42,11 +42,14 @@ function STDOUT_TEST() {
 	else
 		echo -e "\n\033[31m$test_case : KO!\033[m"
 		TAKE_LOG_FAILE_TEST "$test_case" test2/msh.out test2/bash.out
+		export TEST_STATUS=1
 	fi
 }
 
 rm -rf faile.log
 cd ../
+
+export TEST_STATUS=0
 
 # Simple command
 STDOUT_TEST "/bin/ls"
@@ -207,4 +210,9 @@ STDOUT_TEST "echo \"42\"Tokyo | cat | cat | cat"
 STDOUT_TEST "echo '42'Tokyo | cat | cat | cat"
 STDOUT_TEST "echo Paris\"42\"Tokyo | cat | cat | cat"
 
-echo -e "\033[32mAll test : OK!\033[m"
+if [ $TEST_STATUS -eq 0 ]
+then
+	echo -e "\033[32mAll test : OK!\033[m"
+else
+	echo -e "\033[31mSome test : KO!\033[m"
+fi
