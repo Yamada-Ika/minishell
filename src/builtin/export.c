@@ -34,10 +34,7 @@ void	export_(char **args)
 	char		*val;
 
 	if (args[0] == NULL)
-	{
-		msh_export(&(g_mshell->envlist), NULL, NULL);
-		return ;
-	}
+		return (msh_export(&(g_mshell->envlist), NULL, NULL));
 	i = 0;
 	while (args[i] != NULL)
 	{
@@ -45,48 +42,16 @@ void	export_(char **args)
 		{
 			error_option("export", args[i]);
 			print_command_usage("export", "export [name[=value] ...]");
-			i++;
-			continue ;
 		}
-		if (!ft_isalpha(args[i][0]))
-		{
+		else if (!ft_isalpha(args[i][0]))
 			error_ident("export", args[i]);
-			i++;
-			continue ;
-		}
-		equal_at = ft_strchr(args[i], '=');
-		if (equal_at == NULL)
+		else
 		{
-			i++;
-			continue ;
+			equal_at = ft_strchr(args[i], '=');
+			if (equal_at != NULL)
+				get_key_and_val(&key, &val, equal_at, args[i]);
 		}
-		get_key_and_val(&key, &val, equal_at, args[i]);
 		i++;
-		// else if (*(equal_at - 1) != '+')
-		// {
-		// 	key_len = equal_at - args[i];
-		// 	key = ft_substr(args[i], 0, key_len);
-		// 	val = ft_substr(args[i], key_len + 1, ft_strlen(args[i]));
-		// 	msh_export(&(g_mshell->envlist), key, val);
-		// 	free(key);
-		// 	free(val);
-		// 	i++;
-		// 	continue ;
-		// }
-		// else
-		// {
-		// 	key_len = equal_at - 1 - args[i];
-		// 	key = ft_substr(args[i], 0, key_len);
-		// 	val = ft_substr(args[i], key_len + 2, ft_strlen(args[i]));
-		// 	key_at = get_envvar_with_key(g_mshell->envlist, key);
-		// 	if (key_at != NULL)
-		// 		val = strjoin_and_free(ft_strdup(key_at->val), val);
-		// 	msh_export(&(g_mshell->envlist), key, val);
-		// 	free(key);
-		// 	free(val);
-		// 	i++;
-		// 	continue ;
-		// }
 	}
 }
 
