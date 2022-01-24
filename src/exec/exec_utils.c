@@ -40,7 +40,8 @@ char	**get_command_path(t_envvar *envlist)
 void	handle_fd(int close_fd, int dup_fd, int fd)
 {
 	close(close_fd);
-	if (my_dup2(dup_fd, fd) == ERROR)
+	errno = ERRNO_INIT_VAL;
+	if (dup2(dup_fd, fd) == ERROR || errno != ERRNO_INIT_VAL)
 		error(strerror(errno));
 	close(dup_fd);
 }
