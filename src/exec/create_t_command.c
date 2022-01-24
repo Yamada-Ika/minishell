@@ -5,7 +5,7 @@ static t_redirect_list	*_new_redir_list(char *word, char *redirct)
 	t_redirect_list	*new;
 
 	new = (t_redirect_list *)ft_calloc(1, sizeof(t_redirect_list));
-	if (new == NULL && errno)
+	if (new == NULL)
 		error(strerror(errno));
 	new->word = word;
 	new->redirect = redirct;
@@ -56,7 +56,7 @@ void	create_t_command(t_node *node)
 
 	tok = node->word_list;
 	node->command.word_list = _alloc_word_list(tok, node->word_list_size);
-	if (node->command.word_list == NULL && errno)
+	if (node->command.word_list == NULL)
 		error(strerror(errno));
 	word_list_i = 0;
 	i = 0;

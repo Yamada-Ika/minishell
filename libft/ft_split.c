@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 16:40:39 by tshigena          #+#    #+#             */
-/*   Updated: 2022/01/24 13:34:15 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/01/24 17:00:25 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char	**ft_split(char const *s, char c)
 	size_t	el;
 	size_t	el_size;
 
-	errno = 0;
 	el = 0;
 	i = 0;
 	if (!s)

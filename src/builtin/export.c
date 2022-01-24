@@ -1,13 +1,37 @@
 #include "minishell.h"
 
+static void	get_key_and_val(char **key, char **val, char *equal_at, char *str)
+{
+	size_t		key_len;
+	t_envvar	*key_at;
+
+	if (*(equal_at - 1) != '+')
+	{
+		key_len = equal_at - str;
+		*key = ft_substr(str, 0, key_len);
+		*val = ft_substr(str, key_len + 1, ft_strlen(str));
+		msh_export(&(g_mshell->envlist), *key, *val);
+		free(*key);
+		free(*val);
+		return ;
+	}
+	key_len = equal_at - 1 - str;
+	*key = ft_substr(str, 0, key_len);
+	*val = ft_substr(str, key_len + 2, ft_strlen(str));
+	key_at = get_envvar_with_key(g_mshell->envlist, *key);
+	if (key_at != NULL)
+		*val = strjoin_and_free(ft_strdup(key_at->val), *val);
+	msh_export(&(g_mshell->envlist), *key, *val);
+	free(*key);
+	free(*val);
+}
+
 void	export_(char **args)
 {
 	size_t		i;
-	size_t		key_len;
 	char		*equal_at;
 	char		*key;
 	char		*val;
-	t_envvar	*key_at;
 
 	if (args[0] == NULL)
 	{
@@ -36,31 +60,33 @@ void	export_(char **args)
 			i++;
 			continue ;
 		}
-		else if (*(equal_at - 1) != '+')
-		{
-			key_len = equal_at - args[i];
-			key = ft_substr(args[i], 0, key_len);
-			val = ft_substr(args[i], key_len + 1, ft_strlen(args[i]));
-			msh_export(&(g_mshell->envlist), key, val);
-			free(key);
-			free(val);
-			i++;
-			continue ;
-		}
-		else
-		{
-			key_len = equal_at - 1 - args[i];
-			key = ft_substr(args[i], 0, key_len);
-			val = ft_substr(args[i], key_len + 2, ft_strlen(args[i]));
-			key_at = get_envvar_with_key(g_mshell->envlist, key);
-			if (key_at != NULL)
-				val = strjoin_and_free(ft_strdup(key_at->val), val);
-			msh_export(&(g_mshell->envlist), key, val);
-			free(key);
-			free(val);
-			i++;
-			continue ;
-		}
+		get_key_and_val(&key, &val, equal_at, args[i]);
+		i++;
+		// else if (*(equal_at - 1) != '+')
+		// {
+		// 	key_len = equal_at - args[i];
+		// 	key = ft_substr(args[i], 0, key_len);
+		// 	val = ft_substr(args[i], key_len + 1, ft_strlen(args[i]));
+		// 	msh_export(&(g_mshell->envlist), key, val);
+		// 	free(key);
+		// 	free(val);
+		// 	i++;
+		// 	continue ;
+		// }
+		// else
+		// {
+		// 	key_len = equal_at - 1 - args[i];
+		// 	key = ft_substr(args[i], 0, key_len);
+		// 	val = ft_substr(args[i], key_len + 2, ft_strlen(args[i]));
+		// 	key_at = get_envvar_with_key(g_mshell->envlist, key);
+		// 	if (key_at != NULL)
+		// 		val = strjoin_and_free(ft_strdup(key_at->val), val);
+		// 	msh_export(&(g_mshell->envlist), key, val);
+		// 	free(key);
+		// 	free(val);
+		// 	i++;
+		// 	continue ;
+		// }
 	}
 }
 

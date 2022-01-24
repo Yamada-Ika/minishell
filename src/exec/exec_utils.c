@@ -27,11 +27,13 @@ char	**get_command_path(t_envvar *envlist)
 	val_with_key = my_getenv(envlist, "PATH");
 	if (val_with_key == NULL)
 		return (NULL);
+	errno = ERRNO_INIT_VAL;
 	path_line = ft_strdup(val_with_key);
-	if (errno != ERRNO_INIT_VAL && path_line == NULL)
+	if (path_line == NULL && errno != ERRNO_INIT_VAL)
 		error(strerror(errno));
+	errno = ERRNO_INIT_VAL;
 	paths = ft_split(path_line, ':');
-	if (errno != ERRNO_INIT_VAL && paths == NULL)
+	if (paths == NULL && errno != ERRNO_INIT_VAL)
 		error(strerror(errno));
 	free(path_line);
 	return (paths);
