@@ -14,9 +14,9 @@ void	set_exit_status(int status)
 		printf("other exit status %d\n", WEXITSTATUS(status));
 		status = WEXITSTATUS(status);
 	}
-	errno = INIT_ERRNO;
+	errno = ERRNO_INIT_VAL;
 	status_str = ft_itoa(status);
-	if (errno != INIT_ERRNO && status_str == NULL)
+	if (errno != ERRNO_INIT_VAL && status_str == NULL)
 		error(strerror(errno));
 	msh_export(&(g_mshell->envlist), "?", status_str);
 	free(status_str);

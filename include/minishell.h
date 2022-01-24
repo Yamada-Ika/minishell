@@ -20,7 +20,7 @@
 # include "envvar.h"
 
 # define ERROR -1
-# define INIT_ERRNO 0
+# define ERRNO_INIT_VAL 0
 
 char	***ft_split_triple(char const **strs, char *sets);
 
