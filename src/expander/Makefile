@@ -2,7 +2,7 @@ NAME = libexpander.a
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 INCLUDE = -I ../../include/
-SRCS = expansion.c handle_token_in_quotes.c expansion_utils.c
+SRCS = expansion.c handle_token_in_quotes.c expansion_utils.c expansion_utils2.c
 OBJS = $(SRCS:%.c=%.o)
 OBJS	:= $(addprefix obj/, $(OBJS))
 
