@@ -65,6 +65,34 @@ char	*expand_str(char *str)
 	return (t_str);
 }
 
+size_t	join_valiable(char **p, t_token **tok)
+{
+	t_token	*cur;
+	t_token	head;
+	size_t	count;
+
+	count = 0;
+	head.next = NULL;
+	cur = &head;
+	while (p[count])
+	{
+		cur->next = new_token_tk_word(TK_WORD, p[count], ft_strlen(p[count]));
+		cur->next->prev = cur;
+		cur = cur->next;
+		count++;
+	}
+	free(p);
+	cur->next = (*tok)->next;
+	cur->next->prev = cur;
+	(*tok)->prev->next = head.next;
+	head.next->prev = (*tok)->prev;
+	free((*tok)->str);
+	free(*tok);
+	*tok = cur;
+	return (count);
+}
+
+
 t_token	*new_token_tk_word(t_token_kind kind, char *p, size_t len)
 {
 	t_token	*token;
