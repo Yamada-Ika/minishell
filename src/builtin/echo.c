@@ -2,9 +2,20 @@
 
 static bool	_get_option(char **args)
 {
-	if (ft_strcmp(args[0], "-n") == 0)
-		return (true);
-	return (false);
+	size_t	i;
+	size_t	len;
+
+	if (args[0][0] != '-')
+		return (false);
+	len = ft_strlen(args[0]);
+	i = 1;
+	while (i < len)
+	{
+		if (args[0][i] != 'n')
+			return (false);
+		i++;
+	}
+	return (true);
 }
 
 void	echo_(char **args)

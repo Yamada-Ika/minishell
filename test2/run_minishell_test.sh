@@ -94,6 +94,11 @@ STDOUT_TEST \
 
 # echo
 STDOUT_TEST "echo"
+STDOUT_TEST "echo -n 42"
+STDOUT_TEST "echo -nn 42"
+STDOUT_TEST "echo -nnnnnnnnnnnnn 42"
+STDOUT_TEST "echo -nnk 42"
+STDOUT_TEST "echo -nkn 42"
 STDOUT_TEST "echo 42"
 STDOUT_TEST "echo \"42\""
 STDOUT_TEST "echo '42'"
