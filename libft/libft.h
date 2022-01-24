@@ -6,7 +6,7 @@
 /*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 18:13:47 by tshigena          #+#    #+#             */
-/*   Updated: 2022/01/19 16:32:29 by iyamada          ###   ########.fr       */
+/*   Updated: 2022/01/24 13:32:08 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <limits.h>
+# include <errno.h>
 # include "ft_printf/ft_printf.h"
 
 typedef struct s_list
