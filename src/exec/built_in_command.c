@@ -35,10 +35,13 @@ bool	is_exec_built_in_in_child(char **cmds)
 		"echo", "cd", "pwd", "export", "unset", "env", "exit", NULL};
 
 	i = 0;
-	if (ft_strcmp(cmds[0], builtin[i]) == 0)
+	while (builtin[i] != NULL)
 	{
-		_exec_builtin_cmd(i, cmds);
-		return (true);
+		if (ft_strcmp(cmds[0], builtin[i]) == 0)
+		{
+			_exec_builtin_cmd(i, cmds);
+			return (true);
+		}
 		i++;
 	}
 	return (false);
