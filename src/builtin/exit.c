@@ -48,7 +48,7 @@ void	exit_(char **cmds)
 	{
 		ft_putstr_fd("exit\n", STDERR_FILENO);
 		ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
-		return ;
+		return (add_exit_status_to_env(1));
 	}
 }
 
