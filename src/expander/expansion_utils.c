@@ -5,7 +5,8 @@ void	join_token_and_token_prev(t_token **token)
 	t_token	*tmp;
 
 	printf("join_token_and_token_perv called\n");
-	(*token)->prev->str = ft_strjoin_with_free(&(*token)->prev->str, &(*token)->str);
+	(*token)->prev->str = strjoin_and_free_null
+		(&(*token)->prev->str, &(*token)->str);
 	if ((*token)->prev->str == NULL)
 		error("expansion.c 7: malloc error");
 	(*token)->prev->len = ft_strlen((*token)->prev->str);
@@ -38,9 +39,9 @@ char	*strdup_before_valiable(char *tmp, char *variable_name)
 
 char	*expand_str(char *str)
 {
-	char	*expanded_value;
+	char	*env_val;
 	char	*t_str;
-	char	*variable_name;
+	char	*env_name;
 	size_t	i;
 
 	i = 0;
@@ -49,14 +50,14 @@ char	*expand_str(char *str)
 	{
 		if (str[i] == '$' && (ft_isalnum((str[i + 1])) || str[i + 1] == '?'))
 		{
-			variable_name = ft_substr(str + i, 1, get_valiable_name_len(str + i + 1));
-			expanded_value = ft_strdup(my_getenv(g_mshell->envlist, variable_name));
-			if (expanded_value == NULL && errno == ERRNO_INIT_VAL)
-				expanded_value = ft_strdup("");
-			expanded_value = ft_strjoin_with_free_no_null(strdup_before_valiable(t_str, variable_name), expanded_value);
-			i += ft_strlen(variable_name);
-			ft_free((void **)&variable_name, (void **)&t_str);
-			t_str = ft_strjoin_with_free_no_null(expanded_value, ft_substr(str + i + 1, 0, ft_strlen(str + i + 1)));
+			env_name = ft_substr(str + i, 1, get_env_name_len(str + i + 1));
+			env_val = ft_strdup(my_getenv(g_mshell->envlist, env_name));
+			if (env_val == NULL && errno == ERRNO_INIT_VAL)
+				env_val = ft_strdup("");
+			env_val = strjoin_and_free(strdup_before_valiable(t_str, env_name), env_val);
+			i += ft_strlen(env_name);
+			ft_free((void **)&env_name, (void **)&t_str);
+			t_str = strjoin_and_free(env_val, ft_strdup(str + i + 1));
 			if (t_str == NULL)
 				error("handle_token_in_quotes.c 84: malloc error");
 		}
@@ -91,7 +92,6 @@ size_t	join_valiable(char **p, t_token **tok)
 	*tok = cur;
 	return (count);
 }
-
 
 t_token	*new_token_tk_word(t_token_kind kind, char *p, size_t len)
 {
