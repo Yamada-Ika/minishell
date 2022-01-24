@@ -28,6 +28,7 @@ void	echo_(char **args)
 	if (args[0] == NULL)
 	{
 		ft_putstr_fd("\n", STDOUT_FILENO);
+		add_exit_status_to_env(0);
 		return ;
 	}
 	opt_n = _get_option(args);
