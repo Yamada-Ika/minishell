@@ -2,9 +2,10 @@
 
 void	cd_(char **cmds)
 {
-	char			pathname[512];
+	int	exit_status;
 
-	ft_bzero(pathname, 512);
-	chdir(cmds[1]);
-	getcwd(pathname, 512);
+	exit_status = 0;
+	if (chdir(cmds[1]) == -1)
+		exit_status = 1;
+	add_exit_status_to_env(exit_status);
 }
