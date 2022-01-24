@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tshigena <tshigena@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: iyamada <iyamada@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 23:00:44 by tshigena          #+#    #+#             */
-/*   Updated: 2021/12/01 14:00:43 by tshigena         ###   ########.fr       */
+/*   Updated: 2022/01/24 13:15:56 by iyamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #define BUFFER_SIZE 5
 
-static void	ft_free(char **p);
+static void	ft_gnl_free(char **p);
 static int	split_by_n(char *total, char **line, char **save, char *location_n);
 static char	*get_one_line(int fd, char *buf, char **save, ssize_t bufsize);
 static char	*ft_strchr_dx(const char *s, int c);
@@ -30,7 +30,7 @@ char	*get_next_line(int fd)
 	buf = (char *)malloc(((size_t)BUFFER_SIZE + 1) * sizeof(char));
 	if (buf == NULL)
 	{
-		ft_free(&keep_lines);
+		ft_gnl_free(&keep_lines);
 		return (NULL);
 	}
 	bufsize = read(fd, buf, BUFFER_SIZE);
@@ -45,7 +45,7 @@ static char	*get_one_line(int fd, char *buf, char **save, ssize_t bufsize)
 	char		*line;
 
 	line = ft_strjoin("", *save);
-	ft_free(save);
+	ft_gnl_free(save);
 	if (line == NULL)
 		bufsize = 0;
 	else if (line && bufsize == 0)
@@ -56,13 +56,13 @@ static char	*get_one_line(int fd, char *buf, char **save, ssize_t bufsize)
 		total = ft_strjoin(line, buf);
 		if (split_by_n(total, &line, save, ft_strchr_dx(total, '\n')))
 			break ;
-		ft_free(&line);
+		ft_gnl_free(&line);
 		line = total;
 		bufsize = read(fd, buf, BUFFER_SIZE);
 	}
 	if (bufsize == -1)
-		ft_free (&line);
-	ft_free (&buf);
+		ft_gnl_free (&line);
+	ft_gnl_free (&buf);
 	return (line);
 }
 
@@ -70,23 +70,23 @@ static int	split_by_n(char *total, char **line, char **save, char *location_n)
 {
 	if (total == NULL)
 	{
-		ft_free(line);
+		ft_gnl_free(line);
 		return (1);
 	}
 	if (location_n == NULL)
 		return (0);
 	if (total != *line)
-		ft_free(line);
+		ft_gnl_free(line);
 	*line = ft_substr(total, 0, ft_strlen(total) - ft_strlen(location_n + 1));
 	*save = ft_strdup(location_n + 1);
 	if (*line == NULL || *save == NULL)
 	{
-		ft_free(line);
-		ft_free(save);
+		ft_gnl_free(line);
+		ft_gnl_free(save);
 	}
 	else if (ft_strlen(*save) == 0)
-		ft_free(save);
-	ft_free (&total);
+		ft_gnl_free(save);
+	ft_gnl_free (&total);
 	return (1);
 }
 
@@ -110,7 +110,7 @@ static char	*ft_strchr_dx(const char *s, int c)
 	return (NULL);
 }
 
-static void	ft_free(char **p)
+static void	ft_gnl_free(char **p)
 {
 	if (p)
 	{
