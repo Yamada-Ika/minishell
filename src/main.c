@@ -69,8 +69,8 @@ int	main(int argc, char **argv)
 		{
 			add_history(cmd_line);
 			run_command_line(cmd_line);
+			write_history(".my_history");
 		}
 		free(cmd_line);
 	}
-	write_history(".my_history");
 }
