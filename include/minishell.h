@@ -103,7 +103,8 @@ typedef struct s_mshell	t_mshell;
 struct s_mshell
 {
 	t_envvar	*envlist;
-	bool 		interrupt;
+	char		*pwd;
+	bool		interrupt;
 };
 
 t_mshell	*g_mshell;
