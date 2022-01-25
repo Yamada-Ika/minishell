@@ -34,7 +34,6 @@ size_t	expand_token(t_token **token, int op_kind)
 {
 	char	*expanded_value;
 
-	fprintf(stderr, "expand_token called\n");
 	if (op_kind == TK_OP_DOLLAR)
 	{
 		expanded_value = expand_str((*token)->str);

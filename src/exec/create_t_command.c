@@ -73,5 +73,5 @@ void	create_t_command(t_node *node)
 		tok = tok->next;
 		i++;
 	}
-	_debug_command(node->command);
+//	_debug_command(node->command);
 }

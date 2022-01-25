@@ -32,7 +32,6 @@ void	exec(char **cmds)
 {
 	size_t		i;
 
-	fprintf(stderr, "exec called\n");
 	i = 0;
 	if (cmds == NULL || cmds[0] == NULL)
 		exit(0);
