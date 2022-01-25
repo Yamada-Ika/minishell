@@ -69,6 +69,7 @@ int	recursive(t_node *node)
 	pid = ft_fork();
 	if (pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		handle_fd(fd[1], fd[0], 0);
 		if (node->right)
 			exec_t_command(node->right->command);
@@ -95,7 +96,6 @@ void	handle_command(t_node *node)
 	pid = ft_fork();
 	if (pid == 0)
 	{
-		signal(SIGQUIT, SIG_DFL);
 		get_here_doc_form_each_node(node);
 		if (g_mshell->interrupt == true)
 		{
