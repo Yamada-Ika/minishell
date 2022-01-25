@@ -8,4 +8,3 @@ void	print_command_usage(char *name, char *usage)
 	ft_putstr_fd("usage: ", STDERR_FILENO);
 	ft_putendl_fd(usage, STDERR_FILENO);
 }
-
