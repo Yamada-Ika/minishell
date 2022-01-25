@@ -45,7 +45,7 @@ void	handle_fd(int close_fd, int dup_fd, int fd)
 	close(dup_fd);
 }
 
-bool	is_exec_cmd_with_full_path(char **cmds)
+bool	is_exec_cmd_with_full_path(char **cmds, char **environ)
 {
 	char	*absolute_path;
 	char	**paths;
@@ -63,7 +63,7 @@ bool	is_exec_cmd_with_full_path(char **cmds)
 		if (access(absolute_path, X_OK) == F_OK)
 		{
 			free(cmd);
-			execve(absolute_path, cmds, NULL);
+			execve(absolute_path, cmds, environ);
 		}
 		free(absolute_path);
 		i++;
