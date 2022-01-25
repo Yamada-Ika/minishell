@@ -83,7 +83,7 @@ t_token	*tokenize(char *p)
 		{
 			kind = _get_word_kind(p);
 			if (kind == EMPTY)
-				return (tokenize_error(head.next));
+				return (tokenize_error(head.next, cur->next));
 			cur = new_token(cur, kind, &p, get_word_len(p, kind, " ><|'\"" ));
 		}
 	}
