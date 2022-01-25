@@ -2,12 +2,9 @@
 
 void	set_exit_status(int status)
 {
-	if (WEXITSTATUS(status) == 131)
+	status = WEXITSTATUS(status);
+	if (status == 131)
 		ft_putendl_fd("Quit: 3", STDERR_FILENO);
-	if (WIFSIGNALED(status))
-		status = 128 + WTERMSIG(status);
-	else
-		status = WEXITSTATUS(status);
 	add_exit_status_to_env(status);
 }
 
