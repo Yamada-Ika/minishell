@@ -26,7 +26,6 @@ size_t	replace_token(t_token **token, char *str)
 		 error("expansion.c 153: malloc error");
 	free(str);
 	increase_tok_num = join_valiable(strs, token);
-	debug_token((*token), 1);
 	return (increase_tok_num);
 }
 
