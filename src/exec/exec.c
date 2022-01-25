@@ -31,6 +31,7 @@ bool	is_exec_with_here_doc(t_command command)
 void	exec(char **cmds)
 {
 	size_t		i;
+	extern char **environ;
 
 	i = 0;
 	if (cmds == NULL || cmds[0] == NULL)
@@ -38,8 +39,8 @@ void	exec(char **cmds)
 	if (is_exec_built_in_in_child(cmds) == true)
 		exit(0);
 	if (access(cmds[0], X_OK) == F_OK)
-		execve(cmds[0], cmds, NULL);
-	if (is_exec_cmd_with_full_path(cmds) == false)
+		execve(cmds[0], cmds, environ);
+	if (is_exec_cmd_with_full_path(cmds, environ) == false)
 	{
 		ft_putstr_fd("minishell: command not found: ", 2);
 		ft_putendl_fd(cmds[0], 2);
