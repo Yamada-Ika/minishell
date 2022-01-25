@@ -136,12 +136,15 @@ void			pwd_();
 void			cd_(char **cmds);
 
 // builtin_utils.c
-void			print_command_usage(char *name, char *usage);
 void			print_command_usage2(char *name, char *usage);
 void			error_option(char *builtin_name, char *option_name);
 void			error_option2(char *builtin_name, char option);
 void			error_with_errno(char *builtin_name, char *arg);
 void			error_ident(char *builtin_name, char *ident);
+
+// builtin_utils2.c
+void			print_command_usage(char *name, char *usage);
+
 // ------------- builtin -----------------
 
 // set_exit_status.c
