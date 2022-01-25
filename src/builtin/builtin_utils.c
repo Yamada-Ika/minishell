@@ -3,15 +3,6 @@
 #include <string.h>
 void	add_exit_status_to_env(int status);
 
-void	print_command_usage(char *name, char *usage)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(name, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putstr_fd("usage: ", STDERR_FILENO);
-	ft_putendl_fd(usage, STDERR_FILENO);
-}
-
 void	print_command_usage2(char *name, char *usage)
 {
 	ft_putstr_fd("usage: ", STDERR_FILENO);
