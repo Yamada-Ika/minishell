@@ -15,7 +15,7 @@ static void	get_key_and_val(char **key, char **val, char *equal_at, char *str)
 	key_len = equal_at - 1 - str;
 	*key = ft_substr(str, 0, key_len);
 	*val = ft_substr(str, key_len + 2, ft_strlen(str));
-	key_at = get_envvar_with_key(g_mshell->envlist, *key);
+	key_at = get_envvar_with_key(g_mshell.envlist, *key);
 	if (key_at != NULL)
 		*val = strjoin_and_free(ft_strdup(key_at->val), *val);
 }
@@ -29,7 +29,7 @@ void	export_(char **args)
 
 	if (args[0] == NULL)
 	{
-		msh_export(&(g_mshell->envlist), NULL, NULL);
+		msh_export(&(g_mshell.envlist), NULL, NULL);
 		return (add_exit_status_to_env(0));
 	}
 	i = 0;
@@ -46,7 +46,7 @@ void	export_(char **args)
 			if (equal_at != NULL)
 			{
 				get_key_and_val(&key, &val, equal_at, args[i]);
-				msh_export(&(g_mshell->envlist), key, val);
+				msh_export(&(g_mshell.envlist), key, val);
 				add_exit_status_to_env(0);
 				free(key);
 				free(val);

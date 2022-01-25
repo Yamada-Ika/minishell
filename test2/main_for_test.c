@@ -11,8 +11,8 @@ static void	_init_global_var()
 	extern char	**environ;
 
 	g_mshell = ft_calloc(1, sizeof(g_mshell));
-	inherite_env_val(&(g_mshell->envlist), environ);
-	g_mshell->interrupt = false;
+	inherite_env_val(&(g_mshell.envlist), environ);
+	g_mshell.interrupt = false;
 }
 
 static void	_frees(char **strs)

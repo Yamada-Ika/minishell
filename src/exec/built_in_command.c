@@ -49,10 +49,10 @@ bool	is_exec_built_in_in_child(char **cmds)
 
 bool	is_interrupted(void)
 {
-	if (g_mshell->interrupt == true)
+	if (g_mshell.interrupt == true)
 	{
 		add_exit_status_to_env(1);
-		g_mshell->interrupt = false;
+		g_mshell.interrupt = false;
 		return (true);
 	}
 	return (false);

@@ -33,17 +33,17 @@ getcwd: cannot access parent directories: ", STDERR_FILENO);
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		exit(0);
 	}
-	g_mshell->pwd = pwd_path;
+	g_mshell.pwd = pwd_path;
 }
 
 static	void	_init_global_var(void)
 {
 	extern char	**environ;
 
-	g_mshell = ft_calloc(1, sizeof(g_mshell));
-	inherite_env_val(&(g_mshell->envlist), environ);
+//	g_mshell = ft_calloc(1, sizeof(g_mshell));
+	inherite_env_val(&(g_mshell.envlist), environ);
 	set_exit_status(0);
-	g_mshell->interrupt = false;
+	g_mshell.interrupt = false;
 	_set_pwd();
 }
 

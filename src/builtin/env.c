@@ -4,7 +4,7 @@ void	env_(char **args)
 {
 	if (args[0] == NULL)
 	{
-		msh_env(g_mshell->envlist);
+		msh_env(g_mshell.envlist);
 		return ;
 	}
 	ft_putendl_fd("env: minishell can't have arguments", STDERR_FILENO);

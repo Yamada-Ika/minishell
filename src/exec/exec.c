@@ -97,9 +97,9 @@ void	handle_command(t_node *node)
 	if (pid == 0)
 	{
 		get_here_doc_form_each_node(node);
-		if (g_mshell->interrupt == true)
+		if (g_mshell.interrupt == true)
 		{
-			g_mshell->interrupt = false;
+			g_mshell.interrupt = false;
 			exit(1);
 		}
 		sts = recursive(node);

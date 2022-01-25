@@ -107,7 +107,7 @@ struct s_mshell
 	bool		interrupt;
 };
 
-t_mshell	*g_mshell;
+t_mshell	g_mshell;
 
 
 // ------------- env -----------------

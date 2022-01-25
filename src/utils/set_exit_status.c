@@ -15,7 +15,7 @@ void	add_exit_status_to_env(int status)
 	status_str = ft_itoa(status);
 	if (errno != ERRNO_INIT_VAL && status_str == NULL)
 		error(strerror(errno));
-	msh_export(&(g_mshell->envlist), "?", status_str);
+	msh_export(&(g_mshell.envlist), "?", status_str);
 	free(status_str);
 }
 

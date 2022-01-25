@@ -4,13 +4,13 @@ static void	_update_pwd_helper(char *path, char *key)
 {
 	char	*val;
 
-	val = my_getenv(g_mshell->envlist, key);
+	val = my_getenv(g_mshell.envlist, key);
 	if (val == NULL)
 		return ;
 	if (path != NULL)
-		msh_export(&(g_mshell->envlist), key, path);
+		msh_export(&(g_mshell.envlist), key, path);
 	else
-		msh_export(&(g_mshell->envlist), key, "");
+		msh_export(&(g_mshell.envlist), key, "");
 }
 
 static void	_update_pwd_in_envlist(char *path)
@@ -54,11 +54,11 @@ void	cd_(char **cmds)
 			return (add_exit_status_to_env(1));
 		}
 	}
-	_update_oldpwd_in_envlist(my_getenv(g_mshell->envlist, "PWD"));
+	_update_oldpwd_in_envlist(my_getenv(g_mshell.envlist, "PWD"));
 	free(path);
 	add_exit_status_to_env(0);
 	path = getcwd(NULL, 0);
 	_update_pwd_in_envlist(path);
-	free(g_mshell->pwd);
-	g_mshell->pwd = path;
+	free(g_mshell.pwd);
+	g_mshell.pwd = path;
 }

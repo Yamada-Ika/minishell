@@ -18,7 +18,7 @@ void	unset_(char **args)
 		}
 		else
 		{
-			msh_unset(&(g_mshell->envlist), args[i++]);
+			msh_unset(&(g_mshell.envlist), args[i++]);
 			add_exit_status_to_env(0);
 		}
 	}

@@ -54,7 +54,7 @@ bool	is_exec_cmd_with_full_path(char **cmds)
 
 	i = 0;
 	cmd = ft_strjoin("/", cmds[0]);
-	paths = get_command_path(g_mshell->envlist);
+	paths = get_command_path(g_mshell.envlist);
 	if ((cmd == NULL || paths == NULL ) && errno != ERRNO_INIT_VAL)
 		error(strerror(errno));
 	while (paths && paths[i])

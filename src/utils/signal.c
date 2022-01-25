@@ -20,7 +20,7 @@ void	interrupt(int signal)
 {
 	if (signal == SIGINT)
 	{
-		g_mshell->interrupt = true;
+		g_mshell.interrupt = true;
 		close(0);
 	}
 }

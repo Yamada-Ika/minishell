@@ -9,7 +9,7 @@ UTILS		:= src/utils/libutl.a
 
 DEBUG		:= test/debug.a
 CC			:= gcc
-CFLAGS		:= -g -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS		:= -g -Wall -Wextra -Werror -fsanitize=address
 LDFLAGS 	:= -lreadline -lhistory -L$(shell brew --prefix readline)/lib
 INCLUDE 	:= -Iinclude/ -I$(shell brew --prefix readline)/include -Ilibft -Ibuiltin
 

@@ -27,7 +27,7 @@ char	*get_here_doc(char *eos)
 		line = readline("> ");
 		if (line == NULL)
 		{
-			if (g_mshell->interrupt == true)
+			if (g_mshell.interrupt == true)
 				ft_dup2(fd, 0);
 			close(fd);
 			return (doc);
@@ -46,7 +46,7 @@ void	get_here_docs(t_redirect_list *redirect)
 	{
 		if (ft_strncmp(redirect->redirect, "<<", 2) == 0)
 			redirect->word = get_here_doc(redirect->word);
-		if (g_mshell->interrupt == true)
+		if (g_mshell.interrupt == true)
 			return ;
 		redirect = redirect->next;
 	}
@@ -57,7 +57,7 @@ void	get_here_doc_form_each_node(t_node *node)
 	while (node->left != NULL)
 	{
 		get_here_docs(node->right->command.out_redir);
-		if (g_mshell->interrupt == true)
+		if (g_mshell.interrupt == true)
 			return ;
 		node = node->left;
 	}
