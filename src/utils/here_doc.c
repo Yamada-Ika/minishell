@@ -24,7 +24,7 @@ char	*get_here_doc(char *eos)
 	signal(SIGINT, interrupt);
 	while (1)
 	{
-		line = readline("heredoc> ");
+		line = readline("> ");
 		if (line == NULL)
 		{
 			if (g_mshell->interrupt == true)
