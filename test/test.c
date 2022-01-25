@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
 	char	**paths;
 
 	if (argc == 1)
-		error("Invalid argument!\n");
+		error("Invalid argument!");
 	str = argv[1];
 
 	// tokenize

@@ -26,6 +26,6 @@ t_token	*tokenize_error(t_token *head, t_token *cur)
 
 void	error(char *str)
 {
-	ft_putstr_fd(str, 2);
+	ft_putendl_fd(str, STDERR_FILENO);
 	exit(1);
 }

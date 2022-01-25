@@ -6,7 +6,7 @@ t_token	*new_token(t_token *cur, t_token_kind kind, char **p, size_t len)
 
 	new = (t_token *)ft_calloc(1, sizeof(t_token));
 	if (new == NULL)
-		error("malloc error\n");
+		error("malloc error");
 	new->kind = kind;
 	new->is_join_prev = false;
 	new->str = ft_substr(*p, 0, len);
