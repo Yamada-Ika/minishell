@@ -44,7 +44,7 @@ void	get_here_docs(t_redirect_list *redirect)
 {
 	while (redirect)
 	{
-		if (ft_strncmp(redirect->redirect, "<<", 2) == 0)
+		if (ft_strcmp(redirect->redirect, "<<") == 0)
 			redirect->word = get_here_doc(redirect->word);
 		if (g_mshell.interrupt == true)
 			return ;
