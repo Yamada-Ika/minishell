@@ -16,7 +16,10 @@ void	msh_env(t_envvar *envlist)
 	while (envlist != NULL)
 	{
 		if (ft_strcmp(envlist->key, "?") != 0)
-			printf("%s=%s\n", envlist->key, envlist->val);
+		{
+			if (envlist->val != NULL)
+				printf("%s=%s\n", envlist->key, envlist->val);
+		}
 		envlist = envlist->next;
 	}
 	add_exit_status_to_env(0);

@@ -1,10 +1,18 @@
 #include "minishell.h"
 
-static void	get_key_and_val(char **key, char **val, char *equal_at, char *str)
+static void	get_key_and_val(char **key, char **val, char *str)
 {
 	size_t		key_len;
 	t_envvar	*key_at;
+	char		*equal_at;
 
+	equal_at = ft_strchr(str, '=');
+	if (equal_at == NULL)
+	{
+		*key = ft_strdup(str);
+		*val = NULL;
+		return ;
+	}
 	if (*(equal_at - 1) != '+')
 	{
 		key_len = equal_at - str;
@@ -20,18 +28,20 @@ static void	get_key_and_val(char **key, char **val, char *equal_at, char *str)
 		*val = strjoin_and_free(ft_strdup(key_at->val), *val);
 }
 
+static void	_export_non_arg(void)
+{
+	msh_export(&(g_mshell.envlist), NULL, NULL);
+	add_exit_status_to_env(0);
+}
+
 void	export_(char **args)
 {
 	size_t		i;
-	char		*equal_at;
 	char		*key;
 	char		*val;
 
 	if (args[0] == NULL)
-	{
-		msh_export(&(g_mshell.envlist), NULL, NULL);
-		return (add_exit_status_to_env(0));
-	}
+		return (_export_non_arg());
 	i = 0;
 	while (args[i] != NULL)
 	{
@@ -42,15 +52,11 @@ void	export_(char **args)
 		}
 		else
 		{
-			equal_at = ft_strchr(args[i], '=');
-			if (equal_at != NULL)
-			{
-				get_key_and_val(&key, &val, equal_at, args[i]);
-				msh_export(&(g_mshell.envlist), key, val);
-				add_exit_status_to_env(0);
-				free(key);
-				free(val);
-			}
+			get_key_and_val(&key, &val, args[i]);
+			msh_export(&(g_mshell.envlist), key, val);
+			add_exit_status_to_env(0);
+			free(key);
+			free(val);
 		}
 		i++;
 	}
@@ -61,7 +67,12 @@ static void	_display_env(t_envvar *envlist)
 	while (envlist != NULL)
 	{
 		if (ft_strcmp(envlist->key, "?") != 0)
-			printf("declare -x %s=\"%s\"\n", envlist->key, envlist->val);
+		{
+			if (envlist->val == NULL)
+				printf("declare -x %s\n", envlist->key);
+			else
+				printf("declare -x %s=\"%s\"\n", envlist->key, envlist->val);
+		}
 		envlist = envlist->next;
 	}
 }
