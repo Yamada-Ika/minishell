@@ -29,3 +29,11 @@ void	error(char *str)
 	ft_putendl_fd(str, STDERR_FILENO);
 	exit(1);
 }
+
+void	error_message(char *m, char *m2)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(m, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(m2, 2);
+}

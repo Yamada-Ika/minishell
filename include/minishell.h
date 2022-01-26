@@ -260,5 +260,6 @@ void			_debug_strs(char **strs);
 t_node			*parse_error(t_node *node, t_token *token);
 void 			error(char *str);
 t_token			*tokenize_error(t_token *head, t_token *cur);
+void			error_message(char *m, char *m2);
 
 # endif

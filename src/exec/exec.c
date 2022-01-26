@@ -8,7 +8,7 @@ bool	is_exec_with_here_doc(t_command command)
 	t_redirect_list	*last;
 
 	last = _redir_lstlast(command.out_redir);
-	if (last && ft_strncmp(last->redirect, "<<", 2) == 0)
+	if (last && ft_strcmp(last->redirect, "<<") == 0)
 	{
 		ft_pipe(fd);
 		pid = ft_fork();
@@ -40,8 +40,7 @@ void	exec(char **cmds)
 		execve(cmds[0], cmds, environ);
 	if (is_exec_cmd_with_full_path(cmds, environ) == false)
 	{
-		ft_putstr_fd("minishell: command not found: ", 2);
-		ft_putendl_fd(cmds[0], 2);
+		error_message(cmds[0], "command not found");
 		exit(127);
 	}
 }
