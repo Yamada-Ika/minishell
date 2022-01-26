@@ -1,20 +1,5 @@
 #include "minishell.h"
 
-//__attribute__((destructor))
-//void	destructor(void)
-//{
-//	int	status;
-//
-//	system("leaks minishell");
-////	status = system("leaks debug &> leaksout");
-////	if (status)
-////	{
-////		write(2, "leak!!!\n", 8);
-////		system("cat leaksout >/dev/stderr");
-////		exit(1);
-////	}
-//}
-
 static void	_install_signal_handler(void)
 {
 	signal(SIGINT, (void *)display_new_prompt);
