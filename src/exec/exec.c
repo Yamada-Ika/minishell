@@ -8,7 +8,7 @@ bool	is_exec_with_here_doc(t_command command)
 	t_redirect_list	*last;
 
 	last = _redir_lstlast(command.out_redir);
-	if (last && ft_strncmp(last->redirect, "<<", 2) == 0)
+	if (last && ft_strcmp(last->redirect, "<<") == 0)
 	{
 		ft_pipe(fd);
 		pid = ft_fork();
