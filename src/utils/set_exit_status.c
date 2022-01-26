@@ -2,7 +2,7 @@
 
 void	set_exit_status(int status)
 {
-	status = WEXITSTATUS(status);
+//	status = WEXITSTATUS(status);
 	if (status == 131)
 		ft_putendl_fd("Quit: 3", STDERR_FILENO);
 	add_exit_status_to_env(status);
