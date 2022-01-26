@@ -7,6 +7,8 @@ function TAKE_LOG_FAILE_TEST() {
 	echo $msh_file $bash_file
 	echo "===============================================================" >> test2/faile.log
 	echo "test case : $test_case" >> test2/faile.log
+	echo "------------------------- diff result -------------------------" >> test2/faile.log
+	diff -a -u $msh_file $bash_file >> test2/faile.log
 	echo "---------------------- minishell result -----------------------" >> test2/faile.log
 	cat $msh_file >> test2/faile.log
 	echo "------------------------- bash result -------------------------" >> test2/faile.log
@@ -186,13 +188,39 @@ STDOUT_TEST "echo '\$PATH'"
 STDOUT_TEST "echo '\$USER'"
 STDOUT_TEST "echo '\$LANG'"
 
-# # env
-# STDOUT_TEST "env"
+# env
+STDOUT_TEST "env | sort"
+STDOUT_TEST \
+"export key=value
+env | sort"
+STDOUT_TEST \
+"export TEST1=\"42Tokyo\"
+export TEST2=\"42 Tokyo\"
+export TEST3=\" 42 Tokyo\"
+export TEST4=\" 42 Tokyo \"
+export TEST5=' 42 Tokyo '
+export TEST6=''
+export TEST7=\"\"
+export TEST8=
+export TEST9
+env | sort"
 
-# # export
-# STDOUT_TEST "export"
-# STDOUT_TEST "export hoge=hogeeeeeei"
-# STDOUT_TEST "export hoge=hugahuga"
+# export
+STDOUT_TEST "export | sort"
+STDOUT_TEST \
+"export key=value
+export | sort"
+STDOUT_TEST \
+"export TEST1=\"42Tokyo\"
+export TEST2=\"42 Tokyo\"
+export TEST3=\" 42 Tokyo\"
+export TEST4=\" 42 Tokyo \"
+export TEST5=' 42 Tokyo '
+export TEST6=''
+export TEST7=\"\"
+export TEST8=
+export TEST9
+export | sort"
 
 # pwd
 STDOUT_TEST "pwd"
