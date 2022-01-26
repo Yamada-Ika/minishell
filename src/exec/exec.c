@@ -31,7 +31,7 @@ bool	is_exec_with_here_doc(t_command command)
 void	exec(char **cmds)
 {
 	size_t		i;
-	extern char **environ;
+	extern char	**environ;
 
 	i = 0;
 	if (cmds == NULL || cmds[0] == NULL)
@@ -82,21 +82,6 @@ int	recursive(t_node *node)
 		handle_fd(fd[0], fd[1], 1);
 		if (node->left)
 			recursive(node->left);
-	}
-	waitpid(pid, &sts, 0);
-	return (get_exit_status(sts));
-}
-
-int	test(t_node *node)
-{
-	pid_t	pid;
-	int sts;
-
-	pid = ft_fork();
-	if (pid == 0)
-	{
-		exec(node->command.word_list);
-//		exec_t_command(node->command);
 	}
 	waitpid(pid, &sts, 0);
 	return (get_exit_status(sts));
