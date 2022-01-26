@@ -40,8 +40,7 @@ void	exec(char **cmds)
 		execve(cmds[0], cmds, environ);
 	if (is_exec_cmd_with_full_path(cmds, environ) == false)
 	{
-		ft_putstr_fd("minishell: command not found: ", 2);
-		ft_putendl_fd(cmds[0], 2);
+		error_message(cmds[0], "command not found");
 		exit(127);
 	}
 }
