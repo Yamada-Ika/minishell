@@ -109,6 +109,7 @@ then
 	echo -e "\n\033[32m global variable check : OK!\033[m"
 else
 	echo -e "\n\033[31m global variable check : KO!\033[m"
+	export TEST_STATUS=1
 fi
 
 STDOUT_TEST " "
