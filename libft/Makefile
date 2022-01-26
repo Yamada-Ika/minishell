@@ -23,7 +23,8 @@ SRCS = ft_strlen.c ft_strlcpy.c ft_strlcat.c ft_strrchr.c ft_strnstr.c ft_strncm
 		strjoin_and_free.c \
 		ft_split_triple.c \
 		ft_strcmp.c \
-		ft_free.c
+		ft_free.c \
+		is_str_all_c.c
 OBJS = $(SRCS:%.c=%.o)
 
 all: $(NAME)

@@ -81,5 +81,6 @@ char	*strjoin_and_free(char *s1, char *s2);
 char	***ft_split_triple(char const **strs, char *sets);
 int		ft_strcmp(const char*s1, const char *s2);
 void	ft_free(void **p1, void **p2);
+bool	is_str_all_c(char *str, char c);
 
 #endif
