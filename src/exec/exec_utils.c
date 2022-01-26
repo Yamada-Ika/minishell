@@ -45,7 +45,15 @@ void	handle_fd(int close_fd, int dup_fd, int fd)
 	close(dup_fd);
 }
 
-bool	is_exec_cmd_with_full_path(char **cmds, char **environ)
+void	exec_cmd(char *path, char **cmds, char **environ)
+{
+	if (access(path, X_OK) == F_OK)
+		execve(path, cmds, environ);
+	error_message(path, "Permission denied");
+	exit(126);
+}
+
+void	exec_cmd_with_full_path(char **cmds, char **environ)
 {
 	char	*absolute_path;
 	char	**paths;
@@ -60,13 +68,11 @@ bool	is_exec_cmd_with_full_path(char **cmds, char **environ)
 	while (paths && paths[i])
 	{
 		absolute_path = ft_strjoin(paths[i], cmd);
-		if (access(absolute_path, X_OK) == F_OK)
-		{
-			free(cmd);
-			execve(absolute_path, cmds, environ);
-		}
+		if (access(absolute_path, F_OK) == F_OK)
+			exec_cmd(absolute_path, cmds, environ);
 		free(absolute_path);
 		i++;
 	}
-	return (false);
+	error_message(cmds[0], "command not found");
+	exit(127);
 }

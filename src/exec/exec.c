@@ -36,13 +36,9 @@ void	exec(char **cmds)
 		exit(0);
 	if (is_exec_built_in_in_child(cmds) == true)
 		exit(0);
-	if (access(cmds[0], X_OK) == F_OK)
-		execve(cmds[0], cmds, environ);
-	if (is_exec_cmd_with_full_path(cmds, environ) == false)
-	{
-		error_message(cmds[0], "command not found");
-		exit(127);
-	}
+	if (access(cmds[0], F_OK) == F_OK)
+		exec_cmd(cmds[0], cmds, environ);
+	exec_cmd_with_full_path(cmds, environ);
 }
 
 void	exec_t_command(t_command command)
