@@ -151,6 +151,9 @@ char	*get_canonical_path(char *abs_path);
 // get_resize_strs_with_str.c
 char	**get_resize_strs_with_str(char **strs, char *s);
 
+// generate_environ.c
+char	**generate_environ(void);
+
 // ------------- builtin -----------------
 
 // set_exit_status.c
