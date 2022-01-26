@@ -32,18 +32,15 @@ void	handle_token_in_quotes(t_token *token)
 	char	*str;
 	char	*tmp;
 
-	printf("remove_quotes: %s len %zu\n", token->str, token->len);
 	if (token->kind == TK_WORD_IN_SINGLE_Q)
 		str = remove_quotes(token, '\'');
 	if (token->kind == TK_WORD_IN_DOUBLE_Q)
 	{
 		str = remove_quotes(token, '"');
 		tmp = str;
-		printf("remove_quotes 89 : %s\n", str);
 		str = expand_str(str);
 		free(tmp);
 	}
-	printf("remove_quotes 91 : %s\n", str);
 	free(token->str);
 	token->str = str;
 	token->len = ft_strlen(str);
