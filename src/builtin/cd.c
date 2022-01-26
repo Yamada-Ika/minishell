@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static void	_update_pwd_helper(char *path, char *key)
+static void	_update_pwd(char *key, char *path)
 {
 	char	*val;
 
@@ -13,52 +13,53 @@ static void	_update_pwd_helper(char *path, char *key)
 		msh_export(&(g_mshell.envlist), key, "");
 }
 
-static void	_update_pwd_in_envlist(char *path)
+static char	*_get_abs_path(char *dst)
 {
-	_update_pwd_helper(path, "PWD");
-}
+	char	*cur_path;
+	char	*abs_path;
+	char	*home_path;
 
-static void	_update_oldpwd_in_envlist(char *path)
-{
-	_update_pwd_helper(path, "OLDPWD");
+	if (dst == NULL)
+	{
+		home_path = my_getenv(g_mshell.envlist, "HOME");
+		if (home_path == NULL)
+		{
+			ft_putendl_fd("minishell: cd: HOME not set", STDERR_FILENO);
+			return (NULL);
+		}
+		abs_path = ft_strdup(home_path);
+	}
+	else
+	{
+		cur_path = ft_strjoin("/", dst);
+		abs_path = ft_strjoin(g_mshell.pwd, cur_path);
+		free(cur_path);
+	}
+	return (abs_path);
 }
 
 void	cd_(char **cmds)
 {
-	char	*path;
 	char	*abs_path;
-	char	*tmp;
+	char	*cano_path;
 
-	errno = ERRNO_INIT_VAL;
-	path = getcwd(NULL, 0);
-	if (path == NULL && errno != ERRNO_INIT_VAL)
+	abs_path = _get_abs_path(cmds[1]);
+	if (abs_path == NULL)
+		return (add_exit_status_to_env(1));
+	cano_path = get_canonical_path(abs_path);
+	free(abs_path);
+	if (chdir(cano_path) == -1)
 	{
-		ft_putendl_fd(strerror(errno), STDERR_FILENO);
+		error_with_errno("cd", cano_path);
 		if (chdir(cmds[1]) == -1)
 		{
-			free(path);
 			error_with_errno("cd", cmds[1]);
 			return (add_exit_status_to_env(1));
 		}
 	}
-	else
-	{
-		abs_path = ft_strjoin(path, "/");
-		tmp = abs_path;
-		abs_path = ft_strjoin(abs_path, cmds[1]);
-		free(tmp);
-		if (chdir(abs_path) == -1)
-		{
-			free(path);
-			error_with_errno("cd", abs_path);
-			return (add_exit_status_to_env(1));
-		}
-	}
-	_update_oldpwd_in_envlist(my_getenv(g_mshell.envlist, "PWD"));
-	free(path);
-	add_exit_status_to_env(0);
-	path = getcwd(NULL, 0);
-	_update_pwd_in_envlist(path);
+	_update_pwd("OLDPWD", my_getenv(g_mshell.envlist, "PWD"));
+	_update_pwd("PWD", cano_path);
 	free(g_mshell.pwd);
-	g_mshell.pwd = path;
+	g_mshell.pwd = cano_path;
+	add_exit_status_to_env(0);
 }

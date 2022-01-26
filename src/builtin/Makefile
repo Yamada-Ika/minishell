@@ -3,10 +3,11 @@ CC		:= gcc
 CFLAGS	:= -Wall -Wextra -Werror
 HEADER	:= -I../../include -I../../libft
 SRCS	:= \
-builtin_utils.c    env.c              exit.c             my_getenv.c	\
-cd.c               envvar_utils_1.c   export.c           pwd.c			\
-echo.c             envvar_utils_2.c   inherite_env_val.c unset.c		\
-builtin_utils2.c
+builtin_utils.c            envvar_utils_1.c           get_resize_strs_with_str.c	\
+builtin_utils2.c           envvar_utils_2.c           inherite_env_val.c			\
+cd.c                       exit.c                     my_getenv.c					\
+echo.c                     export.c                   pwd.c							\
+env.c                      get_canonical_path.c       unset.c
 OBJS	:= $(SRCS:%.c=%.o)
 OBJS	:= $(addprefix obj/, $(OBJS))
 LIBFT = ../../libft/libft.a

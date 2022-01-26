@@ -145,6 +145,12 @@ void			error_ident(char *builtin_name, char *ident);
 // builtin_utils2.c
 void			print_command_usage(char *name, char *usage);
 
+// get_canonical_path.c
+char	*get_canonical_path(char *abs_path);
+
+// get_resize_strs_with_str.c
+char	**get_resize_strs_with_str(char **strs, char *s);
+
 // ------------- builtin -----------------
 
 // set_exit_status.c
