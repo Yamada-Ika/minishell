@@ -11,7 +11,7 @@ int	handle_in_redir(t_redirect_list *redirect)
 		error_message(redirect->word, "ambiguous redirect" );
 		return (-1);
 	}
-	if (ft_strncmp(redirect->redirect, ">>", 2) == 0)
+	if (ft_strcmp(redirect->redirect, ">>") == 0)
 		fd = open(redirect->word, O_RDWR | O_APPEND | O_CREAT, 0664);
 	else
 		fd = open(redirect->word, O_RDWR | O_CREAT | O_TRUNC, 0664);
@@ -38,7 +38,7 @@ int	handle_out_redir(t_redirect_list *redirect)
 		error_message(redirect->word, "ambiguous redirect" );
 		return (-1);
 	}
-	if (ft_strncmp(redirect->redirect, "<<", 2))
+	if (ft_strcmp(redirect->redirect, "<<"))
 	{
 		fd = open(redirect->word, O_RDONLY);
 		if (fd == -1)
