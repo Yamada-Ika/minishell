@@ -30,7 +30,7 @@ all: $(NAME)
 $(NAME): $(LIBFT) $(OBJS) $(DEBUG) $(BUILTIN) $(EXEC) $(EXPANDER) $(LEXAR) $(PARSER) $(UTILS)
 	echo > ~/.inputrc set echo-control-characters off
 	#$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) $(LIBFT) $(LDFLAGS)
-	$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) $(DEBUG)  $(LIBFT) $(BUILTIN) $(EXEC) $(EXPANDER) $(LEXAR) $(PARSER) $(UTILS) $(LDFLAGS)
+	$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS) $(DEBUG) $(LEXAR) $(PARSER) $(EXPANDER) $(EXEC) $(BUILTIN) $(UTILS) $(LIBFT) $(LDFLAGS)
 
 $(LIBFT): empty
 	make -C libft
