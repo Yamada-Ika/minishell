@@ -22,7 +22,7 @@ void	free_t_redirect_list(t_redirect_list *redirect)
 	while (redirect)
 	{
 		next_redirect = redirect->next;
-		if (ft_strncmp(redirect->redirect, "<<", 2) == 0)
+		if (ft_strcmp(redirect->redirect, "<<") == 0)
 			free(redirect->word);
 		free(redirect);
 		redirect = next_redirect;
