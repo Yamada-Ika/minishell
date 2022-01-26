@@ -4,20 +4,21 @@ void	add_exit_status_to_env(int status);
 
 static bool	_get_option(char **args)
 {
-	size_t	i;
-	size_t	len;
+//	size_t	i;
+//	size_t	len;
 
 	if (args[0][0] != '-')
 		return (false);
-	len = ft_strlen(args[0]);
-	i = 1;
-	while (i < len)
-	{
-		if (args[0][i] != 'n')
-			return (false);
-		i++;
-	}
-	return (true);
+//	len = ft_strlen(args[0]);
+//	i = 1;
+//	while (i < len)
+//	{
+//		if (args[0][i] != 'n')
+//			return (false);
+//		i++;
+//	}
+//	return (true);
+	return (is_str_all_c(args[0] + 1, 'n'));
 }
 
 void	echo_(char **args)
