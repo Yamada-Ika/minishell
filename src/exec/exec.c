@@ -64,26 +64,36 @@ int	recursive(t_node *node)
 	int		fd[2];
 	int		sts;
 
-	if (node == NULL )
+
+	if (node == NULL)
 		return (0);
-	ft_pipe(fd);
+	if (node->left)
+		ft_pipe(fd);
 	pid = ft_fork();
+	fprintf(stderr, "%s %d: %p\n", __FILE__, __LINE__, node );
 	if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		if (node->right)
 		{
+			fprintf(stderr, "%s %d: %s\n", __FILE__, __LINE__, node->right->command.word_list[0]);
 			handle_fd(fd[1], fd[0], 0);
 			exec_t_command(node->right->command);
 		}
+		fprintf(stderr, "%s %d: \n", __FILE__, __LINE__ );
 		exec_t_command(node->command);
 	}
 	else if (node->left)
 	{
+		int test = dup(1);
+		fprintf(stderr, "%s %d: %s\n", __FILE__, __LINE__, node->left->command.word_list[0]);
 		handle_fd(fd[0], fd[1], 1);
 		recursive(node->left);
+		dup2(test, 1);
 	}
+	fprintf(stderr, "%s %d: %p\n", __FILE__, __LINE__, node );
 	waitpid(pid, &sts, 0);
+	fprintf(stderr, "%s %d: %p\n", __FILE__, __LINE__, node );
 	return (get_exit_status(sts));
 }
 
@@ -95,7 +105,8 @@ int	test(t_node *node)
 	pid = ft_fork();
 	if (pid == 0)
 	{
-		exec_t_command(node->command);
+		exec(node->command.word_list);
+//		exec_t_command(node->command);
 	}
 	waitpid(pid, &sts, 0);
 	return (get_exit_status(sts));
@@ -106,27 +117,31 @@ void	handle_command(t_node *node)
 //	pid_t	pid;
 	int		sts;
 
-	int fd = dup(1);
+//	int fd = dup(1);
+//	int fd0 = dup(0);
 	signal(SIGINT, back_to_new_prompt);
-	if (node->left == NULL && is_exec_built_in(node, node->command) == true)
-		return ;
+//	if (node->left == NULL && is_exec_built_in(node, node->command) == true)
+//		return ;
 //	pid = ft_fork();
 //	if (pid == 0)
 //	{
-		get_here_doc_form_each_node(node);
+//		get_here_doc_form_each_node(node);
 		if (g_mshell.interrupt == true)
 		{
 			g_mshell.interrupt = false;
 //			exit(1);
 		}
 		if (node->left == NULL)
+		{
+			fprintf(stderr, "%s %d: \n", __FILE__, __LINE__ );
 			sts = test(node);
+		}
 		else
 			sts = recursive(node);
 //		exit(sts);
 //	}
 //	waitpid(pid, &sts, 0);
-	dup2(fd, 1);
-		fprintf(stderr, "%s %d: %d\n", __FILE__, __LINE__ , sts);
+//	dup2(fd, 1);s
+//	dup2(fd0, 0)s;
 	set_exit_status(sts);
 }
