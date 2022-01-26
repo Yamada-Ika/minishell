@@ -1,4 +1,5 @@
-#include "envvar.h"
+// #include "envvar.h"
+#include "minishell.h"
 
 t_envvar	*new_envlist(char *key, char *val)
 {
@@ -7,10 +8,11 @@ t_envvar	*new_envlist(char *key, char *val)
 	new = (t_envvar *)calloc(1, sizeof(t_envvar));
 	if (new == NULL)
 		return (NULL);
+	errno = 0;
 	new->key = ft_strdup(key);
 	new->val = ft_strdup(val);
-	if (new->key == NULL || new->val == NULL)
-		exit(1);
+	if ((new->key == NULL || new->val == NULL) && errno != 0)
+		error(strerror(errno));
 	return (new);
 }
 
