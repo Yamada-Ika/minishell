@@ -1,18 +1,5 @@
 #include "minishell.h"
 
-static void	_frees_(char **strs)
-{
-	size_t	i;
-
-	i = 0;
-	while (strs[i] != NULL)
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
-}
-
 static size_t	_get_strs_size_except_str(char **strs, char *s)
 {
 	size_t	size;
@@ -56,6 +43,6 @@ char	**get_resize_strs_with_str(char **strs, char *s)
 	new_size = _get_strs_size_except_str(strs, s);
 	new_strs = (char **)ft_calloc(new_size + 1, sizeof(char *));
 	_set_newstrs_except_str(new_strs, new_size, strs, s);
-	_frees_(strs);
+	free_strs(strs);
 	return (new_strs);
 }

@@ -239,10 +239,12 @@ char			*get_here_doc(char *eos);
 bool			is_exec_with_here_doc(t_command command);
 void			get_here_doc_form_each_node(t_node *node);
 
-// free.c
+// free1.c
 void			free_token_list(t_token *token);
 void			free_node_list(t_node *node);
-void			free_double(char **p);
+
+// free2.c
+void	free_strs(char **strs);
 
 //debug
 void			debug_node(t_node *node);
