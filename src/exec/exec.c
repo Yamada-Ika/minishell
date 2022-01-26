@@ -62,8 +62,7 @@ int	recursive(t_node *node)
 	int		fd[2];
 	int		sts;
 
-	if (node->left)
-		ft_pipe(fd);
+	ft_pipe(fd);
 	pid = ft_fork();
 	if (pid == 0)
 	{
