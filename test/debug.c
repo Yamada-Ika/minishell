@@ -123,9 +123,14 @@ void debug_token(t_token *token, size_t loop_cnt)
 {
 	size_t	i = 0;
 
-	while (strs[i])
+	if (strs == NULL)
 	{
-		fprintf(stderr, "create_t_command : 42 : strs debug : %s\n", strs[i]);
+		fprintf(stderr, "strs NULL!\n");
+		return ;
+	}
+	while (strs[i] != NULL)
+	{
+		fprintf(stderr, "strs[%zu] : %s\n", i, strs[i]);
 		i++;
 	}
 }
