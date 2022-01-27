@@ -101,7 +101,6 @@ char	*gen_cano_path_from_cdpath(char *arg_path)
 	cdpath = my_getenv(g_mshell.envlist, "CDPATH");
 	if (cdpath == NULL)
 		return (NULL);
-	// fprintf(stderr, "cdpath from env [%s]\n", cdpath);
 	cdpaths = ft_split(cdpath, ':');
 	if (cdpaths == NULL)
 		error(strerror(errno));
@@ -109,9 +108,7 @@ char	*gen_cano_path_from_cdpath(char *arg_path)
 	while (cdpaths[i] != NULL)
 	{
 		if (is_abs_path(cdpaths[i]))
-		{
 			abs_cdpath = ft_strjoin(cdpaths[i], arg_path);
-		}
 		else
 		{
 			abs_cdpath = _get_abs_path(cdpaths[i]);
@@ -122,9 +119,7 @@ char	*gen_cano_path_from_cdpath(char *arg_path)
 			free(abs_arg_path);
 		}
 		if (chdir(abs_cdpath) != -1)
-		{
 			return (abs_cdpath);
-		}
 		i++;
 	}
 	free_strs(cdpaths);

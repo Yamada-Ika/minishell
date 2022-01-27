@@ -55,9 +55,7 @@ char	*get_canonical_path(char *abs_path)
 
 	if (abs_path == NULL)
 		return (NULL);
-	// fprintf(stderr, "abs_path [%s]\n", abs_path);
 	strs = ft_split(abs_path, '/');
-	// _debug_strs(strs);
 	strs = get_resize_strs_with_str(strs, ".");
 	_delete_prev_dir(strs);
 	return (_create_path_line(strs));
