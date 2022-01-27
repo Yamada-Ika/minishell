@@ -1,4 +1,4 @@
-#include "envvar.h"
+#include "minishell.h"
 
 void	delete_envlists(t_envvar *envlist)
 {
@@ -41,7 +41,8 @@ t_envvar	*get_envvar_with_key(t_envvar *envlist, char *key)
 void	replace_val(t_envvar *env, char *val)
 {
 	free(env->val);
+	errno = ERRNO_INIT_VAL;
 	env->val = ft_strdup(val);
-	if (env->val == NULL)
-		exit(1);
+	if (env->val == NULL && errno != ERRNO_INIT_VAL)
+		error(strerror(errno));
 }

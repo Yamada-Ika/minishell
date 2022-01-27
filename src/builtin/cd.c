@@ -2,10 +2,7 @@
 
 static void	_update_pwd(char *key, char *path)
 {
-	char	*val;
-
-	val = my_getenv(g_mshell.envlist, key);
-	if (val == NULL)
+	if (!is_exist_key(g_mshell.envlist, key))
 		return ;
 	if (path != NULL)
 		msh_export(&(g_mshell.envlist), key, path);
@@ -156,9 +153,7 @@ void	cd_(char **cmds)
 		cano_path = gen_abs_to_cano_path(arg_path);
 	else
 	{
-		// fprintf(stderr, "arg_path [%s]\n", arg_path);
 		abs_path = gen_cano_path_from_cdpath(arg_path);
-		// fprintf(stderr, "abs_path [%s]\n", abs_path);
 		cano_path = get_canonical_path(abs_path);
 		free(abs_path);
 		if (cano_path != NULL)
