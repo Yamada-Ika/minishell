@@ -55,6 +55,10 @@ empty:
 %.o:%.c
 	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
 
+debug:
+	touch test2/main_for_test.c
+	make ADD_MAIN_FOR_TEST=1
+
 test:
 	touch test2/main_for_test.c
 	make ADD_MAIN_FOR_TEST=1
