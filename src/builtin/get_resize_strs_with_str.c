@@ -40,6 +40,8 @@ char	**get_resize_strs_with_str(char **strs, char *s)
 	size_t	new_size;
 	char	**new_strs;
 
+	// _debug_strs(strs);
+	// exit(0);
 	new_size = _get_strs_size_except_str(strs, s);
 	new_strs = (char **)ft_calloc(new_size + 1, sizeof(char *));
 	_set_newstrs_except_str(new_strs, new_size, strs, s);
