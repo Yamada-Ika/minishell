@@ -35,15 +35,21 @@ function IS_SAME_FILE() {
 	fi
 }
 
+function CLEAN_TEST_DIR() {
+	rm -rf *.txt
+}
+
 function TEST() {
 	test_case="$1"
 	echo "test_case : $test_case"
 	echo -n "$test_case" > $out_dir/msh.in
 	echo " > $out_dir/msh.out" >> $out_dir/msh.in
 	../minishell < $out_dir/msh.in
+	CLEAN_TEST_DIR
 	echo -n "$test_case" > $out_dir/bash.in
 	echo " > $out_dir/bash.out" >> $out_dir/bash.in
 	bash < $out_dir/bash.in
+	CLEAN_TEST_DIR
 	IS_SAME_FILE $out_dir/msh.out $out_dir/bash.out
 	if [ $? -eq 0 ]
 	then
