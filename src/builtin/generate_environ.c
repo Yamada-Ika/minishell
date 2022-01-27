@@ -15,9 +15,7 @@ static char	*_multi_strdup(char *top, char *mid, char *end)
 static size_t	_get_envlist_size(t_envvar *envlist)
 {
 	size_t		size;
-	t_envvar	*head;
 
-	head = envlist;
 	size = 0;
 	while (envlist != NULL)
 	{
@@ -25,25 +23,23 @@ static size_t	_get_envlist_size(t_envvar *envlist)
 			size++;
 		envlist = envlist->next;
 	}
-	envlist = head;
 	return (size);
 }
 
 static void	_set_environ_from_envlist(char **envs, t_envvar *envlist)
 {
 	size_t	i;
-	t_envvar	*head;
 
-	head = envlist;
 	i = 0;
 	while (envlist != NULL)
 	{
 		if (ft_strcmp(envlist->key, "?") != 0)
+		{
 			envs[i] = _multi_strdup(envlist->key, "=", envlist->val);
+			i++;
+		}
 		envlist = envlist->next;
-		i++;
 	}
-	envlist = head;
 }
 
 char	**generate_environ(void)
@@ -51,9 +47,7 @@ char	**generate_environ(void)
 	char	**envs;
 	size_t	size;
 
-	// fprintf(stderr, "%s\n", g_mshell.envlist->next->key);
 	size = _get_envlist_size(g_mshell.envlist);
-	// fprintf(stderr, "%s\n", g_mshell.envlist->next->key);
 	envs = (char **)ft_calloc(size + 1, sizeof(char *));
 	if (envs == NULL)
 		error(strerror(errno));
