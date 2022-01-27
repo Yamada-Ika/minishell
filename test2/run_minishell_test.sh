@@ -62,6 +62,7 @@ function READ_TESTCASE() {
 }
 
 rm -rf faile.log
+mkdir "../test_dir"
 cd ../test_dir
 
 export TEST_STATUS=0
@@ -80,6 +81,8 @@ READ_TESTCASE < ../test2/cases/unset.txt
 READ_TESTCASE < ../test2/cases/redirect.txt
 READ_TESTCASE < ../test2/cases/shlvl.txt
 
+cd ..
+rm -rf test_dir
 exit 0
 
 # exit status
