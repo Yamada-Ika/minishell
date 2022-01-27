@@ -27,7 +27,6 @@ static void	_print_for_echo(char **args, bool opt_n)
 		ft_putstr_fd(" ", STDOUT_FILENO);
 		i++;
 	}
-
 }
 
 void	echo_(char **args)
