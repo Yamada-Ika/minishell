@@ -36,10 +36,11 @@ void	handle_token_in_quotes(t_token *token)
 		str = remove_quotes(token, '\'');
 	if (token->kind == TK_WORD_IN_DOUBLE_Q)
 	{
-		str = expand_str(str);
-		tmp = str;
-		str = remove_quotes(token, '"');
+		tmp = token->str;
+		token->str = expand_str(token->str);
+		token->len = ft_strlen(token->str);
 		free(tmp);
+		str = remove_quotes(token, '"');
 	}
 	free(token->str);
 	token->str = str;
