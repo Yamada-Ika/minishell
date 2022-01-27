@@ -1,6 +1,7 @@
 #!/bin/bash
 
-out_dir="/Users/yamadaiori/programming/42/minishell/minishell/test2"
+out_dir="/Users/shige11910/42Tokyo/VMshare/minishell/test2"
+#out_dir="/Users/yamadaiori/programming/42/minishell/minishell/test2"
 
 function TAKE_LOG_FAILE_TEST() {
 	test_case="$1"
