@@ -19,6 +19,8 @@ static void	_print_for_echo(char **args, bool opt_n)
 		while (opt_n)
 		{
 			i++;
+			if (args[i] == NULL)
+				break ;
 			opt_n = _get_option(args[i]);
 		}
 		ft_putstr_fd(args[i], STDOUT_FILENO);
