@@ -4,7 +4,6 @@ void	join_token_and_token_prev(t_token **token)
 {
 	t_token	*tmp;
 
-	printf("join_token_and_token_perv called\n");
 	(*token)->prev->str = strjoin_and_free_null
 		(&(*token)->prev->str, &(*token)->str);
 	if ((*token)->prev->str == NULL)
@@ -12,7 +11,6 @@ void	join_token_and_token_prev(t_token **token)
 	(*token)->prev->len = ft_strlen((*token)->prev->str);
 	(*token)->prev->next = (*token)->next;
 	(*token)->next->prev = (*token)->prev;
-	printf("join_token_and_token_perv 12: str == %s\n", (*token)->prev->str);
 	tmp = *token;
 	*token = (*token)->prev;
 	free(tmp);
