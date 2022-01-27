@@ -64,13 +64,15 @@ int main(int argc, char **argv)
 			exit(0);
 		add_history(cmd_line);
 		splitted_newline = ft_split(cmd_line, '\n');
+		// splitted_newline = ft_split(cmd_line, ';');
+		// _debug_strs(splitted_newline);
 		if (splitted_newline == NULL)
 			exit(0);
 		i = 0;
 		while (splitted_newline[i] != NULL)
 		{
 			if (splitted_newline[i][0] != '\0')
-				run_command_line(cmd_line);
+				run_command_line(splitted_newline[i]);
 			i++;
 		}
 		_frees(splitted_newline);
