@@ -19,13 +19,17 @@ size_t	get_word_len(char *p, t_token_kind kind, char *str)
 {
 	size_t	len;
 	int		quote_count;
+	bool		is_dollar;
 
 	len = 0;
 	quote_count = 0;
+	is_dollar = false;
 	while (kind != TK_WORD || !ft_strchr(str, p[len]))
 	{
-		if (kind == TK_OP_DOLLAR && p[len] != '$'
-			&& !(ft_isalnum(p[len]) || p[len] == '?'))
+		if (kind == TK_OP_DOLLAR && p[len] == '$'
+			&& (ft_isalnum(p[len + 1]) || p[len + 1] == '?'))
+			is_dollar = true;
+		else if (is_dollar && (!ft_isalnum(p[len]) || p[len] == '?'))
 			break ;
 		if (p[len] == '\'' && kind == TK_WORD_IN_SINGLE_Q)
 			quote_count += 1;
