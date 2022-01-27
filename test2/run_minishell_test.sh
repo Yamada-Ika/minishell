@@ -1,26 +1,28 @@
 #!/bin/bash
 
+out_dir="/Users/yamadaiori/programming/42/minishell/minishell/test2"
+
 function TAKE_LOG_FAILE_TEST() {
 	test_case="$1"
 	msh_file="$2"
 	bash_file="$3"
 	echo $msh_file $bash_file
-	echo "===============================================================" >> test2/faile.log
-	echo "test case : $test_case" >> test2/faile.log
-	echo "------------------------- diff result -------------------------" >> test2/faile.log
-	diff -a -u $msh_file $bash_file >> test2/faile.log
-	echo "---------------------- minishell result -----------------------" >> test2/faile.log
-	cat $msh_file >> test2/faile.log
-	echo "------------------------- bash result -------------------------" >> test2/faile.log
-	cat $bash_file >> test2/faile.log
-	echo "===============================================================" >> test2/faile.log
+	echo "===============================================================" >> $out_dir/faile.log
+	echo "test case : $test_case" >> $out_dir/faile.log
+	echo "------------------------- diff result -------------------------" >> $out_dir/faile.log
+	diff -a -u $msh_file $bash_file >> $out_dir/faile.log
+	echo "---------------------- minishell result -----------------------" >> $out_dir/faile.log
+	cat $msh_file >> $out_dir/faile.log
+	echo "------------------------- bash result -------------------------" >> $out_dir/faile.log
+	cat $bash_file >> $out_dir/faile.log
+	echo "===============================================================" >> $out_dir/faile.log
 }
 
 function IS_SAME_FILE() {
 	file_1="$1"
 	file_2="$2"
-	diff $file_1 $file_2 > test2/out.diff
-	size=$(ls -l test2/out.diff | awk '{print $5}')
+	diff $file_1 $file_2 > $out_dir/out.diff
+	size=$(ls -l $out_dir/out.diff | awk '{print $5}')
 	if [ $size -eq 0 ]
 	then
 		return 0
@@ -31,27 +33,53 @@ function IS_SAME_FILE() {
 
 function TEST() {
 	test_case="$1"
-	echo -n "$test_case" > test2/msh.in
-	echo " > test2/msh.out" >> test2/msh.in
-	./minishell < test2/msh.in
-	echo -n "$test_case" > test2/bash.in
-	echo " > test2/bash.out" >> test2/bash.in
-	bash < test2/bash.in
-	IS_SAME_FILE test2/msh.out test2/bash.out
+	echo "test_case : $test_case"
+	echo -n "$test_case" > $out_dir/msh.in
+	echo " > $out_dir/msh.out" >> $out_dir/msh.in
+	../minishell < $out_dir/msh.in
+	echo -n "$test_case" > $out_dir/bash.in
+	echo " > $out_dir/bash.out" >> $out_dir/bash.in
+	bash < $out_dir/bash.in
+	IS_SAME_FILE $out_dir/msh.out $out_dir/bash.out
 	if [ $? -eq 0 ]
 	then
 		echo -e "\n\033[32m$test_case : OK!\033[m"
 	else
 		echo -e "\n\033[31m$test_case : KO!\033[m"
-		TAKE_LOG_FAILE_TEST "$test_case" test2/msh.out test2/bash.out
+		TAKE_LOG_FAILE_TEST "$test_case" $out_dir/msh.out $out_dir/bash.out
 		export TEST_STATUS=1
 	fi
 }
 
+function READ_TESTCASE() {
+	while read test_case
+	do
+		read test_case
+		hoge=$(echo $test_case | tr ';' '\n')
+		TEST "$hoge"
+	done
+}
+
 rm -rf faile.log
-cd ../
+cd ../test_dir
 
 export TEST_STATUS=0
+
+READ_TESTCASE < ../test2/cases/cd.txt
+READ_TESTCASE < ../test2/cases/echo.txt
+READ_TESTCASE < ../test2/cases/env.txt
+READ_TESTCASE < ../test2/cases/exit.txt
+READ_TESTCASE < ../test2/cases/expand.txt
+READ_TESTCASE < ../test2/cases/export.txt
+READ_TESTCASE < ../test2/cases/simple_command.txt
+READ_TESTCASE < ../test2/cases/path.txt
+READ_TESTCASE < ../test2/cases/syntax_error.txt
+READ_TESTCASE < ../test2/cases/pwd.txt
+READ_TESTCASE < ../test2/cases/unset.txt
+READ_TESTCASE < ../test2/cases/redirect.txt
+READ_TESTCASE < ../test2/cases/shlvl.txt
+
+exit 0
 
 # exit status
 TEST \
@@ -243,7 +271,7 @@ TEST "ls | awk '{print \$5}'"
 # redirection
 # TEST "cat < main.c > file1"
 
-# ft_pipe
+# pipe
 TEST "cat main.c | grep int"
 
 # crasy
