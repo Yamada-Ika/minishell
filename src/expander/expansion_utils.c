@@ -56,7 +56,7 @@ char	*expand_str(char *str)
 	t_str = ft_strdup(str);
 	while (str[i])
 	{
-		if (str[i] == '$' && (ft_isalnum((str[i + 1])) || str[i + 1] == '?'))
+		if (is_env_name(str + i))
 		{
 			env_name = ft_substr(str + i, 1, get_env_name_len(str + i + 1));
 			env_val = ft_strdup(my_getenv(g_mshell.envlist, env_name));
