@@ -53,3 +53,12 @@ int	handle_out_redir(t_redirect_list *redirect)
 		handle_out_redir(redirect->next);
 	return (0);
 }
+
+t_redirect_list	*_redir_lstlast(t_redirect_list *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
