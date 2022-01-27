@@ -12,7 +12,7 @@ size_t	replace_token(t_token **token, char *str)
 		if (is_redirect_kind((*token)->prev->kind))
 			return (1);
 		 tmp = (*token)->prev;
-		 if ((*token)->next->is_join_prev == true)
+		 if ((*token)->next->is_join_prev && !(*token)->is_join_prev)
 			 (*token)->next->is_join_prev = false;
 		(*token)->prev->next = (*token)->next;
 		(*token)->next->prev = (*token)->prev;
