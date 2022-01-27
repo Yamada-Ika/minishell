@@ -64,24 +64,24 @@ function READ_TESTCASE() {
 	done
 }
 
-rm -rf faile.log
+bash clean_test_files.sh
 mkdir "../test_dir"
 cd ../test_dir
 
 export TEST_STATUS=0
 
 READ_TESTCASE < ../test2/cases/cd.txt
-# READ_TESTCASE < ../test2/cases/echo.txt
-# READ_TESTCASE < ../test2/cases/env.txt
-# READ_TESTCASE < ../test2/cases/exit.txt
-# READ_TESTCASE < ../test2/cases/expand.txt
-# READ_TESTCASE < ../test2/cases/export.txt
-# READ_TESTCASE < ../test2/cases/simple_command.txt
-# READ_TESTCASE < ../test2/cases/path.txt
-# READ_TESTCASE < ../test2/cases/syntax_error.txt
-# READ_TESTCASE < ../test2/cases/pwd.txt
-# READ_TESTCASE < ../test2/cases/unset.txt
-# READ_TESTCASE < ../test2/cases/redirect.txt
+READ_TESTCASE < ../test2/cases/echo.txt
+READ_TESTCASE < ../test2/cases/env.txt
+READ_TESTCASE < ../test2/cases/exit.txt
+READ_TESTCASE < ../test2/cases/expand.txt
+READ_TESTCASE < ../test2/cases/export.txt
+READ_TESTCASE < ../test2/cases/simple_command.txt
+READ_TESTCASE < ../test2/cases/path.txt
+READ_TESTCASE < ../test2/cases/syntax_error.txt
+READ_TESTCASE < ../test2/cases/pwd.txt
+READ_TESTCASE < ../test2/cases/unset.txt
+READ_TESTCASE < ../test2/cases/redirect.txt
 #READ_TESTCASE < ../test2/cases/shlvl.txt
 
 cd ..
