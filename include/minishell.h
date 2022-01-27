@@ -172,10 +172,12 @@ bool			is_quote_closed(char c, t_token_kind kind);
 int				check_op(char *s);
 
 // utils.c
-char			*here_doc(char *eos);
+//char			*here_doc(char *eos);
 size_t			get_word_len(char *p, t_token_kind kind, char *str);
 size_t			get_env_name_len(char *str);
 bool			is_redirect_kind(t_token_kind kind);
+bool			can_c_be_env_name(char c);
+bool			is_env_name(char *str);
 
 // utils2.c
 void			ft_dup2(int oldfd, int newfd);
