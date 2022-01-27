@@ -30,8 +30,6 @@ bool	is_exec_with_here_doc(t_command command)
 
 void	exec(char **cmds)
 {
-	// extern char	**environ;
-
 	if (cmds == NULL || cmds[0] == NULL)
 		exit(0);
 	if (is_exec_built_in_in_child(cmds) == true)
