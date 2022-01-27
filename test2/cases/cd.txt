@@ -65,7 +65,6 @@ cd ///////; pwd; cd ///////bin; pwd
 export HOME=//; cd
 export HOME=//bin/..////////////bin/../; cd
 export HOME=///; cd
-export CDPATH=//; cd bin
 export CDPATH=//bin/..////////////bin/../; cd bin
 export CDPATH=///; cd bin
 export CDPATH=":"; cd dir; pwd, mkdir dir
