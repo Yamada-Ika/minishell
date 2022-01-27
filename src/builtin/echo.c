@@ -2,29 +2,36 @@
 
 void	add_exit_status_to_env(int status);
 
-static bool	_get_option(char **args)
+static bool	_get_option(char *arg)
 {
-//	size_t	i;
-//	size_t	len;
-
-	if (args[0][0] != '-')
+	if (arg[0] != '-')
 		return (false);
-//	len = ft_strlen(args[0]);
-//	i = 1;
-//	while (i < len)
-//	{
-//		if (args[0][i] != 'n')
-//			return (false);
-//		i++;
-//	}
-//	return (true);
-	return (is_str_all_c(args[0] + 1, 'n'));
+	return (is_str_all_c(arg + 1, 'n'));
+}
+
+static void	_print_for_echo(char **args, bool opt_n)
+{
+	size_t	i;
+
+	i = 0;
+	while (args[i])
+	{
+		while (opt_n)
+		{
+			i++;
+			opt_n = _get_option(args[i]);
+		}
+		ft_putstr_fd(args[i], STDOUT_FILENO);
+		if (args[i + 1] == NULL)
+			break ;
+		ft_putstr_fd(" ", STDOUT_FILENO);
+		i++;
+	}
 }
 
 void	echo_(char **args)
 {
 	bool	opt_n;
-	size_t	i;
 
 	if (args[0] == NULL)
 	{
@@ -32,18 +39,8 @@ void	echo_(char **args)
 		add_exit_status_to_env(0);
 		return ;
 	}
-	opt_n = _get_option(args);
-	i = 0;
-	if (opt_n)
-		i = 1;
-	while (args[i])
-	{
-		ft_putstr_fd(args[i], STDOUT_FILENO);
-		if (args[i + 1] == NULL)
-			break ;
-		ft_putstr_fd(" ", STDOUT_FILENO);
-		i++;
-	}
+	opt_n = _get_option(*args);
+	_print_for_echo(args, opt_n);
 	if (opt_n == false)
 		ft_putstr_fd("\n", STDOUT_FILENO);
 	add_exit_status_to_env(0);
