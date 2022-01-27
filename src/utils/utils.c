@@ -19,7 +19,7 @@ size_t	get_word_len(char *p, t_token_kind kind, char *str)
 {
 	size_t	len;
 	int		quote_count;
-	bool		is_dollar;
+	bool	is_dollar;
 
 	len = 0;
 	quote_count = 0;
