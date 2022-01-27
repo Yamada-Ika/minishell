@@ -29,7 +29,7 @@ function IS_SAME_FILE() {
 	fi
 }
 
-function STDOUT_TEST() {
+function TEST() {
 	test_case="$1"
 	echo -n "$test_case" > test2/msh.in
 	echo " > test2/msh.out" >> test2/msh.in
@@ -54,55 +54,55 @@ cd ../
 export TEST_STATUS=0
 
 # exit status
-STDOUT_TEST \
+TEST \
 "
 echo
 echo \$?"
 
-STDOUT_TEST \
+TEST \
 "
 echo 42tokyo
 echo \$?"
 
-STDOUT_TEST \
+TEST \
 "
 echo 4 2 T o k y o
 echo \$?"
 
-STDOUT_TEST \
+TEST \
 "
 echo -n 42tokyo
 echo \$?"
 
-STDOUT_TEST \
+TEST \
 "
 echo -n echo fourty two FOURTY TWO
 echo \$?"
 
-STDOUT_TEST \
+TEST \
 "
 cd ../
 echo \$?"
 
-STDOUT_TEST \
+TEST \
 "
 cd hoge
 echo \$?"
 
-STDOUT_TEST \
+TEST \
 "
 cd
 echo \$?"
 
-STDOUT_TEST \
+TEST \
 "
 pwd
 echo \$?"
 
 # Simple command
-STDOUT_TEST "/bin/ls"
-STDOUT_TEST "/bin/pwd"
-STDOUT_TEST "/bin/echo 42tokyo"
+TEST "/bin/ls"
+TEST "/bin/pwd"
+TEST "/bin/echo 42tokyo"
 
 # Count global variables
 global_val_count=$(cat $(find ./ -name "*.c" -or -name "*.h" | grep -v libft) | grep "\t\**g_[a-zA-Z]*;" | wc -l)
@@ -114,23 +114,23 @@ else
 	export TEST_STATUS=1
 fi
 
-STDOUT_TEST " "
-STDOUT_TEST "  "
-STDOUT_TEST "   "
-STDOUT_TEST "    "
-STDOUT_TEST "     "
-STDOUT_TEST "      "
-STDOUT_TEST "	"
-STDOUT_TEST "		"
-STDOUT_TEST "			"
-STDOUT_TEST "				"
-STDOUT_TEST "					"
+TEST " "
+TEST "  "
+TEST "   "
+TEST "    "
+TEST "     "
+TEST "      "
+TEST "	"
+TEST "		"
+TEST "			"
+TEST "				"
+TEST "					"
 
 # Arguments
-STDOUT_TEST "/bin/ls -a"
-# STDOUT_TEST "/bin/ls -l"
-STDOUT_TEST "/bin/pwd"
-STDOUT_TEST "/bin/echo -n 42tokyo"
+TEST "/bin/ls -a"
+# TEST "/bin/ls -l"
+TEST "/bin/pwd"
+TEST "/bin/echo -n 42tokyo"
 
 # test_case=$(cat << EOS
 # /bin/pwd
@@ -138,62 +138,62 @@ STDOUT_TEST "/bin/echo -n 42tokyo"
 # EOS
 # )
 
-STDOUT_TEST \
+TEST \
 "/bin/ls -a
 /bin/ls -l
 /bin/pwd
 /bin/echo -n 42tokyo"
 
 # echo
-STDOUT_TEST "echo"
-STDOUT_TEST "echo -n 42"
-STDOUT_TEST "echo -nn 42"
-STDOUT_TEST "echo -nnnnnnnnnnnnn 42"
-STDOUT_TEST "echo -nnk 42"
-STDOUT_TEST "echo -nkn 42"
-STDOUT_TEST "echo 42"
-STDOUT_TEST "echo \"42\""
-STDOUT_TEST "echo '42'"
-STDOUT_TEST "echo Tokyo\"42\""
-STDOUT_TEST "echo Tokyo'42'"
-STDOUT_TEST "echo \"42\"Tokyo"
-STDOUT_TEST "echo '42'Tokyo"
-STDOUT_TEST "echo Paris\"42\"Tokyo"
-STDOUT_TEST "echo -n 42"
-STDOUT_TEST "echo -n \"42\""
-STDOUT_TEST "echo -n '42'"
-STDOUT_TEST "echo -n Tokyo\"42\""
-STDOUT_TEST "echo -n Tokyo'42'"
-STDOUT_TEST "echo -n \"42\"Tokyo"
-STDOUT_TEST "echo -n '42'Tokyo"
-STDOUT_TEST "echo -n Paris\"42\"Tokyo"
+TEST "echo"
+TEST "echo -n 42"
+TEST "echo -nn 42"
+TEST "echo -nnnnnnnnnnnnn 42"
+TEST "echo -nnk 42"
+TEST "echo -nkn 42"
+TEST "echo 42"
+TEST "echo \"42\""
+TEST "echo '42'"
+TEST "echo Tokyo\"42\""
+TEST "echo Tokyo'42'"
+TEST "echo \"42\"Tokyo"
+TEST "echo '42'Tokyo"
+TEST "echo Paris\"42\"Tokyo"
+TEST "echo -n 42"
+TEST "echo -n \"42\""
+TEST "echo -n '42'"
+TEST "echo -n Tokyo\"42\""
+TEST "echo -n Tokyo'42'"
+TEST "echo -n \"42\"Tokyo"
+TEST "echo -n '42'Tokyo"
+TEST "echo -n Paris\"42\"Tokyo"
 
 # double quotes
-STDOUT_TEST "echo \" 42 \""
-STDOUT_TEST "echo \"  Tokyo \""
-STDOUT_TEST "echo \"   Paris  \""
-STDOUT_TEST "echo \"    Codam   \""
-STDOUT_TEST "echo \"cat lol.c | cat > lol.c\""
-STDOUT_TEST "echo \"\$PATH\""
-STDOUT_TEST "echo \"\$USER\""
-STDOUT_TEST "echo \"\$LANG\""
+TEST "echo \" 42 \""
+TEST "echo \"  Tokyo \""
+TEST "echo \"   Paris  \""
+TEST "echo \"    Codam   \""
+TEST "echo \"cat lol.c | cat > lol.c\""
+TEST "echo \"\$PATH\""
+TEST "echo \"\$USER\""
+TEST "echo \"\$LANG\""
 
 # single quotes
-STDOUT_TEST "echo ' 42 '"
-STDOUT_TEST "echo '  Tokyo '"
-STDOUT_TEST "echo '   Paris  '"
-STDOUT_TEST "echo '    Codam   '"
-STDOUT_TEST "echo 'cat lol.c | cat > lol.c << EOF > res.log'"
-STDOUT_TEST "echo '\$PATH'"
-STDOUT_TEST "echo '\$USER'"
-STDOUT_TEST "echo '\$LANG'"
+TEST "echo ' 42 '"
+TEST "echo '  Tokyo '"
+TEST "echo '   Paris  '"
+TEST "echo '    Codam   '"
+TEST "echo 'cat lol.c | cat > lol.c << EOF > res.log'"
+TEST "echo '\$PATH'"
+TEST "echo '\$USER'"
+TEST "echo '\$LANG'"
 
 # env
-STDOUT_TEST "env | sort"
-STDOUT_TEST \
+TEST "env | sort"
+TEST \
 "export key=value
 env | sort"
-STDOUT_TEST \
+TEST \
 "export TEST1=\"42Tokyo\"
 export TEST2=\"42 Tokyo\"
 export TEST3=\" 42 Tokyo\"
@@ -206,11 +206,11 @@ export TEST9
 env | sort"
 
 # export
-STDOUT_TEST "export | sort"
-STDOUT_TEST \
+TEST "export | sort"
+TEST \
 "export key=value
 export | sort"
-STDOUT_TEST \
+TEST \
 "export TEST1=\"42Tokyo\"
 export TEST2=\"42 Tokyo\"
 export TEST3=\" 42 Tokyo\"
@@ -223,8 +223,8 @@ export TEST9
 export | sort"
 
 # pwd
-STDOUT_TEST "pwd"
-STDOUT_TEST \
+TEST "pwd"
+TEST \
 "cd ..
 pwd
 cd ..
@@ -233,56 +233,56 @@ cd ..
 pwd"
 
 # relative path
-STDOUT_TEST "cd libft | wc -l"
+TEST "cd libft | wc -l"
 
 # path
-STDOUT_TEST "ls"
-STDOUT_TEST "ls | wc -l"
-STDOUT_TEST "ls | awk '{print \$5}'"
+TEST "ls"
+TEST "ls | wc -l"
+TEST "ls | awk '{print \$5}'"
 
 # redirection
-# STDOUT_TEST "cat < main.c > file1"
+# TEST "cat < main.c > file1"
 
 # ft_pipe
-STDOUT_TEST "cat main.c | grep int"
+TEST "cat main.c | grep int"
 
 # crasy
-STDOUT_TEST "dsbksdgbksdghsd"
+TEST "dsbksdgbksdghsd"
 
 # environment variables
-STDOUT_TEST "echo \$PATH"
-STDOUT_TEST "echo \"\$USER\""
+TEST "echo \$PATH"
+TEST "echo \"\$USER\""
 
 # echo & ft_pipe
-STDOUT_TEST "echo 42 | cat"
-STDOUT_TEST "echo 42 | cat"
-STDOUT_TEST "echo \"42\" | cat"
-STDOUT_TEST "echo '42' | cat"
-STDOUT_TEST "echo Tokyo\"42\" | cat"
-STDOUT_TEST "echo Tokyo'42' | cat"
-STDOUT_TEST "echo \"42\"Tokyo | cat"
-STDOUT_TEST "echo '42'Tokyo | cat"
-STDOUT_TEST "echo Paris\"42\"Tokyo | cat"
+TEST "echo 42 | cat"
+TEST "echo 42 | cat"
+TEST "echo \"42\" | cat"
+TEST "echo '42' | cat"
+TEST "echo Tokyo\"42\" | cat"
+TEST "echo Tokyo'42' | cat"
+TEST "echo \"42\"Tokyo | cat"
+TEST "echo '42'Tokyo | cat"
+TEST "echo Paris\"42\"Tokyo | cat"
 
 # echo & multi-ft_pipe
-STDOUT_TEST "echo 42 | cat | cat"
-STDOUT_TEST "echo 42 | cat | cat"
-STDOUT_TEST "echo \"42\" | cat | cat"
-STDOUT_TEST "echo '42' | cat | cat"
-STDOUT_TEST "echo Tokyo\"42\" | cat | cat"
-STDOUT_TEST "echo Tokyo'42' | cat | cat"
-STDOUT_TEST "echo \"42\"Tokyo | cat | cat"
-STDOUT_TEST "echo '42'Tokyo | cat | cat"
-STDOUT_TEST "echo Paris\"42\"Tokyo | cat | cat"
-STDOUT_TEST "echo 42 | cat | cat | cat"
-STDOUT_TEST "echo 42 | cat | cat | cat"
-STDOUT_TEST "echo \"42\" | cat | cat | cat"
-STDOUT_TEST "echo '42' | cat | cat | cat"
-STDOUT_TEST "echo Tokyo\"42\" | cat | cat | cat"
-STDOUT_TEST "echo Tokyo'42' | cat | cat | cat"
-STDOUT_TEST "echo \"42\"Tokyo | cat | cat | cat"
-STDOUT_TEST "echo '42'Tokyo | cat | cat | cat"
-STDOUT_TEST "echo Paris\"42\"Tokyo | cat | cat | cat"
+TEST "echo 42 | cat | cat"
+TEST "echo 42 | cat | cat"
+TEST "echo \"42\" | cat | cat"
+TEST "echo '42' | cat | cat"
+TEST "echo Tokyo\"42\" | cat | cat"
+TEST "echo Tokyo'42' | cat | cat"
+TEST "echo \"42\"Tokyo | cat | cat"
+TEST "echo '42'Tokyo | cat | cat"
+TEST "echo Paris\"42\"Tokyo | cat | cat"
+TEST "echo 42 | cat | cat | cat"
+TEST "echo 42 | cat | cat | cat"
+TEST "echo \"42\" | cat | cat | cat"
+TEST "echo '42' | cat | cat | cat"
+TEST "echo Tokyo\"42\" | cat | cat | cat"
+TEST "echo Tokyo'42' | cat | cat | cat"
+TEST "echo \"42\"Tokyo | cat | cat | cat"
+TEST "echo '42'Tokyo | cat | cat | cat"
+TEST "echo Paris\"42\"Tokyo | cat | cat | cat"
 
 if [ $TEST_STATUS -eq 0 ]
 then
