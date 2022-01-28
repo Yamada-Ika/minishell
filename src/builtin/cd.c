@@ -28,6 +28,8 @@ bool	is_non_arguments(char **args)
 
 bool	is_abs_path(char *path)
 {
+	if (path == NULL)
+		return (false);
 	return (path[0] == '/');
 }
 
