@@ -5,6 +5,10 @@ export PIPE="|"; echo $PIPE; ls $PIPE cat;
 echo $? | exit 42 ; echo $?
 echo hello | cd ..; pwd
 export TEST="a"; export TEST="b" | echo $TEST
-export a=" "; echo$a-a
+export a=" "; echo$a-a; echo"$a"-a; echo'$a'-a
 echo aaa > $NON_EXIST
 export TEST; env | grep TEST; export | grep TEST; export HOGE=; env | grep HOGE; export | grep HOGE
+export TEST="TEST=aaaa"; env | grep TEST; export $TEST; env | grep TEST; export TEST="TEST=aaaa"; env | grep TEST; $TEST; env | grep TEST
+echo -nnnnnnn hello; echo -n -n -n -n -n hello
+> f0 echo > f1 > f2 > f3 abc; cat f1 f2 f3
+echo a > test1 b; echo c > test2 "d    ef"; cat test1 > test3 test2
