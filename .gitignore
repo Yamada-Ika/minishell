@@ -12,3 +12,4 @@ samples
 .my_history
 test_dir
 .my_history
+*.log
