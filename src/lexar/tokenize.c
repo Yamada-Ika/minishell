@@ -51,8 +51,7 @@ static	t_token_kind	_get_word_kind(char *p)
 			kind = TK_WORD_IN_DOUBLE_Q;
 		if (kind == TK_WORD && ft_strchr(" ><|", *p))
 			return (TK_WORD);
-		if (kind == TK_WORD && *p == '$'
-			&& (ft_isalnum(*(p + 1)) || *(p + 1) == '?'))
+		if (kind == TK_WORD && is_env_name(p))
 			return (TK_OP_DOLLAR);
 		p++;
 	}
