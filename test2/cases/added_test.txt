@@ -12,3 +12,4 @@ export TEST="TEST=aaaa"; env | grep TEST; export $TEST; env | grep TEST; export 
 echo -nnnnnnn hello; echo -n -n -n -n -n hello
 > f0 echo > f1 > f2 > f3 abc; cat f1 f2 f3
 echo a > test1 b; echo c > test2 "d    ef"; cat test1 > test3 test2
+mkdir dir; ln -s dir symdir; cd symdir; pwd;

@@ -37,6 +37,7 @@ function IS_SAME_FILE() {
 
 function CLEAN_TEST_DIR() {
 	rm -rf *.txt
+	rm -rf $(pwd)"/dir"
 }
 
 function TEST() {
