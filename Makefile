@@ -88,11 +88,4 @@ fclean: clean
 
 re: fclean all
 
-# test: $(NAME)
-# 	$(CC) $(CFLAGS) $(NAME) main.c &&./a.out
-# t: $(NAME)
-# 	$(CC) $(CFLAGS) $(NAME) main.c
-# test-: $(NAME)
-# 	$(CC) $(NAME) main.c &&./a.out
-
 .PHONY: all clean fclean re empty test
