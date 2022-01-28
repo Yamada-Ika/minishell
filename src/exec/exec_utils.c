@@ -45,21 +45,24 @@ void	handle_fd(int close_fd, int dup_fd, int fd)
 	close(dup_fd);
 }
 
-void	exec_cmd(char *path, char **cmds, char **environ)
+bool	is_exec_cmd(char *path, char **cmds, char **environ)
 {
 	if (access(path, X_OK) == F_OK)
 		execve(path, cmds, environ);
-	error_message(path, "Permission denied");
-	exit(126);
+	return (false);
 }
 
-void	exec_cmd_with_full_path(char **cmds, char **environ)
+void	exec_cmd_with_path(char **cmds, char **environ)
 {
 	char	*absolute_path;
 	char	**paths;
 	char	*cmd;
 	size_t	i;
+	bool	have_permission;
 
+	have_permission = true;
+	if (access(cmds[0], F_OK) == F_OK)
+		have_permission = is_exec_cmd(cmds[0], cmds, environ);
 	i = 0;
 	cmd = ft_strjoin("/", cmds[0]);
 	paths = get_command_path(g_mshell.envlist);
@@ -69,10 +72,11 @@ void	exec_cmd_with_full_path(char **cmds, char **environ)
 	{
 		absolute_path = ft_strjoin(paths[i], cmd);
 		if (access(absolute_path, F_OK) == F_OK)
-			exec_cmd(absolute_path, cmds, environ);
+			have_permission = is_exec_cmd(absolute_path, cmds, environ);
 		free(absolute_path);
 		i++;
 	}
-	error_message(cmds[0], "command not found");
-	exit(127);
+	if (have_permission == false)
+		error_exit_with_message(136, cmds[0], "Permission denied");
+	error_exit_with_message(137, cmds[0], "command not found");
 }
