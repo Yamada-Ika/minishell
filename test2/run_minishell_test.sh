@@ -1,10 +1,6 @@
 #!/bin/bash
 
-out_dir="/Users/shige11910/42Tokyo/VMshare/minishell/test2"
-if [ "$USER" = "yamadaiori" ]
-then
-	out_dir="/Users/yamadaiori/programming/42/minishell/minishell/test2"
-fi
+out_dir="$(pwd)"
 
 function TAKE_LOG_FAILE_TEST() {
 	test_case="$1"
@@ -45,7 +41,17 @@ function TEST() {
 	echo "test_case : $test_case"
 	echo -n "$test_case" > $out_dir/msh.in
 	echo " > $out_dir/msh.out" >> $out_dir/msh.in
-	../minishell < $out_dir/msh.in
+	if [ $(uname) = "Linux" ]
+	then
+    valgrind --leak-check=full ../minishell < $out_dir/msh.in 2> tmp.log
+    flag=$(cat tmp.log | awk '$2=="definitely" {if ($4 != 0) print $4}')
+    if [ $flag -ne 0 ]
+    then
+      cat tmp.log >> ../valgrind.log
+    fi
+  else
+    ../minishell < $out_dir/msh.in
+	fi
 	CLEAN_TEST_DIR
 	echo -n "$test_case" > $out_dir/bash.in
 	echo " > $out_dir/bash.out" >> $out_dir/bash.in
@@ -74,22 +80,22 @@ bash clean_test_files.sh
 mkdir "../test_dir"
 cd ../test_dir
 
-export TEST_STATUS=0
+#export TEST_STATUS=0
 
 # READ_TESTCASE < ../test2/cases/cd.txt
 #READ_TESTCASE < ../test2/cases/echo.txt
 #READ_TESTCASE < ../test2/cases/env.txt
 #READ_TESTCASE < ../test2/cases/exit.txt
-#READ_TESTCASE < ../test2/cases/expand.txt
-#READ_TESTCASE < ../test2/cases/export.txt
-#READ_TESTCASE < ../test2/cases/simple_command.txt
+READ_TESTCASE < ../test2/cases/expand.txt
+READ_TESTCASE < ../test2/cases/export.txt
+READ_TESTCASE < ../test2/cases/simple_command.txt
 #READ_TESTCASE < ../test2/cases/path.txt
 #READ_TESTCASE < ../test2/cases/syntax_error.txt
 #READ_TESTCASE < ../test2/cases/pwd.txt
 #READ_TESTCASE < ../test2/cases/unset.txt
 #READ_TESTCASE < ../test2/cases/redirect.txt
 #READ_TESTCASE < ../test2/cases/shlvl.txt
-READ_TESTCASE < ../test2/cases/added_test.txt
+#READ_TESTCASE < ../test2/cases/added_test.txt
 
 cd ..
 rm -rf test_dir
