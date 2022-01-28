@@ -17,7 +17,7 @@ bool	is_quote_closed(char c, t_token_kind kind)
 
 int	check_op(char *s)
 {
-	const char	*kw[] = {">>", "<<", "<", ">", "|", "'", "\"", "$", NULL};
+	const char	*kw[] = {">>", "<<", "<", ">", "|", NULL};
 	int			i;
 
 	i = 0;
