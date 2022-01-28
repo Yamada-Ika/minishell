@@ -21,9 +21,13 @@ function TAKE_LOG_FAILE_TEST() {
 function IS_SAME_FILE() {
 	file_1="$1"
 	file_2="$2"
-	diff $file_1 $file_2 > $out_dir/out.diff
-	size=$(ls -l $out_dir/out.diff | awk '{print $5}')
-	if [ $size -eq 0 ]
+	res=$(diff $file_1 $file_2 2> /dev/null)
+	if [ $? -eq 2 ]
+	then
+		echo -e "\n\033[31mdiff: File not found!\033[m"
+		exit 0
+	fi
+	if [ "$res" = "" ]
 	then
 		return 0
 	else
@@ -43,14 +47,19 @@ function TEST() {
 	echo " > $out_dir/msh.out" >> $out_dir/msh.in
 	if [ $(uname) = "Linux" ]
 	then
-    valgrind --leak-check=full ../minishell < $out_dir/msh.in 2>> tmp.log
-    flag=$(cat tmp.log | awk '$2=="definitely" {if ($4 != 0) print $4}')
-    if [ $flag -ne 0 ]
-    then
-      cat tmp.log >> ../valgrind.log
-    fi
-  else
-    ../minishell < $out_dir/msh.in
+		valgrind --leak-check=full ../minishell < $out_dir/msh.in 2>> tmp.log
+		flag=$(cat tmp.log | awk '$2=="definitely" {if ($4 != 0) print $4}')
+		if [ $flag -ne 0 ]
+		then
+			cat tmp.log >> ../valgrind.log
+		fi
+	else
+		../minishell < $out_dir/msh.in
+		if [ $? -eq 134 ]
+		then
+			echo -e "\n\033[31mdiff: your shell caused SEGV!\033[m"
+			exit 0
+		fi
 	fi
 	CLEAN_TEST_DIR
 	echo -n "$test_case" > $out_dir/bash.in
@@ -82,20 +91,22 @@ cd ../test_dir
 
 #export TEST_STATUS=0
 
- READ_TESTCASE < ../test2/cases/cd.txt
+TEST "/bin/ls -a"
+
+READ_TESTCASE < ../test2/cases/cd.txt
 READ_TESTCASE < ../test2/cases/echo.txt
 READ_TESTCASE < ../test2/cases/env.txt
 READ_TESTCASE < ../test2/cases/exit.txt
 READ_TESTCASE < ../test2/cases/expand.txt
-#READ_TESTCASE < ../test2/cases/export.txt
+READ_TESTCASE < ../test2/cases/export.txt
 READ_TESTCASE < ../test2/cases/simple_command.txt
 READ_TESTCASE < ../test2/cases/path.txt
 READ_TESTCASE < ../test2/cases/syntax_error.txt
 READ_TESTCASE < ../test2/cases/pwd.txt
-#READ_TESTCASE < ../test2/cases/unset.txt
+READ_TESTCASE < ../test2/cases/unset.txt
 READ_TESTCASE < ../test2/cases/redirect.txt
 #READ_TESTCASE < ../test2/cases/shlvl.txt
-#READ_TESTCASE < ../test2/cases/added_test.txt
+READ_TESTCASE < ../test2/cases/added_test.txt
 
 cd ..
 rm -rf test_dir
