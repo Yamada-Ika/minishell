@@ -21,14 +21,12 @@ function TAKE_LOG_FAILE_TEST() {
 function IS_SAME_FILE() {
 	file_1="$1"
 	file_2="$2"
-	# diff $file_1 $file_2 > $out_dir/out.diff
-	res=$(diff $file_1 $file_2)
+	res=$(diff $file_1 $file_2 2> /dev/null)
 	if [ $? -eq 2 ]
 	then
+		echo -e "\n\033[31mdiff: File not found!\033[m"
 		exit 0
 	fi
-	# size=$(ls -l $out_dir/out.diff | awk '{print $5}')
-	# if [ $size -eq 0 ]
 	if [ "$res" = "" ]
 	then
 		return 0
@@ -49,14 +47,14 @@ function TEST() {
 	echo " > $out_dir/msh.out" >> $out_dir/msh.in
 	if [ $(uname) = "Linux" ]
 	then
-    valgrind --leak-check=full ../minishell < $out_dir/msh.in 2>> tmp.log
-    flag=$(cat tmp.log | awk '$2=="definitely" {if ($4 != 0) print $4}')
-    if [ $flag -ne 0 ]
-    then
-      cat tmp.log >> ../valgrind.log
-    fi
-  else
-    ../minishell < $out_dir/msh.in
+		valgrind --leak-check=full ../minishell < $out_dir/msh.in 2>> tmp.log
+		flag=$(cat tmp.log | awk '$2=="definitely" {if ($4 != 0) print $4}')
+		if [ $flag -ne 0 ]
+		then
+			cat tmp.log >> ../valgrind.log
+		fi
+	else
+		../minishell < $out_dir/msh.in
 	fi
 	CLEAN_TEST_DIR
 	echo -n "$test_case" > $out_dir/bash.in
