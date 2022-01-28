@@ -5,3 +5,4 @@ export PIPE="|"; echo $PIPE; ps -a $PIPE grep bash; ps -a | grep bash
 echo $? | exit 42 ; echo $?
 echo hello | cd ..; pwd
 export TEST="a"; export TEST="b" | echo $TEST
+export a=" "; echo$a-a
