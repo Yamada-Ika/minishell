@@ -5,7 +5,7 @@ size_t	replace_token(t_token **token, char *str)
 	char	**strs;
 	t_token	*tmp;
 
-	if (*str == '\0')
+	if (*str == '\0' || is_str_all_c(str, ' '))
 	{
 		free(str);
 		if (is_redirect_kind((*token)->prev->kind))
