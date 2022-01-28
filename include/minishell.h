@@ -12,7 +12,6 @@
 # include <readline/history.h>
 
 # include "../libft/libft.h"
-//#include "../test/debug.h"
 # include <stdbool.h>
 # include <dirent.h>
 # include <sys/stat.h>
@@ -23,22 +22,21 @@
 # define ERROR -1
 # define ERRNO_INIT_VAL 0
 
-char	***ft_split_triple(char const **strs, char *sets);
-
-typedef enum e_token_kind
+typedef struct e_token_kind	t_token_kind;
+enum e_token_kind
 {
 	EMPTY = -1,
 	TK_OP_DOUBLE_GR,	// ">>"
 	TK_OP_SINGLE_LS,	// "<<"
 	TK_OP_LS,			// "<"
 	TK_OP_GR,			// ">"
- 	TK_OP_PIPE,			// "|"
+	TK_OP_PIPE,			// "|"
 	TK_OP_DOLLAR,		// "$"
 	TK_WORD,
 	TK_WORD_IN_SINGLE_Q,		// "'"
 	TK_WORD_IN_DOUBLE_Q,		// """
 	TK_EOF,
-}	t_token_kind;
+};
 
 typedef struct s_token	t_token;
 struct s_token
@@ -51,13 +49,12 @@ struct s_token
 	bool			is_join_prev;
 };
 
-
+typedef struct s_redirect_list	t_redirect_list;
 typedef enum e_node_kind{
 	ND_CMD, // command (e.g. cat)
 	ND_PIPE, // "|"
-} t_node_kind;
+}	t_node_kind;
 
-typedef struct s_redirect_list	t_redirect_list;
 struct s_redirect_list
 {
 	char			*word;
@@ -111,7 +108,6 @@ struct s_mshell
 
 t_mshell	g_mshell;
 
-
 // ------------- env -----------------
 
 // ------------- builtin -----------------
@@ -132,7 +128,7 @@ void			exit_(char **cmds);
 // void			msh_exit(int status);
 
 // pwd.c
-void			pwd_();
+void			pwd_(void);
 
 // cd.c
 void			cd_(char **cmds);
@@ -148,13 +144,13 @@ void			error_ident(char *builtin_name, char *ident);
 void			print_command_usage(char *name, char *usage);
 
 // get_canonical_path.c
-char	*get_canonical_path(char *abs_path);
+char			*get_canonical_path(char *abs_path);
 
 // get_resize_strs_with_str.c
-char	**get_resize_strs_with_str(char **strs, char *s);
+char			**get_resize_strs_with_str(char **strs, char *s);
 
 // generate_environ.c
-char	**generate_environ(void);
+char			**generate_environ(void);
 
 // ------------- builtin -----------------
 
@@ -184,7 +180,7 @@ bool			is_env_name(char *str);
 void			ft_dup2(int oldfd, int newfd);
 int				ft_dup(int fd);
 void			ft_pipe(int *fd);
-pid_t			ft_fork();
+pid_t			ft_fork(void);
 
 // parse.c
 t_node			*command_line(t_token **tok);
@@ -212,7 +208,7 @@ void			create_t_command(t_node *node);
 
 // exec.c
 void			handle_command(t_node *node);
-void 			exec(char **commands);
+void			exec(char **commands);
 
 // built_in_command.c
 bool			is_exec_built_in(t_node *node, t_command redir);
@@ -225,7 +221,6 @@ char			**_alloc_word_list(t_token *tok, size_t size);
 void			handle_fd(int close_fd, int dup_fd, int fd);
 void			exec_cmd_with_full_path(char **cmds, char **environ);
 void			exec_cmd(char *path, char **cmds, char **environ);
-
 
 // signal.c
 void			display_new_prompt(int signal);
@@ -253,7 +248,7 @@ void			free_token_list(t_token *token);
 void			free_node_list(t_node *node);
 
 // free2.c
-void	free_strs(char **strs);
+void			free_strs(char **strs);
 
 //debug
 void			debug_node(t_node *node);
@@ -264,8 +259,8 @@ void			_debug_strs(char **strs);
 
 // error.c
 t_node			*parse_error(t_node *node, t_token *token);
-void 			error(char *str);
+void			error(char *str);
 t_token			*tokenize_error(t_token *head, t_token *cur);
 void			error_message(char *m, char *m2);
 
-# endif
+#endif
