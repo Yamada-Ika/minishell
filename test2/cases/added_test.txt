@@ -1,1 +1,7 @@
 cp /bin/ls hoge; mkdir test__; cp hoge test__/; chmod 000 hoge; export C_PATH=$PATH; export PATH=$PWD; hoge; export PATH=$PWD/test__qq hoge; export PATH=$C_PATH; chmod 777 hoge;
+export TEST="a=b=c=d"; env | grep TEST; echo $TESTecho $TEST
+export TEST="-n hello"; env | grep TEST; echo $TEST
+export PIPE="|"; echo $PIPE; ps -a $PIPE grep bash; ps -a | grep bash
+echo $? | exit 42 ; echo $?
+echo hello | cd ..; pwd
+export TEST="a"; export TEST="b" | echo $TEST
