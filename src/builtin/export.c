@@ -6,6 +6,12 @@ static void	get_key_and_val(char **key, char **val, char *str)
 	t_envvar	*key_at;
 	char		*equal_at;
 
+	if (str[0] == '=')
+	{
+		*key = ft_strdup("");
+		*val = NULL;
+		return ;
+	}
 	equal_at = ft_strchr(str, '=');
 	if (equal_at == NULL)
 	{
@@ -34,6 +40,22 @@ static void	_export_non_arg(void)
 	add_exit_status_to_env(0);
 }
 
+bool	is_invalid_key(char *key)
+{
+	size_t	i;
+
+	if (ft_isdigit(key[0]) || key[0] == '\0')
+		return (true);
+	i = 0;
+	while (key[i] != '\0')
+	{
+		if (!(ft_isalnum(key[i]) || key[i] == '_'))
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
 void	export_(char **args)
 {
 	size_t		i;
@@ -45,14 +67,14 @@ void	export_(char **args)
 	i = 0;
 	while (args[i] != NULL)
 	{
-		if (!ft_isalpha(args[i][0]))
+		get_key_and_val(&key, &val, args[i]);
+		if (is_invalid_key(key))
 		{
 			error_ident("export", args[i]);
 			add_exit_status_to_env(1);
 		}
 		else
 		{
-			get_key_and_val(&key, &val, args[i]);
 			msh_export(&(g_mshell.envlist), key, val);
 			add_exit_status_to_env(0);
 			free(key);
@@ -91,6 +113,6 @@ void	msh_export(t_envvar **envs, char *key, char *val)
 	key_at = get_envvar_with_key(*envs, key);
 	if (key_at == NULL)
 		add_envlist(*envs, new_envlist(key, val));
-	else
+	else if (val != NULL)
 		replace_val(key_at, val);
 }
