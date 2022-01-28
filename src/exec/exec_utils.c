@@ -58,24 +58,22 @@ void	exec_cmd_with_path(char **cmds, char **environ)
 	char	**paths;
 	char	*cmd;
 	char	*no_permit_path;
-	size_t	i;
 
 	no_permit_path = NULL;
 	if (access(cmds[0], F_OK) == F_OK)
 		no_permit_path = exec_cmd(cmds[0], cmds, environ);
-	i = 0;
 	cmd = ft_strjoin("/", cmds[0]);
 	paths = get_command_path(g_mshell.envlist);
-	if ((cmd == NULL || paths == NULL ) && errno != ERRNO_INIT_VAL)
-		error(strerror(errno));
-	while (paths && paths[i])
+	while (paths && *paths)
 	{
-		absolute_path = ft_strjoin(paths[i], cmd);
+		absolute_path = ft_strjoin(*paths, cmd);
+		if (absolute_path == NULL && errno != ERRNO_INIT_VAL)
+			error(strerror(errno));
 		if (access(absolute_path, F_OK) == F_OK)
 			no_permit_path = exec_cmd(absolute_path, cmds, environ);
 		else
 			free(absolute_path);
-		i++;
+		paths++;
 	}
 	if (no_permit_path)
 		error_exit_with_message(136, no_permit_path, "Permission denied");
