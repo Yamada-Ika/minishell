@@ -8,7 +8,6 @@ echo "\$"
 export HELLO=hello; echo \$HELLO
 export HELLO=hello; echo "$HELLO"
 export HELLO=hello; echo "\$HELLO"
-export HELLO=hello; echo \\"$HELLO"
 export TEST=ech; "$TEST"o hello
 export TEST="echo hello"; $TEST
 export TEST='echo hello'; $TEST
