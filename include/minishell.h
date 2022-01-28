@@ -22,7 +22,7 @@
 # define ERROR -1
 # define ERRNO_INIT_VAL 0
 
-typedef struct e_token_kind	t_token_kind;
+typedef enum e_token_kind	t_token_kind;
 enum e_token_kind
 {
 	EMPTY = -1,
