@@ -38,12 +38,12 @@ function CLEAN_TEST_DIR() {
 
 function TEST() {
 	test_case="$1"
-	echo "test_case : $test_case"
+	echo "test_case : $test_case" > tmp.log
 	echo -n "$test_case" > $out_dir/msh.in
 	echo " > $out_dir/msh.out" >> $out_dir/msh.in
 	if [ $(uname) = "Linux" ]
 	then
-    valgrind --leak-check=full ../minishell < $out_dir/msh.in 2> tmp.log
+    valgrind --leak-check=full ../minishell < $out_dir/msh.in 2>> tmp.log
     flag=$(cat tmp.log | awk '$2=="definitely" {if ($4 != 0) print $4}')
     if [ $flag -ne 0 ]
     then
@@ -82,18 +82,18 @@ cd ../test_dir
 
 #export TEST_STATUS=0
 
-# READ_TESTCASE < ../test2/cases/cd.txt
-#READ_TESTCASE < ../test2/cases/echo.txt
-#READ_TESTCASE < ../test2/cases/env.txt
-#READ_TESTCASE < ../test2/cases/exit.txt
+ READ_TESTCASE < ../test2/cases/cd.txt
+READ_TESTCASE < ../test2/cases/echo.txt
+READ_TESTCASE < ../test2/cases/env.txt
+READ_TESTCASE < ../test2/cases/exit.txt
 READ_TESTCASE < ../test2/cases/expand.txt
-READ_TESTCASE < ../test2/cases/export.txt
+#READ_TESTCASE < ../test2/cases/export.txt
 READ_TESTCASE < ../test2/cases/simple_command.txt
-#READ_TESTCASE < ../test2/cases/path.txt
-#READ_TESTCASE < ../test2/cases/syntax_error.txt
-#READ_TESTCASE < ../test2/cases/pwd.txt
+READ_TESTCASE < ../test2/cases/path.txt
+READ_TESTCASE < ../test2/cases/syntax_error.txt
+READ_TESTCASE < ../test2/cases/pwd.txt
 #READ_TESTCASE < ../test2/cases/unset.txt
-#READ_TESTCASE < ../test2/cases/redirect.txt
+READ_TESTCASE < ../test2/cases/redirect.txt
 #READ_TESTCASE < ../test2/cases/shlvl.txt
 #READ_TESTCASE < ../test2/cases/added_test.txt
 
