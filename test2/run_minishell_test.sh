@@ -44,7 +44,8 @@ function TEST() {
 	echo "test_case : $test_case"
 	echo -n "$test_case" > $out_dir/msh.in
 	echo " > $out_dir/msh.out" >> $out_dir/msh.in
-	../minishell < $out_dir/msh.in
+	../
+	 < $out_dir/msh.in
 	CLEAN_TEST_DIR
 	echo -n "$test_case" > $out_dir/bash.in
 	echo " > $out_dir/bash.out" >> $out_dir/bash.in
@@ -81,7 +82,7 @@ export TEST_STATUS=0
 #READ_TESTCASE < ../test2/cases/env.txt
 #READ_TESTCASE < ../test2/cases/exit.txt
 #READ_TESTCASE < ../test2/cases/expand.txt
-READ_TESTCASE < ../test2/cases/export.txt
+#READ_TESTCASE < ../test2/cases/export.txt
 #READ_TESTCASE < ../test2/cases/simple_command.txt
 #READ_TESTCASE < ../test2/cases/path.txt
 #READ_TESTCASE < ../test2/cases/syntax_error.txt
@@ -89,6 +90,7 @@ READ_TESTCASE < ../test2/cases/export.txt
 #READ_TESTCASE < ../test2/cases/unset.txt
 #READ_TESTCASE < ../test2/cases/redirect.txt
 #READ_TESTCASE < ../test2/cases/shlvl.txt
+READ_TESTCASE < ../test2/cases/added_test.txt
 
 cd ..
 rm -rf test_dir
