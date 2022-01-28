@@ -27,6 +27,7 @@ static	void	_init_global_var(void)
 
 	//	g_mshell = ft_calloc(1, sizeof(g_mshell));
 	inherite_env_val(&(g_mshell.envlist), environ);
+	msh_unset(&(g_mshell.envlist), "OLDPWD");
 	msh_export(&(g_mshell.envlist), "OLDPWD", NULL);
 	set_exit_status(0);
 	g_mshell.interrupt = false;
