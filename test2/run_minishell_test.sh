@@ -65,7 +65,6 @@ function TEST() {
 function READ_TESTCASE() {
 	while read test_case
 	do
-		read test_case
 		hoge=$(echo $test_case | tr ';' '\n')
 		TEST "$hoge"
 	done
@@ -77,7 +76,7 @@ cd ../test_dir
 
 export TEST_STATUS=0
 
-#READ_TESTCASE < ../test2/cases/cd.txt
+# READ_TESTCASE < ../test2/cases/cd.txt
 #READ_TESTCASE < ../test2/cases/echo.txt
 #READ_TESTCASE < ../test2/cases/env.txt
 #READ_TESTCASE < ../test2/cases/exit.txt
