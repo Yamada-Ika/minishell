@@ -2,11 +2,10 @@
 
 size_t	replace_token(t_token **token, char *str)
 {
-	size_t	increase_tok_num;
 	char	**strs;
 	t_token	*tmp;
 
-	if (*str == '\0' || is_str_all_c(str, ' '))
+	if (*str == '\0')
 	{
 		free(str);
 		if (is_redirect_kind((*token)->prev->kind))
@@ -21,12 +20,13 @@ size_t	replace_token(t_token **token, char *str)
 		*token = tmp;
 		return (0);
 	}
+	if (is_last_char_c(str, ' ') == true)
+		(*token)->next->is_join_prev = false;
 	strs = ft_split(str, ' ');
 	if (strs == NULL)
 		 error("expansion.c 153: malloc error");
 	free(str);
-	increase_tok_num = join_valiable(strs, token);
-	return (increase_tok_num);
+	return (join_valiable(strs, token));
 }
 
 size_t	expand_token(t_token **token, int op_kind)
@@ -61,7 +61,7 @@ void	expand_node_word_list(t_node *node)
 			cur_index += added_token_size - 1;
 			node->word_list_size += added_token_size - 1;
 		}
-		if (node->word_list->is_join_prev == true)
+		if (node->word_list->is_join_prev)
 		{
 			join_token_and_token_prev(&(node->word_list));
 			node->word_list_size -= 1;
