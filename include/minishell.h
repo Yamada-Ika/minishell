@@ -220,7 +220,7 @@ char			**get_command_path(t_envvar *envlist);
 char			**_alloc_word_list(t_token *tok, size_t size);
 void			handle_fd(int close_fd, int dup_fd, int fd);
 void			exec_cmd_with_path(char **cmds, char **environ);
-bool			is_exec_cmd(char *path, char **cmds, char **environ);
+char			*exec_cmd(char *path, char **cmds, char **environ);
 
 // signal.c
 void			display_new_prompt(int signal);
