@@ -1,0 +1,1 @@
+unset; env | grep -v -E '^_=' | sort
