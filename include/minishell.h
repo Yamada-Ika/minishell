@@ -219,8 +219,8 @@ void			_exec_builtin_cmd(t_builtin_kind kind, char **cmds);
 char			**get_command_path(t_envvar *envlist);
 char			**_alloc_word_list(t_token *tok, size_t size);
 void			handle_fd(int close_fd, int dup_fd, int fd);
-void			exec_cmd_with_full_path(char **cmds, char **environ);
-void			exec_cmd(char *path, char **cmds, char **environ);
+void			exec_cmd_with_path(char **cmds, char **environ);
+bool			is_exec_cmd(char *path, char **cmds, char **environ);
 
 // signal.c
 void			display_new_prompt(int signal);
@@ -262,5 +262,6 @@ t_node			*parse_error(t_node *node, t_token *token);
 void			error(char *str);
 t_token			*tokenize_error(t_token *head, t_token *cur);
 void			error_message(char *m, char *m2);
+void			error_exit_with_message(int stats, char *m, char *m2);
 
 #endif
