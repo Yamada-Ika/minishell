@@ -57,7 +57,7 @@ function TEST() {
 		../minishell < $out_dir/msh.in
 		if [ $? -eq 134 ]
 		then
-			echo "$test_case"
+			echo "case : $test_case"
 			echo -e "\n\033[31mdiff: your shell caused SEGV!\033[m"
 			exit 0
 		fi
