@@ -1,11 +1,10 @@
 cp /bin/ls hoge; mkdir test__; cp hoge test__/; chmod 000 hoge; export C_PATH=$PATH; export PATH=$PWD; hoge; export PATH=$PWD/test__qq hoge; export PATH=$C_PATH; chmod 777 hoge;
 export TEST="a=b=c=d"; env | grep TEST; echo $TESTecho $TEST
 export TEST="-n hello"; env | grep TEST; echo $TEST
-export PIPE="|"; echo $PIPE; ps -a $PIPE grep bash; ps -a | grep bash
+export PIPE="|"; echo $PIPE; ls $PIPE cat;
 echo $? | exit 42 ; echo $?
 echo hello | cd ..; pwd
 export TEST="a"; export TEST="b" | echo $TEST
 export a=" "; echo$a-a
 echo aaa > $NON_EXIST
 export TEST; env | grep TEST; export | grep TEST; export HOGE=; env | grep HOGE; export | grep HOGE
-export com="export"; export c="a  b"; export b="a"$c'b'; echo "$b"; $com b="a"$c'b'; echo "$b"; export com="echo"; $com b="a"$c'b'
