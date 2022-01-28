@@ -21,9 +21,15 @@ function TAKE_LOG_FAILE_TEST() {
 function IS_SAME_FILE() {
 	file_1="$1"
 	file_2="$2"
-	diff $file_1 $file_2 > $out_dir/out.diff
-	size=$(ls -l $out_dir/out.diff | awk '{print $5}')
-	if [ $size -eq 0 ]
+	# diff $file_1 $file_2 > $out_dir/out.diff
+	res=$(diff $file_1 $file_2)
+	if [ $? -eq 2 ]
+	then
+		exit 0
+	fi
+	# size=$(ls -l $out_dir/out.diff | awk '{print $5}')
+	# if [ $size -eq 0 ]
+	if [ "$res" = "" ]
 	then
 		return 0
 	else
@@ -82,7 +88,7 @@ cd ../test_dir
 
 #export TEST_STATUS=0
 
- READ_TESTCASE < ../test2/cases/cd.txt
+READ_TESTCASE < ../test2/cases/cd.txt
 READ_TESTCASE < ../test2/cases/echo.txt
 READ_TESTCASE < ../test2/cases/env.txt
 READ_TESTCASE < ../test2/cases/exit.txt
