@@ -34,9 +34,7 @@ void	exec(char **cmds)
 		exit(0);
 	if (is_exec_built_in_in_child(cmds) == true)
 		exit(0);
-	if (access(cmds[0], F_OK) == F_OK)
-		exec_cmd(cmds[0], cmds, generate_environ());
-	exec_cmd_with_full_path(cmds, generate_environ());
+	exec_cmd_with_path(cmds, generate_environ());
 }
 
 void	exec_t_command(t_command command)
