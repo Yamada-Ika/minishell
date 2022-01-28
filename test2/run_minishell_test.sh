@@ -44,8 +44,7 @@ function TEST() {
 	echo "test_case : $test_case"
 	echo -n "$test_case" > $out_dir/msh.in
 	echo " > $out_dir/msh.out" >> $out_dir/msh.in
-	../
-	 < $out_dir/msh.in
+	../minishell < $out_dir/msh.in
 	CLEAN_TEST_DIR
 	echo -n "$test_case" > $out_dir/bash.in
 	echo " > $out_dir/bash.out" >> $out_dir/bash.in
