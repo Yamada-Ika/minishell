@@ -37,3 +37,9 @@ void	error_message(char *m, char *m2)
 	ft_putstr_fd(": ", 2);
 	ft_putendl_fd(m2, 2);
 }
+
+void	error_exit_with_message(int stats, char *m, char *m2)
+{
+	error_message(m, m2);
+	exit(stats);
+}
