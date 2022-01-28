@@ -1,1 +1,1 @@
-cp /bin/ls hoge; mkdir test__; cp hoge test__/; chmod 000 hoge; export C_PATH=$PATH; export PATH=$PWD; hoge;  export PATH=$PWD/test__; hoge; export PATH=$C_PATH
+cp /bin/ls hoge; mkdir test__; cp hoge test__/; chmod 000 hoge; export C_PATH=$PATH; export PATH=$PWD; hoge;  export PATH=$PWD/test__qq hoge; export PATH=$C_PATH
