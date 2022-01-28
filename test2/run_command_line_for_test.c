@@ -9,9 +9,9 @@ void	run_command_line(char *cmd_line)
 	token = tokenize(cmd_line);
 	if (token == NULL)
 		return ;
-////	 fprintf(stderr, "DEBUG TOKENIZE START : =========================================\n");
-////	 debug_tokenize(token);
-////	 fprintf(stderr, "DEBUG TOKENIZE END   : =========================================\n");
+//	 fprintf(stderr, "DEBUG TOKENIZE START : =========================================\n");
+//	 debug_tokenize(token);
+//	 fprintf(stderr, "DEBUG TOKENIZE END   : =========================================\n");
 	node = command_line(&token);
 	if (node == NULL)
 		return ;
