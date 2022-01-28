@@ -105,6 +105,7 @@ struct s_mshell
 {
 	t_envvar	*envlist;
 	char		*pwd;
+	char		*old_pwd;
 	bool		interrupt;
 };
 

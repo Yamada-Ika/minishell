@@ -130,7 +130,9 @@ void	update_pwd(char *cur_dir_path)
 {
 	_update_pwd("OLDPWD", my_getenv(g_mshell.envlist, "PWD"));
 	_update_pwd("PWD", cur_dir_path);
-	free(g_mshell.pwd);
+	free(g_mshell.old_pwd);
+	g_mshell.old_pwd = g_mshell.pwd;
+	// free(g_mshell.pwd);
 	g_mshell.pwd = cur_dir_path;
 }
 

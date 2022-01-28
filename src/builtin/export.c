@@ -75,6 +75,10 @@ void	export_(char **args)
 		}
 		else
 		{
+			if (ft_strcmp(key, "OLDPWD") == 0 && val == NULL)
+			{
+				val = g_mshell.old_pwd;
+			}
 			msh_export(&(g_mshell.envlist), key, val);
 			add_exit_status_to_env(0);
 			free(key);
