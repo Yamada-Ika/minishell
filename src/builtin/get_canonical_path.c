@@ -68,6 +68,7 @@ static char	*_create_path_line(char **dirs)
 char	*get_canonical_path(char *abs_path)
 {
 	char	**strs;
+	char	*path_line;
 
 	if (abs_path == NULL)
 		return (NULL);
@@ -76,5 +77,7 @@ char	*get_canonical_path(char *abs_path)
 	strs = get_resize_strs_with_str(strs, ".");
 	_delete_prev_dir(strs);
 	// _debug_strs(strs);
-	return (_create_path_line(strs));
+	path_line = _create_path_line(strs);
+	free_strs(strs);
+	return (path_line);
 }
