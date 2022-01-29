@@ -8,7 +8,7 @@ void	run_command_line(char *cmd_line)
 	token = lexer(cmd_line);
 	if (token == NULL)
 		return ;
-	node = command_line(&token);
+	node = parser(&token);
 	if (node == NULL)
 		return ;
 	expansion(node);

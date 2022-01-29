@@ -68,7 +68,7 @@ t_node	*new_node_pipe(t_token *token, t_node *left, t_node *right)
 	return (node);
 }
 
-t_node	*command_line(t_token **tok)
+t_node	*parser(t_token **tok)
 {
 	t_token	*tmp_tk;
 	t_token	*tk_eof;

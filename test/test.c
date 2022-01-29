@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **envp)
 	#endif
 
 	// parse
-	node = command_line(&token);
+	node = parser(&token);
 	#ifdef PARSE
 	printf("parse =========================================\n");
 	debug_node(node);

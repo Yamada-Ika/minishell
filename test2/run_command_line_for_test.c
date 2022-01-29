@@ -12,7 +12,7 @@ void	run_command_line(char *cmd_line)
 //	 fprintf(stderr, "DEBUG lexer START : =========================================\n");
 //	 debug_tokenize(token);
 //	 fprintf(stderr, "DEBUG lexer END   : =========================================\n");
-	node = command_line(&token);
+	node = parser(&token);
 	if (node == NULL)
 		return ;
 //	 fprintf(stderr, "DEBUG PARSE START    : =========================================\n");

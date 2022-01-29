@@ -205,7 +205,7 @@ void			ft_pipe(int *fd);
 pid_t			ft_fork(void);
 
 // parse.c
-t_node			*command_line(t_token **tok);
+t_node			*parser(t_token **tok);
 
 // expansion.c
 void			expansion(t_node *node);
