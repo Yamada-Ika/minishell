@@ -72,25 +72,19 @@ void	export_(char **args)
 		get_key_and_val(&key, &val, args[i]);
 		if (is_invalid_key(key))
 		{
-			free(key);
-			free(val);
+			ft_free((void **)&key, (void **)&val);
 			error_ident("export", args[i]);
 			add_exit_status_to_env(1);
 		}
 		else
 		{
 			if (ft_strcmp(key, "OLDPWD") == 0 && val == NULL)
-			{
 				val = g_mshell.old_pwd;
-			}
 			if (ft_strcmp(key, "PWD") == 0 && val == NULL)
-			{
 				val = ft_strdup(g_mshell.pwd2);
-			}
 			msh_export(&(g_mshell.envlist), key, val);
 			add_exit_status_to_env(0);
-			free(key);
-			free(val);
+			ft_free((void **)&key, (void **)&val);
 		}
 		i++;
 	}
