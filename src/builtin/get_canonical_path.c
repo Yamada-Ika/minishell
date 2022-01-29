@@ -3,6 +3,7 @@
 static void	_delete_prev_dir(char **dirs)
 {
 	size_t	i;
+	size_t	j;
 
 	i = 0;
 	while (dirs[i] != NULL)
@@ -14,10 +15,25 @@ static void	_delete_prev_dir(char **dirs)
 		}
 		else if (ft_strcmp(dirs[i], "..") == 0)
 		{
-			free(dirs[i]);
-			free(dirs[i - 1]);
-			dirs[i] = ft_strdup("");
-			dirs[i - 1] = ft_strdup("");
+			j = i - 1;
+			while (true)
+			{
+				if (dirs[j][0] != '\0')
+				{
+					free(dirs[j]);
+					free(dirs[i]);
+					dirs[i] = ft_strdup("");
+					dirs[j] = ft_strdup("");
+					break ;
+				}
+				if (j == 0)
+				{
+					free(dirs[i]);
+					dirs[i] = ft_strdup("");
+					break ;
+				}
+				j--;
+			}
 		}
 		i++;
 	}
@@ -56,7 +72,9 @@ char	*get_canonical_path(char *abs_path)
 	if (abs_path == NULL)
 		return (NULL);
 	strs = ft_split(abs_path, '/');
+	// _debug_strs(strs);
 	strs = get_resize_strs_with_str(strs, ".");
 	_delete_prev_dir(strs);
+	// _debug_strs(strs);
 	return (_create_path_line(strs));
 }
