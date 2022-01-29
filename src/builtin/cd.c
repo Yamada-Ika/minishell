@@ -107,7 +107,11 @@ char	*gen_cano_path_from_cdpath(char *arg_path)
 			// cano_cdpath = gen_rel_to_cano_path(cdpaths[i]);
 		// fprintf(stderr, "cano_cdpath %s\n", cano_cdpath);
 		if (is_abs_path(cano_cdpath))
+		{
+			tmp_for_free = cano_cdpath;
 			abs_cdpath = ft_strjoin(cano_cdpath, arg_path);
+			free(tmp_for_free);
+		}
 		else
 		{
 			abs_cdpath = _get_abs_path(cano_cdpath);
@@ -119,7 +123,10 @@ char	*gen_cano_path_from_cdpath(char *arg_path)
 		}
 		// fprintf(stderr, "abs_cdpath %s\n", abs_cdpath);
 		if (chdir(abs_cdpath) != -1)
+		{
+			free_strs(cdpaths);
 			return (abs_cdpath);
+		}
 		i++;
 	}
 	free_strs(cdpaths);
