@@ -60,6 +60,12 @@ debug:
 	make ADD_MAIN_FOR_TEST=1
 
 test:
+	make -C src/lexer
+	make -C src/parser
+	make -C src/expander
+	make -C src/exec
+	make -C src/builtin
+	make -C src/utils
 	touch test2/main_for_test.c
 	make ADD_MAIN_FOR_TEST=1
 	cd test2/ && ./run_minishell_test.sh
