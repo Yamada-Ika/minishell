@@ -47,8 +47,8 @@ int	main(int argc, char **argv, char **envp)
 	debug_node(node);
 	#endif
 
-	// expansion
-	expansion(node);
+	// expander
+	expander(node);
 	#ifdef EXPAND
 	printf("expand =========================================\n");
 	debug_node(node);

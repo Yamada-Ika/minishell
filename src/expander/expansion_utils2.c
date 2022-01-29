@@ -6,7 +6,7 @@ t_token	*new_token_tk_word(t_token_kind kind, char *p, size_t len)
 
 	token = (t_token *)ft_calloc(1, sizeof(t_token));
 	if (token == NULL)
-		error("malloc error");
+		error(strerror(errno));
 	token->kind = kind;
 	token->str = p;
 	token->len = len;

@@ -11,7 +11,7 @@ void	run_command_line(char *cmd_line)
 	node = parser(&token);
 	if (node == NULL)
 		return ;
-	expansion(node);
+	expander(node);
 	if (node->word_list->kind != TK_EOF)
 		exec_command_line(node);
 	free_token_list(token->next);

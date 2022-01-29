@@ -1,4 +1,5 @@
-cp /bin/ls hoge; mkdir test__; cp hoge test__/; chmod 000 hoge; export C_PATH=$PATH; export PATH=$PWD; hoge; export PATH=$PWD/test__qq hoge; export PATH=$C_PATH; chmod 777 hoge;
+cp /bin/ls hoge; mkdir test__; cp hoge test__/; chmod 000 hoge; export C_PATH=$PATH; export PATH=$PWD; hoge; export PATH=$PWD/test__; hoge; export PATH=$C_PATH; chmod 777 hoge; rm hoge; rm -rf test__;
+cp /bin/ls hoge; mkdir test__; mkdir test__/hoge; chmod 000 hoge; export C_PATH=$PATH; export PATH=$PWD; hoge; export PATH=$PWD/test__; hoge; export PATH=$C_PATH; chmod 777 hoge; rm hoge; rm -rf test__;
 export TEST="a=b=c=d"; env | grep TEST; echo $TESTecho $TEST
 export TEST="-n hello"; env | grep TEST; echo $TEST
 export PIPE="|"; echo $PIPE; ls $PIPE cat;

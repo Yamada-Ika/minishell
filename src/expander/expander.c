@@ -24,7 +24,7 @@ size_t	replace_token(t_token **token, char *str)
 		(*token)->next->is_join_prev = false;
 	strs = ft_split(str, ' ');
 	if (strs == NULL)
-		 error("expansion.c 153: malloc error");
+		error(strerror(errno));
 	free(str);
 	return (join_valiable(strs, token));
 }
@@ -81,7 +81,7 @@ void	expand_node(t_node *node)
 	create_t_command(node);
 }
 
-void	expansion(t_node *node)
+void	expander(t_node *node)
 {
 	while (node->kind == ND_PIPE)
 	{
