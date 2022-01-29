@@ -186,7 +186,6 @@ void	cd_(char **cmds)
 			{
 				ft_putendl_fd(cano_path, STDOUT_FILENO);
 				update_pwd(cano_path);
-				free(cano_path);
 				return (add_exit_status_to_env(0));
 			}
 			cano_path = gen_rel_to_cano_path(arg_path);
@@ -202,5 +201,4 @@ void	cd_(char **cmds)
 	}
 	add_exit_status_to_env(0);
 	update_pwd(cano_path);
-	free(cano_path);
 }
