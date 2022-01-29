@@ -155,6 +155,27 @@ void			pwd_(void);
 // cd.c
 void			cd_(char **cmds);
 
+// cd_utils
+bool	is_non_arguments(char **args);
+bool	is_abs_path(char *path);
+bool	is_arg_path_start_from_current_dir(char *path);
+bool	cannot_get_home_path(char **cmds, char **arg_path);
+bool	can_chdir_with_cdpath(char *arg_path, char **cano_path);
+
+void	update_pwd(char *cur_dir_path);
+void	cd_do_success_routine(char *cano_path);
+void	cd_do_cdpath_routine(char *cano_path);
+void	cd_do_error_routine(char *cano_path, char *arg_path);
+
+char	*gen_abs_path(char *dst);
+char	*get_home_path(void);
+char	*gen_abs_to_cano_path(char *abs_path);
+char	*gen_rel_to_cano_path(char *rel_path);
+
+char	*gen_cano_path_from_cdpath(char *arg_path);
+
+int	chdir_for_cd(char *cano_path, char *arg_path);
+
 // builtin_utils.c
 void			print_command_usage2(char *name, char *usage);
 void			error_option(char *builtin_name, char *option_name);
