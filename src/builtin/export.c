@@ -70,6 +70,8 @@ void	export_(char **args)
 		get_key_and_val(&key, &val, args[i]);
 		if (is_invalid_key(key))
 		{
+			free(key);
+			free(val);
 			error_ident("export", args[i]);
 			add_exit_status_to_env(1);
 		}
