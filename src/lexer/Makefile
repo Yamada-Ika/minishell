@@ -2,7 +2,7 @@ NAME	:= liblex.a
 CC		:= gcc
 CFLAGS	:= -Wall -Wextra -Werror
 HEADER	:= -I../../include -I../../libft
-SRCS	:= tokenize.c tokenize_utils.c
+SRCS	:= lexer.c lexer_utils.c
 OBJS	:= $(SRCS:%.c=%.o)
 OBJS	:= $(addprefix obj/, $(OBJS))
 LIBFT = ../../libft/libft.a

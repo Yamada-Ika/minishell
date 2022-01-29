@@ -6,12 +6,12 @@ void	run_command_line(char *cmd_line)
 	t_node	*node;
 
 	// fprintf(stderr, "run_command_line 7: cmd_line = %s\n", cmd_line);
-	token = tokenize(cmd_line);
+	token = lexer(cmd_line);
 	if (token == NULL)
 		return ;
-//	 fprintf(stderr, "DEBUG TOKENIZE START : =========================================\n");
+//	 fprintf(stderr, "DEBUG lexer START : =========================================\n");
 //	 debug_tokenize(token);
-//	 fprintf(stderr, "DEBUG TOKENIZE END   : =========================================\n");
+//	 fprintf(stderr, "DEBUG lexer END   : =========================================\n");
 	node = command_line(&token);
 	if (node == NULL)
 		return ;

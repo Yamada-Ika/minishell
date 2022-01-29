@@ -5,7 +5,7 @@ void	run_command_line(char *cmd_line)
 	t_token	*token;
 	t_node	*node;
 
-	token = tokenize(cmd_line);
+	token = lexer(cmd_line);
 	if (token == NULL)
 		return ;
 	node = command_line(&token);

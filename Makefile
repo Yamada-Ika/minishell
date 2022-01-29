@@ -3,7 +3,7 @@ LIBFT		:= libft/libft.a
 BUILTIN		:= src/builtin/libblt.a
 EXEC		:= src/exec/libex.a
 EXPANDER	:= src/expander/libexpander.a
-LEXAR		:= src/lexar/liblex.a
+LEXAR		:= src/lexer/liblex.a
 PARSER		:= src/parser/libprs.a
 UTILS		:= src/utils/libutl.a
 
@@ -44,7 +44,7 @@ $(EXEC): empty
 $(EXPANDER): empty
 	make -C src/expander
 $(LEXAR): empty
-	make -C src/lexar
+	make -C src/lexer
 $(PARSER): empty
 	make -C src/parser
 $(UTILS): empty
@@ -70,7 +70,7 @@ clean:
 	make clean -C src/builtin
 	make clean -C src/exec
 	make clean -C src/expander
-	make clean -C src/lexar
+	make clean -C src/lexer
 	make clean -C src/parser
 	make clean -C src/utils
 	make clean -C test

@@ -181,8 +181,8 @@ void			set_exit_status(int status);
 void			add_exit_status_to_env(int status);
 int				get_exit_status(int status);
 
-// tokenize.c
-t_token			*tokenize(char *p);
+// lexer.c
+t_token			*lexer(char *p);
 void			debug_tokenize(t_token *token);
 
 // tokenize_utils.c
