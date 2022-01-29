@@ -3,3 +3,4 @@ sleep 10 | echo # Ctrl+C
 export HELLO=hello; echo \\"$HELLO"
 mkdir -p a/b/c; cd a/b/c; rm -rf ../../b; cd ./; pwd; cd ../; pwd; cd .////./; pwd
 cd //; pwd; cd //bin; pwd
+export dquote='"' dollar='$' backslash='\' backquote='`' newline='\n'; export | grep -v -E '^declare -x _='
