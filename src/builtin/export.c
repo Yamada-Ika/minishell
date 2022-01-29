@@ -1,4 +1,11 @@
 #include "minishell.h"
+void	set_key_and_val(char **key, char **val, char *k, char *v)
+{
+	if ((k == NULL || v == NULL) && errno)
+		error(strerror(errno));
+	*key = k;
+	*val = v;
+}
 
 static void	get_key_and_val(char **key, char **val, char *str)
 {
@@ -6,32 +13,27 @@ static void	get_key_and_val(char **key, char **val, char *str)
 	t_envvar	*key_at;
 	char		*equal_at;
 
-	if (str[0] == '=')
-	{
-		*key = ft_strdup("");
-		*val = NULL;
-		return ;
-	}
+	errno = ERRNO_INIT_VAL;
 	equal_at = ft_strchr(str, '=');
-	if (equal_at == NULL)
+	if (str[0] == '=')
+		set_key_and_val(key, val, ft_strdup(""), NULL);
+	else if (equal_at == NULL)
+		set_key_and_val(key, val, ft_strdup(str), NULL);
+	else if (*(equal_at - 1) == '+')
 	{
-		*key = ft_strdup(str);
-		*val = NULL;
-		return ;
+		key_len = equal_at - 1 - str;
+		set_key_and_val(key, val, ft_substr(str, 0, key_len),
+			ft_substr(str, key_len + 2, ft_strlen(str)));
+		key_at = get_envvar_with_key(g_mshell.envlist, *key);
+		if (key_at != NULL)
+			*val = strjoin_and_free(ft_strdup(key_at->val), *val);
 	}
-	if (*(equal_at - 1) != '+')
+	else
 	{
 		key_len = equal_at - str;
-		*key = ft_substr(str, 0, key_len);
-		*val = ft_substr(str, key_len + 1, ft_strlen(str));
-		return ;
+		set_key_and_val(key, val, ft_substr(str, 0, key_len),
+			ft_substr(str, key_len + 1, ft_strlen(str)));
 	}
-	key_len = equal_at - 1 - str;
-	*key = ft_substr(str, 0, key_len);
-	*val = ft_substr(str, key_len + 2, ft_strlen(str));
-	key_at = get_envvar_with_key(g_mshell.envlist, *key);
-	if (key_at != NULL)
-		*val = strjoin_and_free(ft_strdup(key_at->val), *val);
 }
 
 static void	_export_non_arg(void)
