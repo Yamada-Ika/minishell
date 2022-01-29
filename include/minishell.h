@@ -33,7 +33,7 @@
 // TK_WORD_IN_SINGLE_Q,		// "'"
 // TK_WORD_IN_DOUBLE_Q,		// """
 // TK_EOF,
-typedef enum e_token_kind	t_token_kind;
+typedef enum e_token_kind		t_token_kind;
 enum e_token_kind
 {
 	EMPTY = -1,
@@ -49,7 +49,7 @@ enum e_token_kind
 	TK_EOF,
 };
 
-typedef struct s_token	t_token;
+typedef struct s_token			t_token;
 struct s_token
 {
 	t_token_kind	kind;
@@ -77,7 +77,7 @@ struct s_redirect_list
 };
 
 // char			**word_list; // e.g. cat -option file_name
-typedef struct s_command	t_command;
+typedef struct s_command		t_command;
 struct s_command
 {
 	char			**word_list;
@@ -86,7 +86,7 @@ struct s_command
 	t_redirect_list	*heredoc;
 };
 
-typedef struct s_node	t_node;
+typedef struct s_node			t_node;
 struct s_node
 {
 	t_node_kind	kind;
@@ -118,7 +118,7 @@ typedef enum e_builtin_kind
 // ------------- builtin -----------------
 
 // ------------- env -----------------
-typedef struct s_mshell	t_mshell;
+typedef struct s_mshell			t_mshell;
 struct s_mshell
 {
 	t_envvar	*envlist;
@@ -128,7 +128,7 @@ struct s_mshell
 	bool		interrupt;
 };
 
-t_mshell	g_mshell;
+t_mshell						g_mshell;
 
 // ------------- env -----------------
 
