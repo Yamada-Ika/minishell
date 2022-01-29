@@ -29,6 +29,7 @@ static	void	_init_global_var(void)
 	// g_mshell.old_pwd = ft_strdup(my_getenv(g_mshell.envlist, "OLDPWD"));
 	msh_unset(&(g_mshell.envlist), "OLDPWD");
 	msh_export(&(g_mshell.envlist), "OLDPWD", NULL);
+	increment_shlvl();
 	set_exit_status(0);
 	g_mshell.interrupt = false;
 	_set_pwd();
