@@ -93,7 +93,7 @@ cd ../test_dir
 
 #export TEST_STATUS=0
 
-TEST "/bin/ls -a"
+#TEST "/bin/ls -a"
 
 READ_TESTCASE < ../test2/cases/cd.txt
 READ_TESTCASE < ../test2/cases/echo.txt
@@ -107,7 +107,7 @@ READ_TESTCASE < ../test2/cases/syntax_error.txt
 READ_TESTCASE < ../test2/cases/pwd.txt
 READ_TESTCASE < ../test2/cases/unset.txt
 READ_TESTCASE < ../test2/cases/redirect.txt
-# READ_TESTCASE < ../test2/cases/shlvl.txt
+READ_TESTCASE < ../test2/cases/shlvl.txt
 READ_TESTCASE < ../test2/cases/added_test.txt
 
 cd ..
