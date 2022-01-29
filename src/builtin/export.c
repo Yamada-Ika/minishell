@@ -60,20 +60,18 @@ bool	is_invalid_key(char *key)
 
 void	export_(char **args)
 {
-	size_t		i;
 	char		*key;
 	char		*val;
 
-	if (args[0] == NULL)
+	if (*args == NULL)
 		return (_export_non_arg());
-	i = 0;
-	while (args[i] != NULL)
+	while (*args != NULL)
 	{
-		get_key_and_val(&key, &val, args[i]);
+		get_key_and_val(&key, &val, *args);
 		if (is_invalid_key(key))
 		{
 			ft_free((void **)&key, (void **)&val);
-			error_ident("export", args[i]);
+			error_ident("export", *args);
 			add_exit_status_to_env(1);
 		}
 		else
@@ -86,7 +84,7 @@ void	export_(char **args)
 			add_exit_status_to_env(0);
 			ft_free((void **)&key, (void **)&val);
 		}
-		i++;
+		args++;
 	}
 }
 
