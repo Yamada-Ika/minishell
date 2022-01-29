@@ -24,6 +24,11 @@ void	unset_(char **args)
 				free(g_mshell.old_pwd);
 				g_mshell.old_pwd = NULL;
 			}
+			if (ft_strcmp(args[i], "PWD") == 0)
+			{
+				free(g_mshell.pwd2);
+				g_mshell.pwd2 = NULL;
+			}
 			add_exit_status_to_env(0);
 		}
 		i++;

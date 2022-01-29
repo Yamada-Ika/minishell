@@ -136,6 +136,7 @@ void	update_pwd(char *cur_dir_path)
 	g_mshell.old_pwd = g_mshell.pwd;
 	// free(g_mshell.pwd);
 	g_mshell.pwd = cur_dir_path;
+	g_mshell.pwd2 = cur_dir_path;
 }
 
 void	cd_(char **cmds)
