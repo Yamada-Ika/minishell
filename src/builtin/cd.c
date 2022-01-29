@@ -1,15 +1,5 @@
 #include "minishell.h"
 
-static void	_update_pwd(char *key, char *path)
-{
-	if (!is_exist_key(g_mshell.envlist, key))
-		return ;
-	if (path != NULL)
-		msh_export(&(g_mshell.envlist), key, path);
-	else
-		msh_export(&(g_mshell.envlist), key, "");
-}
-
 static char	*_get_abs_path(char *dst)
 {
 	char	*cur_path;
@@ -126,6 +116,16 @@ char	*gen_cano_path_from_cdpath(char *arg_path)
 	}
 	free_strs(cdpaths);
 	return (NULL);
+}
+
+static void	_update_pwd(char *key, char *path)
+{
+	if (!is_exist_key(g_mshell.envlist, key))
+		return ;
+	if (path != NULL)
+		msh_export(&(g_mshell.envlist), key, path);
+	else
+		msh_export(&(g_mshell.envlist), key, "");
 }
 
 void	update_pwd(char *cur_dir_path)
