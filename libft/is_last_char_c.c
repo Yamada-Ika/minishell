@@ -2,7 +2,7 @@
 
 bool	is_last_char_c(char *str, char c)
 {
-	size_t len;
+	size_t	len;
 
 	if (str == NULL || *str == '\0')
 		return (false);
