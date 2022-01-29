@@ -20,15 +20,9 @@ void	unset_(char **args)
 		{
 			msh_unset(&(g_mshell.envlist), args[i]);
 			if (ft_strcmp(args[i], "OLDPWD") == 0)
-			{
-				free(g_mshell.old_pwd);
-				g_mshell.old_pwd = NULL;
-			}
+				ft_free((void **)&g_mshell.old_pwd, NULL);
 			if (ft_strcmp(args[i], "PWD") == 0)
-			{
-				free(g_mshell.pwd2);
-				g_mshell.pwd2 = NULL;
-			}
+				ft_free((void **)&g_mshell.pwd2, NULL);
 			add_exit_status_to_env(0);
 		}
 		i++;
