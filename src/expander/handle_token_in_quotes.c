@@ -19,7 +19,7 @@ char	*remove_quotes(t_token *token, char quote)
 			tmp = ft_substr(token->str + head_index, 0, i - head_index);
 			str = strjoin_and_free_null(&str, &tmp);
 			if (str == NULL)
-				error("handle_token_in_quotes: malloc error");
+				error(strerror(errno));
 			head_index = i + 1;
 		}
 		i++;

@@ -41,7 +41,7 @@ t_node	*new_node_command(t_token **tok)
 	}
 	node = (t_node *)ft_calloc(1, sizeof(t_node));
 	if (node == NULL)
-		error("parse.c 22 : malloc error");
+		error(strerror(errno));
 	node->word_list = *tok;
 	node->word_list_size = count_command_size(tok);
 	if (node->word_list_size == 0)
@@ -59,7 +59,7 @@ t_node	*new_node_pipe(t_token *token, t_node *left, t_node *right)
 
 	node = (t_node *)ft_calloc(1, sizeof(t_node));
 	if (node == NULL)
-		error("parse.c 22 : malloc error");
+		error(strerror(errno));
 	node->left = left;
 	node->right = right;
 	node->kind = ND_PIPE;

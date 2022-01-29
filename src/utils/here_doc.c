@@ -5,11 +5,11 @@ static void	join_here_doc(char *line, char **doc)
 	if (*doc == NULL)
 		*doc = ft_strdup("");
 	if (*doc == NULL)
-		error("malloc error");
+		error(strerror(errno));
 	line = strjoin_and_free(line, ft_strdup("\n"));
 	*doc = strjoin_and_free_null(doc, &line);
 	if (doc == NULL)
-		error("malloc error");
+		error(strerror(errno));
 }
 
 char	*get_here_doc(char *eos)

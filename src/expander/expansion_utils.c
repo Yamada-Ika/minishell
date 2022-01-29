@@ -7,7 +7,7 @@ void	join_token_and_token_prev(t_token **token)
 	(*token)->prev->str = strjoin_and_free_null
 		(&(*token)->prev->str, &(*token)->str);
 	if ((*token)->prev->str == NULL)
-		error("expansion.c 7: malloc error");
+		error(strerror(errno));
 	(*token)->prev->len = ft_strlen((*token)->prev->str);
 	(*token)->prev->next = (*token)->next;
 	(*token)->next->prev = (*token)->prev;
@@ -66,7 +66,7 @@ char	*expand_str(char *str)
 			t_str = get_str_until_env_val(&t_str, &env_name, env_val);
 			t_str = strjoin_and_free(t_str, ft_strdup(str + i + 1));
 			if (t_str == NULL)
-				error("handle_token_in_quotes.c 65: malloc error");
+				error(strerror(errno));
 		}
 		i++;
 	}
