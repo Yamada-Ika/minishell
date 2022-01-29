@@ -207,8 +207,8 @@ pid_t			ft_fork(void);
 // parse.c
 t_node			*parser(t_token **tok);
 
-// expansion.c
-void			expansion(t_node *node);
+// expander.c
+void			expander(t_node *node);
 
 // expansion_utils.c
 char			*expand_str(char *str);

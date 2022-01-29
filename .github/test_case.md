@@ -40,7 +40,7 @@ minishell> ^C
 parse: =========================================
 word_list_size 2 word_list->str $
 word_list-str:  
-expansion: =========================================
+expander: =========================================
 word_list_size 0 word_list->str 
 ```
 
@@ -53,7 +53,7 @@ word_list_size 2 word_list->str $
 ffff fowefow wwwwee 0229393
 count : 4
 word_list-str:  $
-expansion: =========================================
+expander: =========================================
 word_list_size 4 word_list->str $
 ```
 

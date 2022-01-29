@@ -18,7 +18,7 @@ void	run_command_line(char *cmd_line)
 //	 fprintf(stderr, "DEBUG PARSE START    : =========================================\n");
 //	 debug_node(node);
 //	 fprintf(stderr, "DEBUG PARSE END      : =========================================\n");
-	expansion(node);
+	expander(node);
 //	 fprintf(stderr, "DEBUG EXPAND START   : =========================================\n");
 //	 debug_node(node);
 //	 fprintf(stderr, "DEBUG EXPAND END     : =========================================\n");
