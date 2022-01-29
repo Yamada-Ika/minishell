@@ -127,6 +127,7 @@ char	*gen_cano_path_from_cdpath(char *arg_path)
 			free_strs(cdpaths);
 			return (abs_cdpath);
 		}
+		free(abs_cdpath);
 		i++;
 	}
 	free_strs(cdpaths);
