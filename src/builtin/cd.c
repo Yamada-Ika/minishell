@@ -88,6 +88,7 @@ char	*gen_cano_path_from_cdpath(char *arg_path)
 	char	*abs_cdpath;
 	char	*abs_arg_path;
 	char	*tmp_for_free;
+	char	*cano_cdpath;
 	size_t	i;
 
 	cdpath = my_getenv(g_mshell.envlist, "CDPATH");
@@ -100,16 +101,23 @@ char	*gen_cano_path_from_cdpath(char *arg_path)
 	while (cdpaths[i] != NULL)
 	{
 		if (is_abs_path(cdpaths[i]))
-			abs_cdpath = ft_strjoin(cdpaths[i], arg_path);
+			cano_cdpath = gen_abs_to_cano_path(cdpaths[i]);
+		else
+			cano_cdpath = cdpaths[i];
+			// cano_cdpath = gen_rel_to_cano_path(cdpaths[i]);
+		// fprintf(stderr, "cano_cdpath %s\n", cano_cdpath);
+		if (is_abs_path(cano_cdpath))
+			abs_cdpath = ft_strjoin(cano_cdpath, arg_path);
 		else
 		{
-			abs_cdpath = _get_abs_path(cdpaths[i]);
+			abs_cdpath = _get_abs_path(cano_cdpath);
 			abs_arg_path = ft_strjoin("/", arg_path);
 			tmp_for_free = abs_cdpath;
 			abs_cdpath = ft_strjoin(abs_cdpath, abs_arg_path);
 			free(tmp_for_free);
 			free(abs_arg_path);
 		}
+		// fprintf(stderr, "abs_cdpath %s\n", abs_cdpath);
 		if (chdir(abs_cdpath) != -1)
 			return (abs_cdpath);
 		i++;
@@ -168,6 +176,7 @@ void	cd_(char **cmds)
 			free(abs_path);
 			if (cano_path != NULL)
 			{
+				ft_putendl_fd(cano_path, STDOUT_FILENO);
 				update_pwd(cano_path);
 				return (add_exit_status_to_env(0));
 			}
