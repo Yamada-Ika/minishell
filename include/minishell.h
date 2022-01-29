@@ -22,19 +22,30 @@
 # define ERROR -1
 # define ERRNO_INIT_VAL 0
 
+// EMPTY = -1,
+// TK_OP_DOUBLE_GR,	// ">>"
+// TK_OP_SINGLE_LS,	// "<<"
+// TK_OP_LS,			// "<"
+// TK_OP_GR,			// ">"
+// TK_OP_PIPE,			// "|"
+// TK_OP_DOLLAR,		// "$"
+// TK_WORD,
+// TK_WORD_IN_SINGLE_Q,		// "'"
+// TK_WORD_IN_DOUBLE_Q,		// """
+// TK_EOF,
 typedef enum e_token_kind	t_token_kind;
 enum e_token_kind
 {
 	EMPTY = -1,
-	TK_OP_DOUBLE_GR,	// ">>"
-	TK_OP_SINGLE_LS,	// "<<"
-	TK_OP_LS,			// "<"
-	TK_OP_GR,			// ">"
-	TK_OP_PIPE,			// "|"
-	TK_OP_DOLLAR,		// "$"
+	TK_OP_DOUBLE_GR,
+	TK_OP_SINGLE_LS,
+	TK_OP_LS,
+	TK_OP_GR,
+	TK_OP_PIPE,
+	TK_OP_DOLLAR,
 	TK_WORD,
-	TK_WORD_IN_SINGLE_Q,		// "'"
-	TK_WORD_IN_DOUBLE_Q,		// """
+	TK_WORD_IN_SINGLE_Q,
+	TK_WORD_IN_DOUBLE_Q,
 	TK_EOF,
 };
 
@@ -49,10 +60,12 @@ struct s_token
 	bool			is_join_prev;
 };
 
+// ND_CMD, // command (e.g. cat)
+// ND_PIPE, // "|"
 typedef struct s_redirect_list	t_redirect_list;
 typedef enum e_node_kind{
-	ND_CMD, // command (e.g. cat)
-	ND_PIPE, // "|"
+	ND_CMD,
+	ND_PIPE,
 }	t_node_kind;
 
 struct s_redirect_list
@@ -63,10 +76,11 @@ struct s_redirect_list
 	t_redirect_list	*next;
 };
 
+// char			**word_list; // e.g. cat -option file_name
 typedef struct s_command	t_command;
 struct s_command
 {
-	char			**word_list; // e.g. cat -option file_name
+	char			**word_list;
 	t_redirect_list	*in_redir;
 	t_redirect_list	*out_redir;
 	t_redirect_list	*heredoc;
@@ -84,15 +98,22 @@ struct s_node
 };
 
 // ------------- builtin -----------------
+// BUILTIN_ECHO,	// echo
+// BUILTIN_CD,			// cd
+// BUILTIN_PWD,		// pwd
+// BUILTIN_EXPORT,		// export
+// BUILTIN_UNSET,		// unset
+// BUILTIN_ENV,		// env
+// BUILTIN_EXIT,		// exit
 typedef enum e_builtin_kind
 {
-	BUILTIN_ECHO,	// echo
-	BUILTIN_CD,			// cd
-	BUILTIN_PWD,		// pwd
-	BUILTIN_EXPORT,		// export
-	BUILTIN_UNSET,		// unset
-	BUILTIN_ENV,		// env
-	BUILTIN_EXIT,		// exit
+	BUILTIN_ECHO,
+	BUILTIN_CD,
+	BUILTIN_PWD,
+	BUILTIN_EXPORT,
+	BUILTIN_UNSET,
+	BUILTIN_ENV,
+	BUILTIN_EXIT,
 }	t_builtin_kind;
 // ------------- builtin -----------------
 
