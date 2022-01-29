@@ -75,7 +75,7 @@ int	recursive(t_node *node)
 	return (get_exit_status(sts));
 }
 
-void	handle_command(t_node *node)
+void	exec_command_line(t_node *node)
 {
 	int	sts;
 	int	fd;

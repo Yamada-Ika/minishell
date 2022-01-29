@@ -229,7 +229,7 @@ void			handle_token_in_quotes(t_token *token);
 void			create_t_command(t_node *node);
 
 // exec.c
-void			handle_command(t_node *node);
+void			exec_command_line(t_node *node);
 void			exec(char **commands);
 
 // built_in_command.c

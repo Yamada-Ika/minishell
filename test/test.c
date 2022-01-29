@@ -57,10 +57,10 @@ int	main(int argc, char **argv, char **envp)
 	free_token_list(token->next);
 	free_node_list(node);
 
-	// handle_command
+	// exec_command_line
 	// printf("exec =========================================\n");
 	// paths = get_command_path(envp);
-	// handle_command(paths, node);
+	// exec_command_line(paths, node);
 	return (0);
 //	exit (0);
 }

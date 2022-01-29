@@ -23,7 +23,7 @@ void	run_command_line(char *cmd_line)
 //	 debug_node(node);
 //	 fprintf(stderr, "DEBUG EXPAND END     : =========================================\n");
 	if (node->word_list->kind != TK_EOF)
-		handle_command(node);
+		exec_command_line(node);
 	free_token_list(token->next);
 	free_node_list(node);
 }
