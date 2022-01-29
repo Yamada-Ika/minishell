@@ -32,11 +32,11 @@ int	main(int argc, char **argv, char **envp)
 		error("Invalid argument!");
 	str = argv[1];
 
-	// tokenize
-	token = tokenize(str);
+	// lexer
+	token = lexer(str);
 
 	#ifdef TOKEN
-	printf("tokenize =========================================\n");
+	printf("lexer =========================================\n");
 	debug_tokenize(token);
 	#endif
 

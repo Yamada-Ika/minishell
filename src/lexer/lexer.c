@@ -63,7 +63,7 @@ static	t_token_kind	_get_word_kind(char *p)
 	return (kind);
 }
 
-t_token	*tokenize(char *p)
+t_token	*lexer(char *p)
 {
 	t_token			*cur;
 	t_token			head;
