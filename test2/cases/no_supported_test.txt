@@ -5,3 +5,10 @@ mkdir -p a/b/c; cd a/b/c; rm -rf ../../b; cd ./; pwd; cd ../; pwd; cd .////./; p
 cd //; pwd; cd //bin; pwd
 export dquote='"' dollar='$' backslash='\' backquote='`' newline='\n'; export | grep -v -E '^declare -x _='
 export CDPATH=//bin/..////////////bin/../; cd bin
+echo $SHLVL, export SHLVL=`printf "\t\n\v\f\r 42"`
+echo $SHLVL, export SHLVL=`printf " 42 "`
+echo $SHLVL, export SHLVL=`printf " 42\t"`
+echo $SHLVL, export SHLVL=`printf " 42\v"`
+echo $SHLVL, export SHLVL=`printf " 42\n"`
+echo $SHLVL, export SHLVL=`printf " 42\f"`
+echo $SHLVL, export SHLVL=`printf " 42\r"`
