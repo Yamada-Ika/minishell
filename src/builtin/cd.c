@@ -152,7 +152,6 @@ void	cd_(char **cmds)
 	}
 	else
 		arg_path = cmds[1];
-	// fprintf(stderr, "arg_path : %s\n", arg_path);
 	if (is_abs_path(arg_path))
 		cano_path = gen_abs_to_cano_path(arg_path);
 	else
@@ -168,7 +167,6 @@ void	cd_(char **cmds)
 			free(abs_path);
 			if (cano_path != NULL)
 			{
-				printf("%s\n", cano_path);
 				update_pwd(cano_path);
 				return (add_exit_status_to_env(0));
 			}
@@ -177,7 +175,6 @@ void	cd_(char **cmds)
 	}
 	if (cano_path == NULL)
 		return (add_exit_status_to_env(1));
-	fprintf(stderr, "cano_path : %s\n", cano_path);
 	if (chdir_for_cd(cano_path, cmds[1]) == -1)
 	{
 		error_with_errno("cd", cmds[1]);
