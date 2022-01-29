@@ -145,26 +145,39 @@ void	cd_(char **cmds)
 	char	*arg_path;
 
 	if (is_non_arguments(cmds))
+	{
 		arg_path = get_home_path();
+		if (arg_path == NULL)
+			return ;
+	}
 	else
 		arg_path = cmds[1];
+	// fprintf(stderr, "arg_path : %s\n", arg_path);
 	if (is_abs_path(arg_path))
 		cano_path = gen_abs_to_cano_path(arg_path);
 	else
 	{
-		abs_path = gen_cano_path_from_cdpath(arg_path);
-		cano_path = get_canonical_path(abs_path);
-		free(abs_path);
-		if (cano_path != NULL)
+		if (arg_path[0] == '.')
 		{
-			printf("%s\n", cano_path);
-			update_pwd(cano_path);
-			return (add_exit_status_to_env(0));
+			cano_path = gen_rel_to_cano_path(arg_path);
 		}
-		cano_path = gen_rel_to_cano_path(arg_path);
+		else
+		{
+			abs_path = gen_cano_path_from_cdpath(arg_path);
+			cano_path = get_canonical_path(abs_path);
+			free(abs_path);
+			if (cano_path != NULL)
+			{
+				printf("%s\n", cano_path);
+				update_pwd(cano_path);
+				return (add_exit_status_to_env(0));
+			}
+			cano_path = gen_rel_to_cano_path(arg_path);
+		}
 	}
 	if (cano_path == NULL)
 		return (add_exit_status_to_env(1));
+	fprintf(stderr, "cano_path : %s\n", cano_path);
 	if (chdir_for_cd(cano_path, cmds[1]) == -1)
 	{
 		error_with_errno("cd", cmds[1]);
