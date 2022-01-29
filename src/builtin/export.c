@@ -72,7 +72,6 @@ void	export_(char **args)
 		{
 			ft_free((void **)&key, (void **)&val);
 			error_ident("export", *args);
-			add_exit_status_to_env(1);
 		}
 		else
 		{
