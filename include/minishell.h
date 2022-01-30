@@ -140,8 +140,8 @@ void			echo_(char **args);
 void			export_(char **cmds);
 
 // export_utils.c
-bool		is_invalid_key(char *key);
-void		set_key_and_val(char **key, char **val, char *k, char *v);
+bool			is_invalid_key(char *key);
+void			set_key_and_val(char **key, char **val, char *k, char *v);
 
 // unset.c
 void			unset_(char **args);
@@ -160,25 +160,25 @@ void			pwd_(void);
 void			cd_(char **cmds);
 
 // cd_utils
-bool	is_non_arguments(char **args);
-bool	is_abs_path(char *path);
-bool	is_arg_path_start_from_current_dir(char *path);
-bool	cannot_get_home_path(char **cmds, char **arg_path);
-bool	can_chdir_with_cdpath(char *arg_path, char **cano_path);
+bool			is_non_arguments(char **args);
+bool			is_abs_path(char *path);
+bool			is_arg_path_start_from_current_dir(char *path);
+bool			cannot_get_home_path(char **cmds, char **arg_path);
+bool			can_chdir_with_cdpath(char *arg_path, char **cano_path);
 
-void	update_pwd(char *cur_dir_path);
-void	cd_do_success_routine(char *cano_path);
-void	cd_do_cdpath_routine(char *cano_path);
-void	cd_do_error_routine(char *cano_path, char *arg_path);
+void			update_pwd(char *cur_dir_path);
+void			cd_do_success_routine(char *cano_path);
+void			cd_do_cdpath_routine(char *cano_path);
+void			cd_do_error_routine(char *cano_path, char *arg_path);
 
-char	*gen_abs_path(char *dst);
-char	*get_home_path(void);
-char	*gen_abs_to_cano_path(char *abs_path);
-char	*gen_rel_to_cano_path(char *rel_path);
+char			*gen_abs_path(char *dst);
+char			*get_home_path(void);
+char			*gen_abs_to_cano_path(char *abs_path);
+char			*gen_rel_to_cano_path(char *rel_path);
 
-char	*gen_cano_path_from_cdpath(char *arg_path);
+char			*gen_cano_path_from_cdpath(char *arg_path);
 
-int	chdir_for_cd(char *cano_path, char *arg_path);
+int				chdir_for_cd(char *cano_path, char *arg_path);
 
 // builtin_utils.c
 void			print_command_usage2(char *name, char *usage);
