@@ -94,4 +94,8 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re empty test
+norm_dir=$$(ls | grep -v test)
+norm:
+	norminette $(norm_dir)
+
+.PHONY: all clean fclean re empty test norm
