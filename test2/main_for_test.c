@@ -25,7 +25,6 @@ static	void	_init_global_var(void)
 {
 	extern char	**environ;
 
-	//	g_mshell = ft_calloc(1, sizeof(g_mshell));
 	inherite_env_val(&(g_mshell.envlist), environ);
 	msh_unset(&(g_mshell.envlist), "OLDPWD");
 	msh_export(&(g_mshell.envlist), "OLDPWD", NULL);

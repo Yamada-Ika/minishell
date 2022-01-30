@@ -23,4 +23,3 @@ void	set_key_and_val(char **key, char **val, char *k, char *v)
 	*key = k;
 	*val = v;
 }
-
