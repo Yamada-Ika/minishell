@@ -139,6 +139,10 @@ void			echo_(char **args);
 // export.c
 void			export_(char **cmds);
 
+// export_utils.c
+bool		is_invalid_key(char *key);
+void		set_key_and_val(char **key, char **val, char *k, char *v);
+
 // unset.c
 void			unset_(char **args);
 

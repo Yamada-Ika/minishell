@@ -3,11 +3,12 @@
 
 static char	*_get_val_from_envp(char **env, char *key)
 {
-	int	i = 0;
+	int		i;
 	size_t	key_len;
 
 	key = ft_strjoin(key, "=");
 	key_len = ft_strlen(key);
+	i = 0;
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], key, key_len) == 0)

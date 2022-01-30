@@ -1,11 +1,4 @@
 #include "minishell.h"
-void	set_key_and_val(char **key, char **val, char *k, char *v)
-{
-	if ((k == NULL || v == NULL) && errno)
-		error(strerror(errno));
-	*key = k;
-	*val = v;
-}
 
 static void	get_key_and_val(char **key, char **val, char *str)
 {
@@ -40,22 +33,6 @@ static void	_export_non_arg(void)
 {
 	msh_export(&(g_mshell.envlist), NULL, NULL);
 	add_exit_status_to_env(0);
-}
-
-bool	is_invalid_key(char *key)
-{
-	size_t	i;
-
-	if (ft_isdigit(key[0]) || key[0] == '\0')
-		return (true);
-	i = 0;
-	while (key[i] != '\0')
-	{
-		if (!(ft_isalnum(key[i]) || key[i] == '_'))
-			return (true);
-		i++;
-	}
-	return (false);
 }
 
 void	export_(char **args)
