@@ -201,6 +201,13 @@ char			**generate_environ(void);
 
 // ------------- builtin -----------------
 
+// for main.c
+// init_global_variable.c
+void	init_global_var(void);
+
+// install_signal_handler.c
+void	install_signal_handler(void);
+
 // set_exit_status.c
 void			set_exit_status(int status);
 void			add_exit_status_to_env(int status);
