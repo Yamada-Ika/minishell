@@ -8,7 +8,7 @@ int	main(int argc, char **argv)
 		return (0);
 	init_global_var();
 	using_history();
-	read_history(".my_history");
+	read_history(".minishell_history");
 	while (true)
 	{
 		install_signal_handler();
