@@ -22,17 +22,19 @@
 # define ERROR -1
 # define ERRNO_INIT_VAL 0
 
-// EMPTY = -1,
-// TK_OP_DOUBLE_GR,	// ">>"
-// TK_OP_SINGLE_LS,	// "<<"
-// TK_OP_LS,			// "<"
-// TK_OP_GR,			// ">"
-// TK_OP_PIPE,			// "|"
-// TK_OP_DOLLAR,		// "$"
-// TK_WORD,
-// TK_WORD_IN_SINGLE_Q,		// "'"
-// TK_WORD_IN_DOUBLE_Q,		// """
-// TK_EOF,
+/**
+ * t_token_kind is a kind of token which generated at lexer called.
+ * 
+ * EMPTY           : invalid kind
+ * TK_OP_DOUBLE_GR : output-redirection with append mode (">>")
+ * TK_OP_SINGLE_LS : heredocument ("<<")
+ * TK_OP_LS        : input-redirection ("<")
+ * TK_OP_GR        : output-redirection (">")
+ * TK_OP_PIPE      : pipe ("|")
+ * TK_OP_DOLLAR    : environment variable ("$")
+ * TK_WORD         : command etc...
+ * TK_EOF          : end of token
+ */
 typedef enum e_token_kind		t_token_kind;
 enum e_token_kind
 {
@@ -203,15 +205,15 @@ char			**generate_environ(void);
 
 // for main.c
 // init_global_variable.c
-void	init_global_var(void);
+void			init_global_var(void);
 
 // install_signal_handler.c
-void	install_signal_handler(void);
+void			install_signal_handler(void);
 
 // ------------- main_utils.c -----------------
-bool	is_eof_sent(char *read_str);
-void	exit_minishell(void);
-bool	is_only_newline(char *read_str);
+bool			is_eof_sent(char *read_str);
+void			exit_minishell(void);
+bool			is_only_newline(char *read_str);
 // ------------- main_utils.c -----------------
 
 // set_exit_status.c
