@@ -23,14 +23,16 @@ t_token	*new_token(t_token *cur, t_token_kind kind, char **p, size_t len)
 
 static size_t	_get_operator_len(char *p)
 {
-	const char	*kw[] = {"<<", ">>", "<", ">", "|", NULL};
+	const char	*ops[] = {"<<", ">>", "<", ">", "|", NULL};
 	size_t		i;
+	size_t		op_len;
 
 	i = 0;
-	while (kw[i] != NULL)
+	while (ops[i] != NULL)
 	{
-		if (!ft_strncmp(kw[i], p, ft_strlen(kw[i])))
-			return (ft_strlen(kw[i]));
+		op_len = ft_strlen(ops[i]);
+		if (!ft_strncmp(ops[i], p, op_len))
+			return (op_len);
 		i++;
 	}
 	return (0);
