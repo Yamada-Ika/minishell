@@ -4,10 +4,12 @@ CFLAGS	:= -Wall -Wextra -Werror
 HEADER	:= -I../../include -I../../libft -I$(shell brew --prefix readline)/include
 LDFLAGS 	:= #-lreadline -lhistory -L$(shell brew --prefix readline)/lib
 SRCS	:= \
-error.c                  init_global_variable.c   signal.c\
-free1.c                  install_signal_handler.c utils.c\
-free2.c                  redirect.c               utils2.c\
-here_doc.c               set_exit_status.c
+error.c                  main_utils.c\
+free1.c                  redirect.c\
+free2.c                  set_exit_status.c\
+here_doc.c               signal.c\
+init_global_variable.c   utils.c\
+install_signal_handler.c utils2.c
 OBJS	:= $(SRCS:%.c=%.o)
 OBJS	:= $(addprefix obj/, $(OBJS))
 LIBFT = ../../libft/libft.a
