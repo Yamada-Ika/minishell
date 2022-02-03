@@ -15,7 +15,7 @@ int	main(int argc, char **argv)
 		cmd_line = readline("minishell> ");
 		if (is_eof_sent(cmd_line))
 			exit_minishell();
-		if (*cmd_line != '\0')
+		if (!is_only_newline(cmd_line))
 		{
 			add_history(cmd_line);
 			run_command_line(cmd_line);

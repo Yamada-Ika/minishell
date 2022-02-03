@@ -211,6 +211,7 @@ void	install_signal_handler(void);
 // ------------- main_utils.c -----------------
 bool	is_eof_sent(char *read_str);
 void	exit_minishell(void);
+bool	is_only_newline(char *read_str);
 // ------------- main_utils.c -----------------
 
 // set_exit_status.c
