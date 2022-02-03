@@ -14,10 +14,7 @@ int	main(int argc, char **argv)
 		install_signal_handler();
 		cmd_line = readline("minishell> ");
 		if (is_eof_sent(cmd_line))
-		{
-			ft_putendl_fd("exit", STDERR_FILENO);
-			exit(0);
-		}
+			exit_minishell();
 		if (*cmd_line != '\0')
 		{
 			add_history(cmd_line);
