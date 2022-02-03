@@ -62,14 +62,19 @@ struct s_token
 	bool			is_join_prev;
 };
 
-// ND_CMD, // command (e.g. cat)
-// ND_PIPE, // "|"
-typedef struct s_redirect_list	t_redirect_list;
-typedef enum e_node_kind{
+/**
+ * t_node_kind is a kind of node which generated at parser called.
+ * 
+ * ND_CMD  : command (e.g. cat)
+ * ND_PIPE : pipe ("|")
+ */
+typedef enum e_node_kind
+{
 	ND_CMD,
 	ND_PIPE,
 }	t_node_kind;
 
+typedef struct s_redirect_list	t_redirect_list;
 struct s_redirect_list
 {
 	char			*word;
