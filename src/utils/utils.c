@@ -14,7 +14,7 @@ size_t	get_env_name_len(char *str)
 		return (1);
 	while (str[i])
 	{
-		if (can_c_be_env_name(str[i]) == false)
+		if (!can_c_be_env_name(str[i]))
 			return (i);
 		i++;
 	}

@@ -20,7 +20,7 @@ size_t	replace_token(t_token **token, char *str)
 		*token = tmp;
 		return (0);
 	}
-	if (is_last_char_c(str, ' ') == true)
+	if (is_last_char_c(str, ' '))
 		(*token)->next->is_join_prev = false;
 	strs = ft_split(str, ' ');
 	if (strs == NULL)

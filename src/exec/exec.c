@@ -32,7 +32,7 @@ void	exec(char **cmds)
 {
 	if (cmds == NULL || cmds[0] == NULL)
 		exit(0);
-	if (is_exec_built_in_in_child(cmds) == true)
+	if (is_exec_built_in_in_child(cmds))
 		exit(0);
 	exec_cmd_with_path(cmds, generate_environ());
 }
@@ -43,7 +43,7 @@ void	exec_t_command(t_command command)
 		exit(1);
 	if (handle_out_redir(command.out_redir) == ERROR)
 		exit(1);
-	if (is_exec_with_here_doc(command) == false)
+	if (!is_exec_with_here_doc(command))
 		exec(command.word_list);
 }
 
@@ -82,10 +82,10 @@ void	exec_command_line(t_node *node)
 
 	fd = ft_dup(1);
 	signal(SIGINT, back_to_new_prompt);
-	if (node->left == NULL && is_exec_built_in(node, node->command) == true)
+	if (node->left == NULL && is_exec_built_in(node, node->command))
 		return ;
 	get_here_doc_form_each_node(node);
-	if (g_mshell.interrupt == true)
+	if (g_mshell.interrupt)
 	{
 		g_mshell.interrupt = false;
 		sts = 1;

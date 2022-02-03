@@ -21,7 +21,7 @@ size_t	count_command_size(t_token **tok)
 	cnt = 0;
 	while ((*tok)->kind != TK_EOF && (*tok)->kind != TK_OP_PIPE)
 	{
-		if (_is_invalid_redirect(*tok) == true)
+		if (_is_invalid_redirect(*tok))
 			return (0);
 		cnt++;
 		(*tok) = (*tok)->next;
