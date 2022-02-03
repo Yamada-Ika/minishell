@@ -59,7 +59,7 @@ static	t_token_kind	_get_word_kind(char *p)
 	}
 	if (kind != TK_WORD)
 	{
-		ft_putstr_fd("quote error\n", 2);
+		ft_putendl_fd("quote error", STDERR_FILENO);
 		kind = EMPTY;
 	}
 	return (kind);

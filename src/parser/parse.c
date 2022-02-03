@@ -5,9 +5,9 @@ static bool	_is_invalid_redirect(t_token *tok)
 	if (is_redirect_kind(tok->kind) && (is_redirect_kind(tok->next->kind)
 			|| tok->next->kind == TK_OP_PIPE || tok->next->kind == TK_EOF))
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
-		ft_putstr_fd(tok->next->str, 2);
-		ft_putstr_fd("'\n", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR_FILENO);
+		ft_putstr_fd(tok->next->str, STDERR_FILENO);
+		ft_putendl_fd("'", STDERR_FILENO);
 		add_exit_status_to_env(258);
 		return (true);
 	}
@@ -35,7 +35,7 @@ t_node	*new_node_command(t_token **tok)
 
 	if ((*tok)->kind == TK_EOF || (*tok)->kind == TK_OP_PIPE)
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		ft_putendl_fd("minishell: syntax error near unexpected token `|'", STDERR_FILENO);
 		add_exit_status_to_env(258);
 		return (NULL);
 	}

@@ -32,10 +32,10 @@ void	error(char *str)
 
 void	error_message(char *m, char *m2)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(m, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putendl_fd(m2, 2);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(m, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putendl_fd(m2, STDERR_FILENO);
 }
 
 void	error_exit_with_message(int stats, char *m, char *m2)
