@@ -8,7 +8,7 @@ minishell
 .DS_Store
 no_use
 samples
-.*
 test_dir
 .minishell_history
+.my_history
 *.log
