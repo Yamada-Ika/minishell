@@ -8,7 +8,7 @@ static void	_set_pwd_path(void)
 	if (pwd_path == NULL)
 	{
 		perror("shell-init: error retrieving current directory: \
-getcwd: cannot access parent directories");
+				getcwd: cannot access parent directories");
 	}
 	g_mshell.pwd = pwd_path;
 }
