@@ -1,16 +1,14 @@
 #include "minishell.h"
 
-static void	_set_pwd(void)
+static void	_set_pwd_path(void)
 {
 	char	*pwd_path;
 
 	pwd_path = getcwd(NULL, 0);
 	if (pwd_path == NULL)
 	{
-		ft_putstr_fd("shell-init: error retrieving current directory: \
-getcwd: cannot access parent directories: ", STDERR_FILENO);
-		ft_putendl_fd(strerror(errno), STDERR_FILENO);
-		exit(0);
+		perror("shell-init: error retrieving current directory: \
+getcwd: cannot access parent directories");
 	}
 	g_mshell.pwd = pwd_path;
 }
@@ -25,5 +23,5 @@ void	init_global_var(void)
 	increment_shlvl();
 	set_exit_status(0);
 	g_mshell.interrupt = false;
-	_set_pwd();
+	_set_pwd_path();
 }
