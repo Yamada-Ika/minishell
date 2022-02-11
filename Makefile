@@ -8,7 +8,7 @@ PARSER		:= src/parser/libprs.a
 UTILS		:= src/utils/libutl.a
 
 CC			:= gcc
-CFLAGS		:= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS		:= -Wall -Wextra -Werror
 LDFLAGS 	:= -lreadline -lhistory -L$(shell brew --prefix readline)/lib
 INCLUDE 	:= -Iinclude/ -I$(shell brew --prefix readline)/include -Ilibft -Ibuiltin
 
