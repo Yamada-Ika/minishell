@@ -104,7 +104,6 @@ struct s_node
 	t_node		*right;
 };
 
-// ------------- builtin -----------------
 // BUILTIN_ECHO,	// echo
 // BUILTIN_CD,			// cd
 // BUILTIN_PWD,		// pwd
