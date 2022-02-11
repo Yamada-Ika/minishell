@@ -12,8 +12,6 @@ CFLAGS		:= -Wall -Wextra -Werror -g -fsanitize=address
 LDFLAGS 	:= -lreadline -lhistory -L$(shell brew --prefix readline)/lib
 INCLUDE 	:= -Iinclude/ -I$(shell brew --prefix readline)/include -Ilibft -Ibuiltin
 
-
-
 # If `make` use main.c, `make test` use test2/main_for_test.c
 ifdef ADD_MAIN_FOR_TEST
 SRCS	+= test2/main_for_test.c test2/run_command_line_for_test.c
@@ -59,7 +57,6 @@ clean:
 	make clean -C src/lexer
 	make clean -C src/parser
 	make clean -C src/utils
-	# make clean -C test
 
 fclean: clean
 	$(RM) $(NAME)
