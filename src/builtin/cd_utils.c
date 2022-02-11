@@ -14,7 +14,6 @@ bool	is_abs_path(char *path)
 
 bool	is_arg_path_start_from_current_dir(char *path)
 {
-	fprintf(stderr, "path : [%s]\n", path);
 	return (path[0] == '.');
 }
 
