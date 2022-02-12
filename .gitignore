@@ -12,3 +12,5 @@ test_dir
 .minishell_history
 .my_history
 *.log
+test
+test2

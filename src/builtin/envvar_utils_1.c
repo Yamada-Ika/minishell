@@ -5,7 +5,7 @@ t_envvar	*new_envlist(char *key, char *val)
 {
 	t_envvar	*new;
 
-	new = (t_envvar *)calloc(1, sizeof(t_envvar));
+	new = (t_envvar *)ft_calloc(1, sizeof(t_envvar));
 	if (new == NULL)
 		return (NULL);
 	errno = 0;

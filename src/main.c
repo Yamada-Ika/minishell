@@ -7,8 +7,6 @@ int	main(int argc, char **argv)
 	if (argc > 1 && argv[1])
 		return (0);
 	init_global_var();
-	using_history();
-	read_history(".minishell_history");
 	while (true)
 	{
 		install_signal_handler();
@@ -19,7 +17,6 @@ int	main(int argc, char **argv)
 		{
 			add_history(cmd_line);
 			run_command_line(cmd_line);
-			write_history(".minishell_history");
 		}
 		free(cmd_line);
 	}

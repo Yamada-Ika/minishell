@@ -104,7 +104,6 @@ struct s_node
 	t_node		*right;
 };
 
-// ------------- builtin -----------------
 // BUILTIN_ECHO,	// echo
 // BUILTIN_CD,			// cd
 // BUILTIN_PWD,		// pwd
@@ -122,9 +121,7 @@ typedef enum e_builtin_kind
 	BUILTIN_ENV,
 	BUILTIN_EXIT,
 }	t_builtin_kind;
-// ------------- builtin -----------------
 
-// ------------- env -----------------
 typedef struct s_mshell			t_mshell;
 struct s_mshell
 {
@@ -137,9 +134,6 @@ struct s_mshell
 
 t_mshell						g_mshell;
 
-// ------------- env -----------------
-
-// ------------- builtin -----------------
 // echo.c
 void			echo_(char **args);
 
@@ -158,7 +152,6 @@ void			env_(char **args);
 
 // exit.c
 void			exit_(char **cmds);
-// void			msh_exit(int status);
 
 // pwd.c
 void			pwd_(void);
@@ -206,8 +199,6 @@ char			**get_resize_strs_with_str(char **strs, char *s);
 // generate_environ.c
 char			**generate_environ(void);
 
-// ------------- builtin -----------------
-
 // for main.c
 // init_global_variable.c
 void			init_global_var(void);
@@ -215,11 +206,9 @@ void			init_global_var(void);
 // install_signal_handler.c
 void			install_signal_handler(void);
 
-// ------------- main_utils.c -----------------
 bool			is_eof_sent(char *read_str);
 void			exit_minishell(void);
 bool			is_only_newline(char *read_str);
-// ------------- main_utils.c -----------------
 
 // set_exit_status.c
 void			set_exit_status(int status);
