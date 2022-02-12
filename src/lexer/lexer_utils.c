@@ -29,3 +29,13 @@ int	check_op(char *s)
 	}
 	return (-1);
 }
+
+t_token	*join_token_head_and_end(t_token **last, t_token *head, char *p)
+{
+	if (*last == head)
+		return (NULL);
+	*last = new_token(*last, TK_EOF, &p, 0);
+	(*last)->next = head->next;
+	head->next->prev = *last;
+	return (head->next);
+}

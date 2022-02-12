@@ -229,11 +229,13 @@ int				get_exit_status(int status);
 // lexer.c
 t_token			*lexer(char *p);
 void			debug_tokenize(t_token *token);
+t_token			*new_token(t_token *cur, t_token_kind kind, char **p, size_t len);
 
 // tokenize_utils.c
 void			skip_space(char **s);
 bool			is_quote_closed(char c, t_token_kind kind);
 int				check_op(char *s);
+t_token			*join_token_head_and_end(t_token **last, t_token *head, char *p);
 
 // utils.c
 //char			*here_doc(char *eos);

@@ -88,8 +88,5 @@ t_token	*lexer(char *p)
 			cur = new_token(cur, kind, &p, get_word_len(p, kind, " ><|'\"" ));
 		}
 	}
-	cur = new_token(cur, TK_EOF, &p, 0);
-	cur->next = head.next;
-	head.next->prev = cur;
-	return (head.next);
+	return (join_token_head_and_end(&cur, &head, p));
 }
