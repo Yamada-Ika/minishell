@@ -12,8 +12,8 @@ CFLAGS		:= -Wall -Wextra -Werror
 LDFLAGS 	:= -lreadline -lhistory -L$(shell brew --prefix readline)/lib
 INCLUDE 	:= -Iinclude/ -I$(shell brew --prefix readline)/include -Ilibft -Ibuiltin
 
-BUITIN_SRCS	:= $(addprefix builtin/, $(BUITIN_SRCS))
-OBJS = $(SRCS:%.c=%.o)
+SRCS		:= src/main.c src/run_command_line.c
+OBJS 		:= $(SRCS:%.c=%.o)
 
 all: $(NAME)
 
@@ -63,4 +63,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re empty
+.PHONY: all clean fclean re empty test norm
