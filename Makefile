@@ -12,13 +12,6 @@ CFLAGS		:= -Wall -Wextra -Werror
 LDFLAGS 	:= -lreadline -lhistory -L$(shell brew --prefix readline)/lib
 INCLUDE 	:= -Iinclude/ -I$(shell brew --prefix readline)/include -Ilibft -Ibuiltin
 
-# If `make` use main.c, `make test` use test2/main_for_test.c
-ifdef ADD_MAIN_FOR_TEST
-SRCS	+= test2/main_for_test.c test2/run_command_line_for_test.c
-else
-SRCS	+= src/main.c src/run_command_line.c
-endif
-
 BUITIN_SRCS	:= $(addprefix builtin/, $(BUITIN_SRCS))
 OBJS = $(SRCS:%.c=%.o)
 
@@ -70,8 +63,4 @@ fclean: clean
 
 re: fclean all
 
-norm_dir=$$(ls | grep -v test)
-norm:
-	norminette $(norm_dir)
-
-.PHONY: all clean fclean re empty test norm
+.PHONY: all clean fclean re empty
