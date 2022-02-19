@@ -75,7 +75,7 @@ void	exec_cmd_with_path(char **cmds, char **environ)
 			free(absolute_path);
 		paths++;
 	}
-	if (no_permit_path)
+	if (no_permit_path && cmds[0][0] != '\0')
 		error_exit_with_message(136, no_permit_path, "Permission denied");
 	error_exit_with_message(137, cmds[0], "command not found");
 }
