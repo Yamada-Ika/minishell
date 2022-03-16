@@ -77,7 +77,7 @@ minishell>
 - `\`, `;`, and so on cannot be interpreted!
 
 ## Author
-@shige-lab
+[@shige-lab](https://github.com/shige-lab)
 
 ## Licence
 This software is released under the MIT License, see LICENSE.
